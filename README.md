@@ -10,16 +10,18 @@ Follow these steps to set up and run the frontend portion of the project:
 
 2. **Verify Installation**  
    Open your terminal and check that Node.js and npm are installed:
-   node -v
-   npm -v
+
+    - node -v
+    - npm -v
 
 3. **Clone the Repository**
-   git clone <repository-url>
+       - git clone <repository-url>
+       - or use github desktop
 
 4. **Create Your Branch**
    Work on a separate branch for each feature or page you’re developing.  
    Branch naming conventions aren’t strict — just use something meaningful, for example:
-   feature-login-page
+   - feature-login-page
 
 5. **Navigate to the Frontend Directory**
    cd frontend
