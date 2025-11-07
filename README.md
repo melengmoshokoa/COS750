@@ -15,8 +15,8 @@ Follow these steps to set up and run the frontend portion of the project:
     - npm -v
 
 3. **Clone the Repository**
-       - git clone <repository-url>
-       - or use github desktop
+    - git clone <repository-url>
+    - or use github desktop
 
 4. **Create Your Branch**
    Work on a separate branch for each feature or page you’re developing.  
