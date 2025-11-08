@@ -29,8 +29,10 @@ Follow these steps to set up and run the frontend portion of the project:
 
 6. **Install Dependencies**
    - npm install
+   - npm install react-router-dom //needed for navigation
 
 7. **Run the Frontend**
+   - So in order to run your specific page just change the page in APP.js
    - npm start
 
    This should automatically open the app in your browser at:  
