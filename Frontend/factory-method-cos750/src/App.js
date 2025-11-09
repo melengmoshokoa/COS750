@@ -7,7 +7,7 @@ function App() {
      <Router>
       <Routes>
        
-        <Route path="/" element={<Quizzes />} />
+        <Route path="/" element={<Quizzes/>} />
   
       </Routes>
     </Router>
