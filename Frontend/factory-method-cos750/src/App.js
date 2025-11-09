@@ -9,11 +9,11 @@ function App() {
       <Routes>
 
         <Route path="/" element={<Dashboard />} />
-        <Route path="/quizzes" element={<Quizzes />} />
+        <Route path="/Quizzes" element={<Quizzes />} />
   
       </Routes>
     </Router>
   );
 }
-
+l
 export default App;
