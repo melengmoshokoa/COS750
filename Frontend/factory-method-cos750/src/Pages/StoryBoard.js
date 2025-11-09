@@ -138,6 +138,31 @@ createCoffee(type)
 Espresso       Latte        Cappuccino
 `;
   }
+  getNovelScenes() {
+    return [
+      {
+        background: "☕",
+        character: "👩‍💼",
+        characterName: "Barista Emma",
+        dialogue: "Welcome to Code & Coffee! I'm Emma, and I'll show you how the Factory Method works in our café.",
+        choices: null
+      },
+      {
+        background: "☕",
+        character: "👩‍💼",
+        characterName: "Barista Emma",
+        dialogue: "Every morning, we get dozens of different coffee orders. Espresso, Latte, Cappuccino, Mocha... Each one has its own brewing process!",
+        choices: null
+      },
+      {
+        background: "☕",
+        character: "👩‍💼",
+        characterName: "Barista Emma",
+        dialogue: "Instead of memorizing every recipe, we use a CoffeeFactory. It knows exactly how to create any coffee type based on the order.",
+        choices: null
+      }
+    ];
+  }
 }
 
 class Vehiclesboard {
@@ -170,6 +195,31 @@ createVehicle(type)
 Car            Bike         Truck
 `;
   }
+  getNovelScenes() {
+    return [
+      {
+        background: "🚗",
+        character: "👨‍🔧",
+        characterName: "Mechanic Mike",
+        dialogue: "Hey there! Welcome to Mike's Auto Shop. Today I'll teach you about the Factory Method pattern using vehicles!",
+        choices: null
+      },
+      {
+        background: "🚗",
+        character: "👨‍🔧",
+        characterName: "Mechanic Mike",
+        dialogue: "In my shop, we work on all kinds of vehicles - cars, bikes, trucks, you name it! Each one needs different maintenance.",
+        choices: null
+      },
+      {
+        background: "🚗",
+        character: "👨‍🔧",
+        characterName: "Mechanic Mike",
+        dialogue: "That's where the VehicleFactory pattern helps us. Instead of writing separate code for each vehicle type, the factory handles creation for us!",
+        choices: null
+      }
+    ];
+  }
 }
 
 class Shapesboard {
@@ -201,6 +251,31 @@ createShape(type)
 Circle         Square       Triangle
 `;
   }
+  getNovelScenes() {
+    return [
+      {
+        background: "🎨",
+        character: "👩‍🎨",
+        characterName: "Artist Sophia",
+        dialogue: "Hello! I'm Sophia, a digital artist. Let me show you how the Factory Method helps me create different shapes in my artwork!",
+        choices: null
+      },
+      {
+        background: "🎨",
+        character: "👩‍🎨",
+        characterName: "Artist Sophia",
+        dialogue: "In graphic design, we work with many shapes - circles, squares, triangles, and more complex polygons. Each has different properties and calculations.",
+        choices: null
+      },
+      {
+        background: "🎨",
+        character: "👩‍🎨",
+        characterName: "Artist Sophia",
+        dialogue: "The ShapeFactory pattern makes it easy! I just tell it what shape I need, and it creates the right object with all its methods ready to use.",
+        choices: null
+      }
+    ];
+  }
 }
 
 class Docsboard {
@@ -230,6 +305,31 @@ createDocument(type)
 ┌────────────────┬────────────────┐
 PDF            DOCX         XLSX
 `;
+  }
+  getNovelScenes() {
+    return [
+      {
+        background: "📄",
+        character: "👨‍💼",
+        characterName: "Manager David",
+        dialogue: "Welcome! I'm David, an office manager. Let me explain how the Factory Method pattern helps us handle different document types efficiently.",
+        choices: null
+      },
+      {
+        background: "📄",
+        character: "👨‍💼",
+        characterName: "Manager David",
+        dialogue: "Every day, our team works with PDFs, Word docs, Excel spreadsheets, and more. Each format has unique ways to open, edit, and save.",
+        choices: null
+      },
+      {
+        background: "📄",
+        character: "👨‍💼",
+        characterName: "Manager David",
+        dialogue: "The DocumentFactory pattern standardizes this! No matter what file type comes in, the factory creates the right handler automatically.",
+        choices: null
+      }
+    ];
   }
 }
 
@@ -262,6 +362,31 @@ createNotification(type)
 ┌────────────────┬────────────────┐
 Email          SMS          Push
 `;
+  }
+  getNovelScenes() {
+    return [
+      {
+        background: "🔔",
+        character: "👩‍💻",
+        characterName: "Developer Lisa",
+        dialogue: "Hi! I'm Lisa, a backend developer. Let me show you how we use the Factory Method to manage different notification types in our app!",
+        choices: null
+      },
+      {
+        background: "🔔",
+        character: "👩‍💻",
+        characterName: "Developer Lisa",
+        dialogue: "Our users want to be notified in different ways - some prefer emails, others want SMS, and many use push notifications. Each has its own API and logic.",
+        choices: null
+      },
+      {
+        background: "🔔",
+        character: "👩‍💻",
+        characterName: "Developer Lisa",
+        dialogue: "The NotificationFactory pattern saves us! We just specify the type, and the factory creates the appropriate notification object with the right sending method.",
+        choices: null
+      }
+    ];
   }
 }
 
