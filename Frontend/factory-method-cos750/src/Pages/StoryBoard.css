@@ -35,23 +35,23 @@
 }
 
 .main-title {
-  font-size: 32px;
+  font-size: 52px;
   margin: 0;
-  letter-spacing: 4px;
+  letter-spacing: 6px;
   color: #ff7b00;
   text-shadow: 3px 3px 0 #1a0600, -1px -1px 0 #ff9933;
   animation: pulse 2s ease-in-out infinite;
 }
 
 .subtitle {
-  font-size: 20px;
+  font-size: 42px;
   margin-top: 12px;
   color: #ff8c1a;
   text-shadow: 2px 2px 0 #1a0600;
 }
 
 .tagline {
-  font-size: 10px;
+  font-size: 20px;
   margin-top: 15px;
   color: #ffa94d;
   letter-spacing: 2px;
@@ -304,4 +304,80 @@
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.02); }
+}
+
+.example-explanation {
+  background-color: #fff8e1;
+  border-left: 4px solid #ff9800;
+  padding: 10px 15px;
+  margin: 10px 0;
+  font-style: italic;
+  border-radius: 8px;
+  color: #333;
+  animation: fadeIn 0.6s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* List container for vertical layout */
+.list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 30px auto;
+  max-width: 800px;
+  padding: 0 20px;
+}
+
+/* List card styling - horizontal layout */
+.card-list {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.card-list:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(10px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.card-list .icon-container {
+  font-size: 3rem;
+  flex-shrink: 0;
+}
+
+.card-list .card-content {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-list .card-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.card-list .note-badge {
+  margin-left: auto;
+  padding: 5px 12px;
+  background: #ffc107;
+  border-radius: 20px;
+  font-size: 0.85rem;
+}
+
+.card-list .click-hint {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
 }

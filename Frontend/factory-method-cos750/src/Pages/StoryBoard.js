@@ -4,7 +4,7 @@ import './StoryBoard.css';
 // Factory Method Pattern Implementation
 class StoryboardFactory {
   createStoryboard(type) {
-    switch(type) {
+    switch (type) {
       case 'PRODUCT':
         return new ProductStoryboard();
       case 'CREATOR':
@@ -13,6 +13,25 @@ class StoryboardFactory {
         return new ConcreteCreatorStoryboard();
       case 'BIG_BUTTON':
         return new BigButtonStoryboard();
+      default:
+        return null;
+    }
+  }
+
+  createExampleboard(type) {
+    switch (type) {
+      case 'PIZZA':
+        return new Pizzaboard();
+      case 'COFFEE':
+        return new Coffeeboard();
+      case 'VEHICLES':
+        return new Vehiclesboard();
+      case 'SHAPES':
+        return new Shapesboard();
+      case 'DOC':
+        return new Docsboard();
+      case 'EMAILS':
+        return new Emailboard();
       default:
         return null;
     }
@@ -140,12 +159,202 @@ Product
   }
 }
 
+class Pizzaboard {
+  getTitle() { return "PIZZA"; }
+  getIcon() { return "🍕"; }
+  getDescription() {
+    return "Cheesy, Saucy, and Automatically Delivered 🍕......";
+  }
+  getCodeExample() {
+    return `interface Pizza {
+  prepare(): string;
+  bake(): string;
+  cut(): string;
+}
+
+class MargheritaPizza implements Pizza {
+  prepare() { return "Adding tomato sauce and mozzarella"; }
+  bake() { return "Baking at 450°F for 12 minutes"; }
+  cut() { return "Cutting into 8 slices"; }
+}`;
+  }
+  getColor() { return "#ff6b35"; }
+  getDiagram() {
+    return `
+PizzaFactory
+    ↓
+createPizza(type)
+    ↓
+┌────────────────┬────────────────┐
+Margherita     Pepperoni      Veggie
+`;
+  }
+}
+
+class Coffeeboard {
+  getTitle() { return "COFFEE"; }
+  getIcon() { return "☕"; }
+  getDescription() {
+    return "Espresso Yourself ☕......";
+  }
+  getCodeExample() {
+    return `interface Coffee {
+  brew(): string;
+}
+
+class Espresso implements Coffee {
+  brew() { return "Pulling a shot of espresso"; }
+}
+
+class Latte implements Coffee {
+  brew() { return "Brewing espresso + steamed milk"; }
+}`;
+  }
+  getColor() { return "#8B4513"; }
+  getDiagram() {
+    return `
+CoffeeFactory
+    ↓
+createCoffee(type)
+    ↓
+┌────────────────┬────────────────┐
+Espresso       Latte        Cappuccino
+`;
+  }
+}
+
+class Vehiclesboard {
+  getTitle() { return "VEHICLES"; }
+  getIcon() { return "🚗"; }
+  getDescription() {
+    return "Cars, Bikes, and Zoom Zoom 🚗.......";
+  }
+  getCodeExample() {
+    return `interface Vehicle {
+  drive(): string;
+}
+
+class Car implements Vehicle {
+  drive() { return "Driving on 4 wheels"; }
+}
+
+class Bike implements Vehicle {
+  drive() { return "Riding on 2 wheels"; }
+}`;
+  }
+  getColor() { return "#4169E1"; }
+  getDiagram() {
+    return `
+VehicleFactory
+    ↓
+createVehicle(type)
+    ↓
+┌────────────────┬────────────────┐
+Car            Bike         Truck
+`;
+  }
+}
+
+class Shapesboard {
+  getTitle() { return "SHAPES"; }
+  getIcon() { return "⬛"; }
+  getDescription() {
+    return "Squares, Circles, Triangles — Oh My! 🔺⭕⬛......";
+  }
+  getCodeExample() {
+    return `interface Shape {
+  draw(): string;
+  area(): number;
+}
+
+class Circle implements Shape {
+  constructor(radius) { this.radius = radius; }
+  draw() { return "Drawing a circle"; }
+  area() { return Math.PI * this.radius ** 2; }
+}`;
+  }
+  getColor() { return "#9370DB"; }
+  getDiagram() {
+    return `
+ShapeFactory
+    ↓
+createShape(type)
+    ↓
+┌────────────────┬────────────────┐
+Circle         Square       Triangle
+`;
+  }
+}
+
+class Docsboard {
+  getTitle() { return "DOC"; }
+  getIcon() { return "📄"; }
+  getDescription() {
+    return "PDFs, DOCs, XLSs… and Endless Paperwork 📄........";
+  }
+  getCodeExample() {
+    return `interface Document {
+  open(): string;
+  save(): string;
+}
+
+class PDFDocument implements Document {
+  open() { return "Opening PDF viewer"; }
+  save() { return "Saving as .pdf"; }
+}`;
+  }
+  getColor() { return "#DC143C"; }
+  getDiagram() {
+    return `
+DocumentFactory
+    ↓
+createDocument(type)
+    ↓
+┌────────────────┬────────────────┐
+PDF            DOCX         XLSX
+`;
+  }
+}
+
+class Emailboard {
+  getTitle() { return "EMAILS"; }
+  getIcon() { return "🔔"; }
+  getDescription() {
+    return "Bing, Ping, Ding! 🔔.......";
+  }
+  getCodeExample() {
+    return `interface Notification {
+  send(): string;
+}
+
+class EmailNotification implements Notification {
+  send() { return "Sending email notification"; }
+}
+
+class SMSNotification implements Notification {
+  send() { return "Sending SMS notification"; }
+}`;
+  }
+  getColor() { return "#FF1493"; }
+  getDiagram() {
+    return `
+NotificationFactory
+    ↓
+createNotification(type)
+    ↓
+┌────────────────┬────────────────┐
+Email          SMS          Push
+`;
+  }
+}
+
 export default function InteractiveStoryBoardMain() {
   const [selectedCard, setSelectedCard] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [notes, setNotes] = useState({});
   const [currentNote, setCurrentNote] = useState('');
-  
+  const [isExample, setIsExample] = useState(false);
+
   const factory = new StoryboardFactory();
 
   const storyboards = [
@@ -155,11 +364,23 @@ export default function InteractiveStoryBoardMain() {
     { type: 'CONCRETE_CREATOR', name: "CONCRETE CREATOR" },
   ];
 
-  const handleCardClick = (type) => {
+  const exampleboards = [
+    { type: 'PIZZA', name: "PIZZA" },
+    { type: 'COFFEE', name: "COFFEE" },
+    { type: 'VEHICLES', name: "VEHICLES" },
+    { type: 'SHAPES', name: "SHAPES" },
+    { type: 'DOC', name: "DOC" },
+    { type: 'EMAILS', name: "EMAILS" },
+  ];
+
+  const handleCardClick = (type, isExampleBoard = false) => {
     setIsAnimating(true);
     setTimeout(() => {
-      const storyboard = factory.createStoryboard(type);
+      const storyboard = isExampleBoard 
+        ? factory.createExampleboard(type)
+        : factory.createStoryboard(type);
       setSelectedCard(storyboard);
+      setIsExample(isExampleBoard);
       setCurrentNote(notes[type] || '');
       setIsAnimating(false);
     }, 300);
@@ -167,19 +388,25 @@ export default function InteractiveStoryBoardMain() {
 
   const handleBack = () => {
     if (selectedCard) {
-      // Save the note before going back
-      const cardType = storyboards.find(s => 
-        factory.createStoryboard(s.type).getTitle() === selectedCard.getTitle()
+      const allBoards = isExample ? exampleboards : storyboards;
+      const cardType = allBoards.find(
+        s => {
+          const board = isExample 
+            ? factory.createExampleboard(s.type)
+            : factory.createStoryboard(s.type);
+          return board?.getTitle() === selectedCard.getTitle();
+        }
       )?.type;
-      
+
       if (cardType) {
-        setNotes({...notes, [cardType]: currentNote});
+        setNotes({ ...notes, [cardType]: currentNote });
       }
     }
-    
+
     setIsAnimating(true);
     setTimeout(() => {
       setSelectedCard(null);
+      setIsExample(false);
       setIsAnimating(false);
     }, 300);
   };
@@ -192,53 +419,80 @@ export default function InteractiveStoryBoardMain() {
     <div className="container">
       <div className={`frame ${isAnimating ? 'animating' : ''}`}>
         {!selectedCard ? (
-          <>
+          <div className="scrollable-content">
             <div className="title">
               <h1 className="main-title">FACTORY METHOD</h1>
-              <h2 className="subtitle">ADVENTURES</h2>
-              <p className="tagline">Interactive Storyboards</p>
+              <h2 className="main-title">ADVENTURES</h2>
+              <p className="subtitle">Interactive Storyboards</p>
+              <p className="tagline">Objects</p>
             </div>
 
-            <div className="grid">
+            <div className="list-container">
               {storyboards.map((s, index) => {
                 const tempStoryboard = factory.createStoryboard(s.type);
                 const hasNotes = notes[s.type] && notes[s.type].trim().length > 0;
-                
+
                 return (
                   <div
                     key={index}
-                    className="card"
+                    className="card-list"
                     style={{ animationDelay: `${index * 0.1}s` }}
-                    onClick={() => handleCardClick(s.type)}
+                    onClick={() => handleCardClick(s.type, false)}
                   >
-                    <div className="icon-container">
-                      {tempStoryboard.getIcon()}
+                    <div className="icon-container">{tempStoryboard.getIcon()}</div>
+                    <div className="card-content">
+                      <p className="card-text">{s.name}</p>
+                      <div className="click-hint">Click to explore →</div>
                     </div>
-                    <p className="card-text">{s.name}</p>
-                    {hasNotes && (
-                      <div className="note-badge">📝 Notes</div>
-                    )}
-                    <div className="click-hint">Click to explore →</div>
+                    {hasNotes && <div className="note-badge">📝 Notes</div>}
                   </div>
                 );
               })}
             </div>
-          </>
+
+            <div className="title">
+              <p className="subtitle">Real-Life Examples</p>
+              <p className="tagline">"Don't just read about factory design patterns — play with them! Click through storyboards, trigger a visual explanations, and discover how objects communicate inside real-world systems, and take notes ;."</p>
+            </div>
+            
+            <div className="list-container">
+              {exampleboards.map((s, index) => {
+                const tempStoryboard = factory.createExampleboard(s.type);
+                const hasNotes = notes[s.type] && notes[s.type].trim().length > 0;
+
+                return (
+                  <div
+                    key={index}
+                    className="card-list"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                    onClick={() => handleCardClick(s.type, true)}
+                  >
+                    <div className="icon-container">{tempStoryboard.getIcon()}</div>
+                    <div className="card-content">
+                      <p className="card-text">{s.name}</p>
+                      <div className="click-hint">Click to explore →</div>
+                    </div>
+                    {hasNotes && <div className="note-badge">📝 Notes</div>}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         ) : (
           <div className="detail-view">
             <button className="back-button" onClick={handleBack}>
               ← BACK
             </button>
-            
+
             <div className="content-wrapper">
               {/* Left side - Content */}
               <div className="left-panel">
-                <div 
+                <div
                   className="detail-header"
                   style={{ borderColor: selectedCard.getColor() }}
                 >
                   <div className="detail-icon">{selectedCard.getIcon()}</div>
-                  <h1 
+                  <h1
                     className="detail-title"
                     style={{ color: selectedCard.getColor() }}
                   >
@@ -284,7 +538,7 @@ export default function InteractiveStoryBoardMain() {
                     placeholder="Type your notes here..."
                     className="textarea"
                   />
-                  <button 
+                  <button
                     className="download-button"
                     onClick={() => {
                       const blob = new Blob([currentNote], { type: 'text/plain' });
