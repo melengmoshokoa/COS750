@@ -3,21 +3,6 @@ import './StoryBoard.css';
 
 // Factory Method Pattern Implementation
 class StoryboardFactory {
-  createStoryboard(type) {
-    switch (type) {
-      case 'PRODUCT':
-        return new ProductStoryboard();
-      case 'CREATOR':
-        return new CreatorStoryboard();
-      case 'CONCRETE_CREATOR':
-        return new ConcreteCreatorStoryboard();
-      case 'BIG_BUTTON':
-        return new BigButtonStoryboard();
-      default:
-        return null;
-    }
-  }
-
   createExampleboard(type) {
     switch (type) {
       case 'PIZZA':
@@ -35,127 +20,6 @@ class StoryboardFactory {
       default:
         return null;
     }
-  }
-}
-
-class ProductStoryboard {
-  getTitle() { return "PRODUCT"; }
-  getIcon() { return "🍩"; }
-  getDescription() {
-    return "The Product interface declares operations that all concrete products must implement. It's what gets manufactured!";
-  }
-  getCodeExample() {
-    return `interface Product {
-  operation(): string;
-}
-
-class ConcreteProductA implements Product {
-  operation(): string {
-    return "Result of ProductA";
-  }
-}`;
-  }
-  getColor() { return "#ff6b35"; }
-  getDiagram() {
-    return `
-    ┌─────────────┐
-    │   Product   │ (interface)
-    └─────────────┘
-          △
-          │
-    ┌─────┴──────┐
-    │            │
-ConcreteA    ConcreteB
-`;
-  }
-}
-
-class CreatorStoryboard {
-  getTitle() { return "CREATOR"; }
-  getIcon() { return "👷"; }
-  getDescription() {
-    return "The Creator class declares the factory method that returns new Product objects. Subclasses override this method.";
-  }
-  getCodeExample() {
-    return `abstract class Creator {
-  abstract factoryMethod(): Product;
-  
-  someOperation(): string {
-    const product = this.factoryMethod();
-    return product.operation();
-  }
-}`;
-  }
-  getColor() { return "#f7931e"; }
-  getDiagram() {
-    return `
-    ┌─────────────┐
-    │   Creator   │
-    │ factoryMethod() │
-    └─────────────┘
-          △
-          │
-   ConcreteCreator
-`;
-  }
-}
-
-class ConcreteCreatorStoryboard {
-  getTitle() { return "CONCRETE CREATOR"; }
-  getIcon() { return "⚙️"; }
-  getDescription() {
-    return "Concrete Creators override the factory method to return different types of products. Each creator specializes in making specific products!";
-  }
-  getCodeExample() {
-    return `class ConcreteCreatorA extends Creator {
-  factoryMethod(): Product {
-    return new ConcreteProductA();
-  }
-}
-
-class ConcreteCreatorB extends Creator {
-  factoryMethod(): Product {
-    return new ConcreteProductB();
-  }
-}`;
-  }
-  getColor() { return "#fdc830"; }
-  getDiagram() {
-    return `
-Creator → factoryMethod()
-    ↓
-ConcreteCreatorA → ProductA
-ConcreteCreatorB → ProductB
-`;
-  }
-}
-
-class BigButtonStoryboard {
-  getTitle() { return "CLIENT CODE"; }
-  getIcon() { return "🔘"; }
-  getDescription() {
-    return "The client code works with creators through their base interface. It doesn't need to know which concrete creator it's using!";
-  }
-  getCodeExample() {
-    return `function clientCode(creator: Creator) {
-  console.log("Client: I'm not aware of the creator's class");
-  console.log(creator.someOperation());
-}
-
-clientCode(new ConcreteCreatorA());
-clientCode(new ConcreteCreatorB());`;
-  }
-  getColor() { return "#ff8c42"; }
-  getDiagram() {
-    return `
-Client
-  ↓
-Creator (interface)
-  ↓
-ConcreteCreator
-  ↓
-Product
-`;
   }
 }
 
@@ -188,6 +52,59 @@ createPizza(type)
 ┌────────────────┬────────────────┐
 Margherita     Pepperoni      Veggie
 `;
+  }
+  getNovelScenes() {
+    return [
+      {
+        background: "🏪",
+        character: "👨‍🍳",
+        characterName: "Chef Mario",
+        dialogue: "Welcome to Mario's Pizzeria! I'm Chef Mario, and today I'll teach you about the Factory Method pattern through pizza making!",
+        choices: null
+      },
+      {
+        background: "🏪",
+        character: "👨‍🍳",
+        characterName: "Chef Mario",
+        dialogue: "You see, we get many different pizza orders every day. Margherita, Pepperoni, Veggie... How do we handle all these varieties efficiently?",
+        choices: null
+      },
+      {
+        background: "🏪",
+        character: "👨‍🍳",
+        characterName: "Chef Mario",
+        dialogue: "That's where the Factory Method comes in! Instead of creating each pizza manually, we have a PizzaFactory that knows how to create any type of pizza.",
+        choices: null
+      },
+      {
+        background: "📋",
+        character: "👨‍🍳",
+        characterName: "Chef Mario",
+        dialogue: "Let me show you. When an order comes in, we just call: pizzaFactory.createPizza('Margherita') and boom! The factory handles all the details.",
+        choices: null
+      },
+      {
+        background: "🍕",
+        character: "👨‍🍳",
+        characterName: "Chef Mario",
+        dialogue: "Each pizza type implements the same Pizza interface: prepare(), bake(), and cut(). This means our kitchen staff can handle any pizza the same way!",
+        choices: null
+      },
+      {
+        background: "🏪",
+        character: "👨‍🍳",
+        characterName: "Chef Mario",
+        dialogue: "Want to add a new pizza type? Just create a new class that implements the Pizza interface. The factory handles the rest. No need to change existing code!",
+        choices: null
+      },
+      {
+        background: "✨",
+        character: "👨‍🍳",
+        characterName: "Chef Mario",
+        dialogue: "And that's the beauty of the Factory Method! It gives us flexibility to create objects without specifying their exact classes. Now you're ready to cook up some design patterns!",
+        choices: null
+      }
+    ];
   }
 }
 
@@ -353,16 +270,10 @@ export default function InteractiveStoryBoardMain() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [notes, setNotes] = useState({});
   const [currentNote, setCurrentNote] = useState('');
-  const [isExample, setIsExample] = useState(false);
+  const [currentScene, setCurrentScene] = useState(0);
+  const [showNovel, setShowNovel] = useState(false);
 
   const factory = new StoryboardFactory();
-
-  const storyboards = [
-    { type: 'PRODUCT', name: "PRODUCT" },
-    { type: 'BIG_BUTTON', name: "CLIENT CODE" },
-    { type: 'CREATOR', name: "CREATOR" },
-    { type: 'CONCRETE_CREATOR', name: "CONCRETE CREATOR" },
-  ];
 
   const exampleboards = [
     { type: 'PIZZA', name: "PIZZA" },
@@ -373,14 +284,11 @@ export default function InteractiveStoryBoardMain() {
     { type: 'EMAILS', name: "EMAILS" },
   ];
 
-  const handleCardClick = (type, isExampleBoard = false) => {
+  const handleCardClick = (type) => {
     setIsAnimating(true);
     setTimeout(() => {
-      const storyboard = isExampleBoard 
-        ? factory.createExampleboard(type)
-        : factory.createStoryboard(type);
+      const storyboard = factory.createExampleboard(type);
       setSelectedCard(storyboard);
-      setIsExample(isExampleBoard);
       setCurrentNote(notes[type] || '');
       setIsAnimating(false);
     }, 300);
@@ -388,14 +296,8 @@ export default function InteractiveStoryBoardMain() {
 
   const handleBack = () => {
     if (selectedCard) {
-      const allBoards = isExample ? exampleboards : storyboards;
-      const cardType = allBoards.find(
-        s => {
-          const board = isExample 
-            ? factory.createExampleboard(s.type)
-            : factory.createStoryboard(s.type);
-          return board?.getTitle() === selectedCard.getTitle();
-        }
+      const cardType = exampleboards.find(
+        s => factory.createExampleboard(s.type)?.getTitle() === selectedCard.getTitle()
       )?.type;
 
       if (cardType) {
@@ -406,7 +308,8 @@ export default function InteractiveStoryBoardMain() {
     setIsAnimating(true);
     setTimeout(() => {
       setSelectedCard(null);
-      setIsExample(false);
+      setShowNovel(false);
+      setCurrentScene(0);
       setIsAnimating(false);
     }, 300);
   };
@@ -423,36 +326,8 @@ export default function InteractiveStoryBoardMain() {
             <div className="title">
               <h1 className="main-title">FACTORY METHOD</h1>
               <h2 className="main-title">ADVENTURES</h2>
-              <p className="subtitle">Interactive Storyboards</p>
-              <p className="tagline">Objects</p>
-            </div>
-
-            <div className="list-container">
-              {storyboards.map((s, index) => {
-                const tempStoryboard = factory.createStoryboard(s.type);
-                const hasNotes = notes[s.type] && notes[s.type].trim().length > 0;
-
-                return (
-                  <div
-                    key={index}
-                    className="card-list"
-                    style={{ animationDelay: `${index * 0.1}s` }}
-                    onClick={() => handleCardClick(s.type, false)}
-                  >
-                    <div className="icon-container">{tempStoryboard.getIcon()}</div>
-                    <div className="card-content">
-                      <p className="card-text">{s.name}</p>
-                      <div className="click-hint">Click to explore →</div>
-                    </div>
-                    {hasNotes && <div className="note-badge">📝 Notes</div>}
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="title">
               <p className="subtitle">Real-Life Examples</p>
-              <p className="tagline">"Don't just read about factory design patterns — play with them! Click through storyboards, trigger a visual explanations, and discover how objects communicate inside real-world systems, and take notes ;."</p>
+              <p className="tagline">"Don't just read about factory design patterns — play with them! Click through storyboards, experience visual novels, and discover how objects communicate inside real-world systems."</p>
             </div>
             
             <div className="list-container">
@@ -465,7 +340,7 @@ export default function InteractiveStoryBoardMain() {
                     key={index}
                     className="card-list"
                     style={{ animationDelay: `${index * 0.1}s` }}
-                    onClick={() => handleCardClick(s.type, true)}
+                    onClick={() => handleCardClick(s.type)}
                   >
                     <div className="icon-container">{tempStoryboard.getIcon()}</div>
                     <div className="card-content">
@@ -484,77 +359,145 @@ export default function InteractiveStoryBoardMain() {
               ← BACK
             </button>
 
-            <div className="content-wrapper">
-              {/* Left side - Content */}
-              <div className="left-panel">
-                <div
-                  className="detail-header"
-                  style={{ borderColor: selectedCard.getColor() }}
-                >
-                  <div className="detail-icon">{selectedCard.getIcon()}</div>
-                  <h1
-                    className="detail-title"
-                    style={{ color: selectedCard.getColor() }}
-                  >
-                    {selectedCard.getTitle()}
-                  </h1>
-                </div>
-
-                <div className="detail-content">
-                  <div className="section">
-                    <h3 className="section-title">📖 WHAT IS IT?</h3>
-                    <p className="description">{selectedCard.getDescription()}</p>
-                  </div>
-
-                  <div className="section">
-                    <h3 className="section-title">📊 DIAGRAM</h3>
-                    <pre className="diagram-block">
-                      <code className="code">{selectedCard.getDiagram()}</code>
-                    </pre>
-                  </div>
-
-                  <div className="section">
-                    <h3 className="section-title">💻 CODE EXAMPLE</h3>
-                    <pre className="code-block">
-                      <code className="code">{selectedCard.getCodeExample()}</code>
-                    </pre>
-                  </div>
-                </div>
+            {showNovel && selectedCard.getNovelScenes ? (
+              <div className="visual-novel">
+                {(() => {
+                  const scenes = selectedCard.getNovelScenes();
+                  const scene = scenes[currentScene];
+                  return (
+                    <div className="novel-container">
+                      <div className="novel-background">
+                        <div className="background-emoji">{scene.background}</div>
+                      </div>
+                      
+                      <div className="novel-content">
+                        <div className="character-display">
+                          <div className="character-emoji">{scene.character}</div>
+                        </div>
+                        
+                        <div className="dialogue-box">
+                          <div className="character-name">{scene.characterName}</div>
+                          <div className="dialogue-text">{scene.dialogue}</div>
+                          
+                          <div className="novel-controls">
+                            <button 
+                              className="novel-button"
+                              onClick={() => setCurrentScene(Math.max(0, currentScene - 1))}
+                              disabled={currentScene === 0}
+                            >
+                              ← Previous
+                            </button>
+                            
+                            <span className="scene-counter">
+                              Scene {currentScene + 1} / {scenes.length}
+                            </span>
+                            
+                            {currentScene < scenes.length - 1 ? (
+                              <button 
+                                className="novel-button"
+                                onClick={() => setCurrentScene(currentScene + 1)}
+                              >
+                                Next →
+                              </button>
+                            ) : (
+                              <button 
+                                className="novel-button novel-button-finish"
+                                onClick={() => setShowNovel(false)}
+                              >
+                                Finish ✓
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
-
-              {/* Right side - Notepad */}
-              <div className="notepad-container">
-                <div className="notepad-header">
-                  <div className="spiral-binding">
-                    {[...Array(12)].map((_, i) => (
-                      <div key={i} className="spiral-hole"></div>
-                    ))}
-                  </div>
-                </div>
-                <div className="notepad-body">
-                  <textarea
-                    value={currentNote}
-                    onChange={handleNoteChange}
-                    placeholder="Type your notes here..."
-                    className="textarea"
-                  />
-                  <button
-                    className="download-button"
-                    onClick={() => {
-                      const blob = new Blob([currentNote], { type: 'text/plain' });
-                      const url = URL.createObjectURL(blob);
-                      const a = document.createElement('a');
-                      a.href = url;
-                      a.download = `${selectedCard.getTitle()}_notes.txt`;
-                      a.click();
-                      URL.revokeObjectURL(url);
-                    }}
+            ) : (
+              <>
+                {selectedCard.getNovelScenes && (
+                  <button 
+                    className="novel-trigger-button"
+                    onClick={() => setShowNovel(true)}
                   >
-                    ⬇ SAVE
+                    📖 Start Visual Novel
                   </button>
+                )}
+
+                <div className="content-wrapper">
+                  {/* Left side - Content */}
+                  <div className="left-panel">
+                    <div
+                      className="detail-header"
+                      style={{ borderColor: selectedCard.getColor() }}
+                    >
+                      <div className="detail-icon">{selectedCard.getIcon()}</div>
+                      <h1
+                        className="detail-title"
+                        style={{ color: selectedCard.getColor() }}
+                      >
+                        {selectedCard.getTitle()}
+                      </h1>
+                    </div>
+
+                    <div className="detail-content">
+                      <div className="section">
+                        <h3 className="section-title">📖 WHAT IS IT?</h3>
+                        <p className="description">{selectedCard.getDescription()}</p>
+                      </div>
+
+                      <div className="section">
+                        <h3 className="section-title">📊 DIAGRAM</h3>
+                        <pre className="diagram-block">
+                          <code className="code">{selectedCard.getDiagram()}</code>
+                        </pre>
+                      </div>
+
+                      <div className="section">
+                        <h3 className="section-title">💻 CODE EXAMPLE</h3>
+                        <pre className="code-block">
+                          <code className="code">{selectedCard.getCodeExample()}</code>
+                        </pre>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right side - Notepad */}
+                  <div className="notepad-container">
+                    <div className="notepad-header">
+                      <div className="spiral-binding">
+                        {[...Array(12)].map((_, i) => (
+                          <div key={i} className="spiral-hole"></div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="notepad-body">
+                      <textarea
+                        value={currentNote}
+                        onChange={handleNoteChange}
+                        placeholder="Type your notes here..."
+                        className="textarea"
+                      />
+                      <button
+                        className="download-button"
+                        onClick={() => {
+                          const blob = new Blob([currentNote], { type: 'text/plain' });
+                          const url = URL.createObjectURL(blob);
+                          const a = document.createElement('a');
+                          a.href = url;
+                          a.download = `${selectedCard.getTitle()}_notes.txt`;
+                          a.click();
+                          URL.revokeObjectURL(url);
+                        }}
+                      >
+                        ⬇ SAVE
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </>
+            )}
           </div>
         )}
       </div>
