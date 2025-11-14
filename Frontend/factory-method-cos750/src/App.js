@@ -12,8 +12,8 @@ function App() {
      <Router>
       <Routes>
 
-        <Route path="/" element={<QuizDashboard />} />
-        <Route path="/Quizzes" element={<Quizzes />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/QuizDashboard" element={<QuizDashboard />} />
         <Route path="/quiz/:lessonId" element={<QuizContent />} />
   
       </Routes>
