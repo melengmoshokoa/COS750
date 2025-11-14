@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.QuizContent {
+  flex: 1;
+  background-color: #2c0d00;
+  background-image: linear-gradient(180deg, #3a1602, #1a0500);
+  border-left: 3px solid #a04b07;
+  min-height: 130vh;
+  padding: 30px;
+  color: #ffbf61;
+  font-family: 'Press Start 2P', cursive;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header */
+.quiz-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.quiz-header h2 {
+  font-size: 10px;
+  color: #f69c36;
+  text-shadow: 0 0 6px #c76a19;
+}
+
+.back-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  color: #ffbf61;
+  background-color: transparent;
+  border: 2px solid #f69c36;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background-color: #a04b07;
+}
+
+.question-count {
+  font-size: 8px;
+  background-color: #3a1602;
+  border: 2px solid #f69c36;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+/* Progress Bar */
+.quiz-progress {
+  width: 90%;
+  height: 8px;
+  background-color: #3a1602;
+  border: 1px solid #f69c36;
+  border-radius: 5px;
+  margin-bottom: 25px;
+  box-shadow: inset 0 0 8px #2c0d00;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ffbf61, #c76a19);
+  border-radius: 5px;
+}
+
+/* Question Box */
+.question-box {
+  width: 90%;
+  background-color: #3a1602;
+  border: 2px solid #f69c36;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 0 10px #a04b07;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.question-box h3 {
+  font-size: 10px;
+  color: #ffbf61;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  text-align: left;
+}
+
+.option input[type="radio"] {
+  accent-color: #f69c36;
+  transform: scale(1.2);
+  margin-right: 10px;
+}
+
+.option label {
+  font-size: 8px;
+  color: #ffbf61;
+}
+
+/* Navigation Buttons */
+.quiz-nav {
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.prev-btn,
+.next-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  padding: 10px 20px;
+  border: 2px solid #f69c36;
+  color: #ffbf61;
+  background-color: #3a1602;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 0 6px #a04b07;
+}
+
+.prev-btn:hover,
+.next-btn:hover {
+  background-color: #a04b07;
+  transform: scale(1.03);
+}
+
+/* 🧠 Retro Arcade Code-Fill Styling */
+.code-question {
+  margin-top: 20px;
+  background: #4b2e05; /* dark brown, matching wood tones */
+  border: 4px solid #a66a2c; /* lighter brown frame */
+  padding: 16px;
+  border-radius: 12px;
+  font-family: 'Press Start 2P', monospace;
+  color: #ffe9b1;
+  box-shadow: 0px 4px 0px #2b1a05;
+  text-shadow: 0 1px 0 #2b1a05;
+}
+
+.code-snippet {
+  display: block;
+  background-color: #5b3710;
+  padding: 20px;
+  border-radius: 10px;
+  border: 3px solid #a66a2c;
+  color: #ffe9b1;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  box-shadow: inset 0px 3px 0px #2b1a05;
+}
+
+.code-input {
+  display: block;
+  margin-top: 14px;
+  width: 90%;
+  padding: 10px;
+  border: 3px solid #a66a2c;
+  border-radius: 8px;
+  font-size: 10px;
+  font-family: 'Press Start 2P', monospace;
+  background-color: #f3e0c1;
+  color: #3b2508;
+  box-shadow: 0px 3px 0px #2b1a05;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.code-input:focus {
+  border-color: #ffcf6b;
+  background-color: #fff2d9;
+  box-shadow: 0px 0px 8px #ffcf6b;
+}
+
+.code-snippet::before {
+  content: "💾 CODE SNIPPET";
+  display: block;
+  color: #ffcf6b;
+  margin-bottom: 10px;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
