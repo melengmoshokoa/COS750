@@ -1,18 +1,28 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Quizzes from './Pages/Quizzes';
-import Dashboard from './Pages/Dashboard';
+import QuizContent from './Pages/QuizContent';
+import Dashboard from './Pages/Dashboard';  
+import QuizDashboard from './Pages/QuizDashboard';
+import { QuizProvider } from './Pages/context/QuizContext';
+import SuggestedReads from './Pages/SuggestedReads';
+import SuggestedReads from './Pages/ProgressPage';
 
 function App() {
   return (
+    <QuizProvider>
      <Router>
       <Routes>
 
         <Route path="/" element={<Dashboard />} />
-        <Route path="/Quizzes" element={<Quizzes />} />
+        <Route path="/QuizDashboard" element={<QuizDashboard />} />
+        <Route path="/quiz/:lessonId" element={<QuizContent />} />
+        <Route path="/SuggestedReads" element={<SuggestedReads /> }/>
+      <Route path="/SuggestedReads" element={<ProgressPage /> }/>
   
       </Routes>
     </Router>
+    </QuizProvider>
   );
 }
 
