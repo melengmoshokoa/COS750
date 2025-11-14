@@ -16,7 +16,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/QuizDashboard" element={<QuizDashboard />} />
         <Route path="/quiz/:lessonId" element={<QuizContent />} />
-        ‹Route path="/SuggestedReads" element={<SuggestedReads • />}•/>
+        <Route path="/SuggestedReads" element={<SuggestedReads /> }/>
   
       </Routes>
     </Router>
