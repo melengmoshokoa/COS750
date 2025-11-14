@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './Dashboard.css'; // Assume the correct CSS is linked
 import EngineerAvatar from '../Media/674-6740075_tf2-scout-pixel-art-hd-png-download.png';
 import QuizAvatar from '../Media/Quiz-logo.jpg';
+import pixelLogo from '../Media/New Piskel (3).png'; 
 
 function Dashboard() {
   // Static placeholders for demonstration
@@ -14,7 +15,7 @@ function Dashboard() {
   return (
     <div className="dashboard-container">
 
-      {/* 🛑 PLACEHOLDER WARNING: Will be removed when Auth is ready */}
+      {/* { 🛑 PLACEHOLDER WARNING: Will be removed when Auth is ready }
       <div className="auth-warning" style={{ 
         backgroundColor: '#a04b07', 
         border: '3px solid #f69c36', 
@@ -24,7 +25,7 @@ function Dashboard() {
         color: '#ffbf61' 
       }}>
         ⚠️ **DASHBOARD UI PREVIEW:** Authentication and Data are static placeholders.
-      </div>
+      </div> */}
 
       {/* 1. Header Section */}
       <header className="dashboard-header">
@@ -103,18 +104,27 @@ function Dashboard() {
       {/* 4. Assessment & Practice Section */}
       <div className="assessment-row">
         {/* Quizzes Tile (Formative Assessment FR4) */}
-        <Link to="/quizzes" className="dashboard-tile quiz-tile">
-          <h2>Quizzes</h2>
-          <div className="quiz-info-row">
-            <p>CHALLENGE MODE: FACTORY LOGIC TEST!</p>
-            
-            {/* Logo Image Placeholder */}
-            <img src={QuizAvatar} alt="Quiz Logo" className="engineer-avatar" />
+        <Link to="/quizzes" className="dashboard-tile">
+    
+    {/* Heading on top */}
+    <h2>Quizzes</h2> 
 
-          </div>
-
-
-        </Link>
+    <div className="quiz-info-row">
+      
+      {/* 1. Icon on the left */}
+      <img 
+        src={pixelLogo} 
+        alt="Pixel Art Quiz Logo" 
+        className="quiz-pixel-logo" 
+      />
+      
+      {/* 2. Text on the right/wrapping */}
+      <div className="quiz-text-content">
+        <p>CHALLENGE MODE: FACTORY LOGIC TEST!</p>
+      </div>
+      
+    </div>
+  </Link>
         
         {/* Flashcards Tile (Practice) */}
         <Link to="/flashcards" className="dashboard-tile flashcard-tile">
