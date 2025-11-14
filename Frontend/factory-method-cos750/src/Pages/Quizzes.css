@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
 .Quizzes {
-  width: 65vh;
+  width: 60vh;
   min-height: 130vh;
   color: #f69c36;
   font-family: 'Press Start 2P', cursive;
@@ -87,7 +87,7 @@
   border: 2px solid #f69c36;
   border-radius: 8px;
   margin: 10px 0;
-  padding: 30px;
+  padding: 20px;
   color: #ffbf61;
   display: flex;
   align-items: center;
@@ -109,6 +109,7 @@
 
 .QuizItem h1 {
   font-size: 9px;
+  padding-top: 2px;
 }
 
 .QuizItem p {

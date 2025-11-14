@@ -103,7 +103,7 @@ function Dashboard() {
       {/* 4. Assessment & Practice Section */}
       <div className="assessment-row">
         {/* Quizzes Tile (Formative Assessment FR4) */}
-        <Link to="/quizzes" className="dashboard-tile quiz-tile">
+        <Link to="/QuizDashboard" className="dashboard-tile quiz-tile">
           <h2>Quizzes</h2>
           <div className="quiz-info-row">
             <p>CHALLENGE MODE: FACTORY LOGIC TEST!</p>
