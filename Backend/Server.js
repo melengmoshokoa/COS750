@@ -14,8 +14,8 @@ app.use(express.json());
 
 // Supabase client
 const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_ANON_KEY
+  process.env.REACT_APP_SUPABASE_URL,
+  process.env.REACT_APP_SUPABASE_ANON_KEY
 );
 
 // Helper: Calculate level from XP
@@ -198,7 +198,6 @@ app.get('/api/leaderboard', async (req, res) => {
   }
 });
 
-});
 
 // Complete story
 app.post('/api/users/:userId/stories', async (req, res) => {
