@@ -39,11 +39,11 @@ function Quizzes() {
             </div>
           </div>
 
-          {/* <p className="progress-label">PROGRESS</p>
+          <p className="progress-label">PROGRESS</p>
           <div className="ProgressBar">
             <div className="ProgressFill" style={{ width: "28%" }}></div>
           </div>
-          <p className="progress-percent">28%</p> */}
+          <p className="progress-percent">28%</p>
         </div>
 
         <div className="scroll-container">
