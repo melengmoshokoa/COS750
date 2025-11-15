@@ -1543,7 +1543,7 @@ Email          SMS          Push`;
 }
 
 export default function StoryBoard() {
-    // State declarations should be at the top of your component
+  // State declarations should be at the top of your component
   const [selectedCard, setSelectedCard] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showNovel, setShowNovel] = useState(false);
@@ -1555,14 +1555,7 @@ export default function StoryBoard() {
   const [currentReward, setCurrentReward] = useState(null);
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState(null);
-
-    useEffect(() => {
-      const fetchUserId = async () => {
-        const id = await getUserId(); // or however you fetch it
-        setUserId(id);
-      };
-      fetchUserId();
-    }, []);;
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const [userProgress, setUserProgress] = useState({
     xp: 0,
     level: 1,
@@ -1571,119 +1564,195 @@ export default function StoryBoard() {
   });
 
   useEffect(() => {
-  if (userId) {
-    loadUserData();
-  }
-}, [userId]);
+    const fetchUserId = async () => {
+      const id = await getUserId(); // or however you fetch it
+      setUserId(id);
+    };
+    fetchUserId();
+  }, []);
 
-  const loadUserData = async () => {
-  if (!userId) return;
-  
-  try {
-    setLoading(true);
+  useEffect(() => {
+    // Stop any previous speech when scene changes
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
+  }, [currentScene]);
 
-    // Try to get user, if not exists, create them
-    let userData;
-    try {
-      userData = await api.user.getUser(userId);
-    } catch (error) {
-      // User doesn't exist, create them
-      console.log('User not found, creating new user...');
-      await api.user.createUser(userId); // You'll need this API method
-      userData = { data: { xp: 0, level: 1 } };
+  useEffect(() => {
+    if (userId) {
+      loadUserData();
+    }
+  }, [userId]);
+
+  const speak = (text) => {
+    // Stop any currently playing speech
+    window.speechSynthesis.cancel();
+    
+    const utterance = new SpeechSynthesisUtterance(text);
+    
+    // Get available voices and select a female voice
+    const voices = window.speechSynthesis.getVoices();
+    const femaleVoice = voices.find(voice => 
+      voice.name.includes('Female') || 
+      voice.name.includes('female') ||
+      voice.name.includes('Woman') ||
+      voice.name.includes('Samantha') ||
+      voice.name.includes('Victoria') ||
+      voice.name.includes('Karen') ||
+      voice.name.includes('Zira')
+    );
+    
+    if (femaleVoice) {
+      utterance.voice = femaleVoice;
     }
     
-    // Get completed stories (will be empty for new user)
-    const storiesData = await api.story.getCompletedStories(userId);
+    utterance.rate = 0.9; // Slightly slower for dramatic effect
+    utterance.pitch = 1.2; // Higher pitch for more feminine sound
+    utterance.volume = 1;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const speakWithTracking = (text) => {
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
     
-    // Get badges (will be empty for new user)
-    const badgesData = await api.badge.getBadges(userId);
+    // Get available voices and select a female voice
+    const voices = window.speechSynthesis.getVoices();
+    const femaleVoice = voices.find(voice => 
+      voice.name.includes('Female') || 
+      voice.name.includes('female') ||
+      voice.name.includes('Woman') ||
+      voice.name.includes('Samantha') ||
+      voice.name.includes('Victoria') ||
+      voice.name.includes('Karen') ||
+      voice.name.includes('Zira')
+    );
+    
+    if (femaleVoice) {
+      utterance.voice = femaleVoice;
+    }
+    
+    utterance.rate = 0.9;
+    utterance.pitch = 1.2; // Higher pitch for more feminine sound
+    utterance.volume = 1;
+    
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    utterance.onerror = () => setIsSpeaking(false);
+    
+    window.speechSynthesis.speak(utterance);
+  };
 
-    setUserProgress({
-      xp: userData.data.xp || 0,
-      level: userData.data.level || 1,
-      badges: badgesData.data || [],
-      completedStories: storiesData.data?.map(s => s.story_type) || []
-    });
+  const stopSpeaking = () => {
+    window.speechSynthesis.cancel();
+    setIsSpeaking(false);
+  };
 
-  } catch (error) {
-    console.error('Error loading user data:', error);
-    // Set default values so app isn't stuck
-    setUserProgress({
-      xp: 0,
-      level: 1,
-      badges: [],
-      completedStories: []
-    });
-  } finally {
-    setLoading(false);
-  }
-};
+  const loadUserData = async () => {
+    if (!userId) return;
+    
+    try {
+      setLoading(true);
+
+      // Try to get user, if not exists, create them
+      let userData;
+      try {
+        userData = await api.user.getUser(userId);
+      } catch (error) {
+        // User doesn't exist, create them
+        console.log('User not found, creating new user...');
+        await api.user.createUser(userId); // You'll need this API method
+        userData = { data: { xp: 0, level: 1 } };
+      }
+      
+      // Get completed stories (will be empty for new user)
+      const storiesData = await api.story.getCompletedStories(userId);
+      
+      // Get badges (will be empty for new user)
+      const badgesData = await api.badge.getBadges(userId);
+
+      setUserProgress({
+        xp: userData.data.xp || 0,
+        level: userData.data.level || 1,
+        badges: badgesData.data || [],
+        completedStories: storiesData.data?.map(s => s.story_type) || []
+      });
+
+    } catch (error) {
+      console.error('Error loading user data:', error);
+      // Set default values so app isn't stuck
+      setUserProgress({
+        xp: 0,
+        level: 1,
+        badges: [],
+        completedStories: []
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Loading check should come after state declarations
-  if (loading || !userId) { // <-- Add !userId check
-  return (
-    <div className="container">
-      <div className="frame">
-        <h2>Loading your progress...</h2>
+  if (loading || !userId) {
+    return (
+      <div className="container">
+        <div className="frame">
+          <h2>Loading your progress...</h2>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
   const handleStoryComplete = async () => {
-  const storyTitle = selectedCard.getTitle();
-  const badgeKey = STORY_TYPE_MAP[storyTitle] || storyTitle.toLowerCase();
-  const badge = STORY_BADGES[badgeKey];
+    const storyTitle = selectedCard.getTitle();
+    const badgeKey = STORY_TYPE_MAP[storyTitle] || storyTitle.toLowerCase();
+    const badge = STORY_BADGES[badgeKey];
 
-  if (!badge) {
-    console.warn('No badge found for story type:', storyTitle, 'mapped to:', badgeKey);
-    setShowNovel(false);
-    setCurrentScene(0);
-    return;
-  }
+    if (!badge) {
+      console.warn('No badge found for story type:', storyTitle, 'mapped to:', badgeKey);
+      setShowNovel(false);
+      setCurrentScene(0);
+      return;
+    }
 
-  try {
-    // Mark story as complete
-    // Your API expects: completeStory(userId, storyType, currentScene)
-    await api.story.completeStory(userId, badgeKey, currentScene);
+    try {
+      // Mark story as complete
+      await api.story.completeStory(userId, badgeKey, currentScene);
 
-    // Award badge
-    // Your API expects: awardBadge(userId, badgeKey, badgeName, xpAwarded)
-    await api.badge.awardBadge(userId, badgeKey, badge.name, badge.xp);
+      // Award badge
+      await api.badge.awardBadge(userId, badgeKey, badge.name, badge.xp);
 
-    // Update XP
-    const newXP = userProgress.xp + badge.xp;
-    await api.user.updateXP(userId, newXP);
+      // Update XP
+      const newXP = userProgress.xp + badge.xp;
+      await api.user.updateXP(userId, newXP);
 
-    // Update local state
-    const newLevel = Math.floor(newXP / 200) + 1;
-    
-    setUserProgress(prev => ({
-      ...prev,
-      xp: newXP,
-      level: newLevel,
-      badges: [...prev.badges, badge],
-      completedStories: [...prev.completedStories, badgeKey]
-    }));
+      // Update local state
+      const newLevel = Math.floor(newXP / 200) + 1;
+      
+      setUserProgress(prev => ({
+        ...prev,
+        xp: newXP,
+        level: newLevel,
+        badges: [...prev.badges, badge],
+        completedStories: [...prev.completedStories, badgeKey]
+      }));
 
-    // Show reward modal
-    setCurrentReward({
-      badge,
-      xp: badge.xp,
-      newXP,
-      leveledUp: newLevel > userProgress.level,
-      newLevel
-    });
-    
-    setShowReward(true);
+      // Show reward modal
+      setCurrentReward({
+        badge,
+        xp: badge.xp,
+        newXP,
+        leveledUp: newLevel > userProgress.level,
+        newLevel
+      });
+      
+      setShowReward(true);
 
-  } catch (error) {
-    console.error('Error completing story:', error);
-    console.error('Error message:', error.message);
-    alert(`Failed to save progress: ${error.message}`);
-  }
-};
+    } catch (error) {
+      console.error('Error completing story:', error);
+      console.error('Error message:', error.message);
+      alert(`Failed to save progress: ${error.message}`);
+    }
+  };
 
   const factory = new StoryboardFactory();
   const exampleboards = [
@@ -1944,7 +2013,16 @@ export default function StoryBoard() {
                           />
                         </div>
                         <div className="dialogue-box">
-                          <div className="character-name">{scene.characterName}</div>
+                          <div className="character-name">
+                            {scene.characterName}
+                            <button
+                              className="speaker-button"
+                              onClick={() => isSpeaking ? stopSpeaking() : speakWithTracking(scene.dialogue)}
+                              title={isSpeaking ? "Stop speaking" : "Read dialogue aloud"}
+                            >
+                              {isSpeaking ? '⏸️' : '🔊'}
+                            </button>
+                          </div>
                           <div className="dialogue-text">{scene.dialogue}</div>
 
                           {scene.codeExample && (

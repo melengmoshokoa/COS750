@@ -1363,3 +1363,24 @@
     font-size: 36px;
   }
 }
+
+.speaker-button {
+  background: rgba(139, 69, 19, 0.8);
+  border: 2px solid #d4a574;
+  color: #fff;
+  padding: 5px 10px;
+  margin-left: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.speaker-button:hover {
+  background: rgba(139, 69, 19, 1);
+  transform: scale(1.1);
+}
+
+.speaker-button:active {
+  transform: scale(0.95);
+}
