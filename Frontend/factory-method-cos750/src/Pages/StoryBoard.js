@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './StoryBoard.css';
 import { userAPI, storyAPI, badgeAPI } from '../services/apiService';
+import { supabase } from "../supabaseClient";
 import kitchenImg from './assests/kitchen.png';
 import chefMayImg from './assests/chef-may.png';
 import coffeeImg from './assests/coffee-shop.png';
@@ -27,13 +28,24 @@ const api = {
   user: userAPI
 };
 
-const getUserId = () => {
-  let userId = localStorage.getItem('storyboard_user_id');
-  if (!userId) {
-    userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-    localStorage.setItem('storyboard_user_id', userId);
+const getUserId = async () => {
+  try {
+    const { data: { session }, error } = await supabase.auth.getSession();
+    
+    if (error) {
+      console.error('Error getting session:', error);
+      return null;
+    }
+    
+    if (session && session.user) {
+      return session.user.id;
+    }
+    
+    return null;
+  } catch (err) {
+    console.error('Error in getUserId:', err);
+    return null;
   }
-  return userId;
 };
 
 // ============================================
@@ -95,6 +107,7 @@ const STORY_BADGES = {
     order: 6
   }
 };
+
 
 // Factory Method Pattern Implementation
 class StoryboardFactory {
