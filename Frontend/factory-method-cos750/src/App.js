@@ -7,6 +7,7 @@ import QuizDashboard from './Pages/QuizDashboard';
 import { QuizProvider } from './Pages/context/QuizContext';
 import SuggestedReads from './Pages/SuggestedReads';
 import ProgressPage from './Pages/ProgressPage';
+import FlashCards from './Pages/FlashCards';
 import Auth from './Pages/Auth';
 import { supabase } from './supabaseClient';
 import Header from "./Pages/Header";
@@ -48,6 +49,7 @@ function App() {
           <Route path="/SuggestedReads" element={session ? <SuggestedReads /> : <Navigate to="/" />} />
           <Route path="/ProgressPage" element={session ? <ProgressPage /> : <Navigate to="/" />} />
           <Route path="/StoryBoard" element={session ? <StoryBoard /> : <Navigate to="/" />} />
+          <Route path="/FlashCards" element={session ? <FlashCards /> : <Navigate to="/" />} />
         </Routes>
       </Router>
     </QuizProvider>
