@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './StoryBoard.css';
+import { userAPI, storyAPI, badgeAPI } from '../services/apiService';
 import kitchenImg from './assests/kitchen.png';
 import chefMayImg from './assests/chef-may.png';
 import coffeeImg from './assests/coffee-shop.png';
@@ -18,6 +19,21 @@ import toolBadge from "./assests/tool-badge.png";
 import paletteBadge from "./assests/palette-badge.png";
 import docBadge from "./assests/doc-badge.png";
 import notiBadge from "./assests/bell-badge.png";
+
+const api = {
+  story: storyAPI,
+  badge: badgeAPI,
+  user: userAPI
+};
+
+const getUserId = () => {
+  let userId = localStorage.getItem('storyboard_user_id');
+  if (!userId) {
+    userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem('storyboard_user_id', userId);
+  }
+  return userId;
+};
 
 // ============================================
 // STORY TYPE MAPPING
@@ -1527,6 +1543,7 @@ Email          SMS          Push`;
 }
 
 export default function StoryBoard() {
+    // State declarations should be at the top of your component
   const [selectedCard, setSelectedCard] = useState(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showNovel, setShowNovel] = useState(false);
@@ -1534,15 +1551,139 @@ export default function StoryBoard() {
   const [notes, setNotes] = useState({});
   const [currentNote, setCurrentNote] = useState('');
   const [showNotepad, setShowNotepad] = useState(false);
+  const [showReward, setShowReward] = useState(false);
+  const [currentReward, setCurrentReward] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState(null);
 
+    useEffect(() => {
+      const fetchUserId = async () => {
+        const id = await getUserId(); // or however you fetch it
+        setUserId(id);
+      };
+      fetchUserId();
+    }, []);;
   const [userProgress, setUserProgress] = useState({
     xp: 0,
     level: 1,
     badges: [],
     completedStories: []
   });
-  const [showReward, setShowReward] = useState(false);
-  const [currentReward, setCurrentReward] = useState(null);
+
+  useEffect(() => {
+  if (userId) {
+    loadUserData();
+  }
+}, [userId]);
+
+  const loadUserData = async () => {
+  if (!userId) return;
+  
+  try {
+    setLoading(true);
+
+    // Try to get user, if not exists, create them
+    let userData;
+    try {
+      userData = await api.user.getUser(userId);
+    } catch (error) {
+      // User doesn't exist, create them
+      console.log('User not found, creating new user...');
+      await api.user.createUser(userId); // You'll need this API method
+      userData = { data: { xp: 0, level: 1 } };
+    }
+    
+    // Get completed stories (will be empty for new user)
+    const storiesData = await api.story.getCompletedStories(userId);
+    
+    // Get badges (will be empty for new user)
+    const badgesData = await api.badge.getBadges(userId);
+
+    setUserProgress({
+      xp: userData.data.xp || 0,
+      level: userData.data.level || 1,
+      badges: badgesData.data || [],
+      completedStories: storiesData.data?.map(s => s.story_type) || []
+    });
+
+  } catch (error) {
+    console.error('Error loading user data:', error);
+    // Set default values so app isn't stuck
+    setUserProgress({
+      xp: 0,
+      level: 1,
+      badges: [],
+      completedStories: []
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
+  // Loading check should come after state declarations
+  if (loading || !userId) { // <-- Add !userId check
+  return (
+    <div className="container">
+      <div className="frame">
+        <h2>Loading your progress...</h2>
+      </div>
+    </div>
+  );
+}
+
+  const handleStoryComplete = async () => {
+  const storyTitle = selectedCard.getTitle();
+  const badgeKey = STORY_TYPE_MAP[storyTitle] || storyTitle.toLowerCase();
+  const badge = STORY_BADGES[badgeKey];
+
+  if (!badge) {
+    console.warn('No badge found for story type:', storyTitle, 'mapped to:', badgeKey);
+    setShowNovel(false);
+    setCurrentScene(0);
+    return;
+  }
+
+  try {
+    // Mark story as complete
+    // Your API expects: completeStory(userId, storyType, currentScene)
+    await api.story.completeStory(userId, badgeKey, currentScene);
+
+    // Award badge
+    // Your API expects: awardBadge(userId, badgeKey, badgeName, xpAwarded)
+    await api.badge.awardBadge(userId, badgeKey, badge.name, badge.xp);
+
+    // Update XP
+    const newXP = userProgress.xp + badge.xp;
+    await api.user.updateXP(userId, newXP);
+
+    // Update local state
+    const newLevel = Math.floor(newXP / 200) + 1;
+    
+    setUserProgress(prev => ({
+      ...prev,
+      xp: newXP,
+      level: newLevel,
+      badges: [...prev.badges, badge],
+      completedStories: [...prev.completedStories, badgeKey]
+    }));
+
+    // Show reward modal
+    setCurrentReward({
+      badge,
+      xp: badge.xp,
+      newXP,
+      leveledUp: newLevel > userProgress.level,
+      newLevel
+    });
+    
+    setShowReward(true);
+
+  } catch (error) {
+    console.error('Error completing story:', error);
+    console.error('Error message:', error.message);
+    alert(`Failed to save progress: ${error.message}`);
+  }
+};
 
   const factory = new StoryboardFactory();
   const exampleboards = [
@@ -1577,49 +1718,6 @@ export default function StoryBoard() {
     }
     return true;
   };
-
-  const handleStoryComplete = () => {
-  const storyTitle = selectedCard.getTitle();
-  const badgeKey = STORY_TYPE_MAP[storyTitle] || storyTitle.toLowerCase();
-  const badge = STORY_BADGES[badgeKey];
-
-  if (!badge) {
-    console.warn('No badge found for story type:', storyTitle, 'mapped to:', badgeKey);
-    setShowNovel(false);
-    setCurrentScene(0);
-    return;
-  }
-
-  setUserProgress(prev => {
-    if (prev.completedStories.includes(badgeKey)) {
-      // Already completed
-      setShowNovel(false);
-      setCurrentScene(0);
-      return prev;
-    }
-
-    const newXP = prev.xp + badge.xp;
-    const newLevel = calculateLevel(newXP);
-
-    setCurrentReward({
-      badge,
-      xp: badge.xp,
-      newXP,
-      leveledUp: newLevel > prev.level,
-      newLevel
-    });
-    
-    setShowReward(true);
-
-    return {
-      ...prev,
-      xp: newXP,
-      level: newLevel,
-      badges: [...prev.badges, badge],
-      completedStories: [...prev.completedStories, badgeKey]
-    };
-  });
-};
 
   const handleCardClick = (type) => {    
     if (!isStoryUnlocked(type)) {
