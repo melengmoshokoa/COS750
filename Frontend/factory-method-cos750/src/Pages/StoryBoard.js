@@ -1931,12 +1931,7 @@ export default function StoryBoard() {
   // ============================================
 
   return (
-    <div className="container" style={{
-        backgroundImage: `url(${woodBg})`,
-        backgroundSize: "cover",
-        backgroundRepeat: "repeat-y",
-        backgroundPosition: "center",
-      }}>
+    <div className="container">
       
       <ProgressDisplay />
       <RewardModal />
