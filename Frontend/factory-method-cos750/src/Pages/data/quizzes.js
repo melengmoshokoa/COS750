@@ -1,282 +1,362 @@
-// src/data/quizzes.js
 export const quizzes = [
   {
     id: 1,
-    title: "Factory Pattern Fundamentals",
+    title: "Phase 1: Problem Recognition",
     questions: [
       {
-        question: "What is the main goal of the Factory Pattern?",
+        question: "1. What problem does the Factory Method primarily solve?",
         options: [
-          "To create objects without specifying exact classes",
-          "To manage database connections", 
-          "To ensure only one instance exists",
-          "To optimize algorithm performance"
+          "Reducing the number of classes needed",
+          "Creating objects without specifying their exact class",
+          "Improving network latency",
+          "Removing inheritance from OOP"
         ],
-        answer: 0
+        answer: "Creating objects without specifying their exact class"
       },
       {
-        question: "Which principle does the Factory Pattern primarily support?",
-        options: [
-          "Open/Closed Principle - open for extension, closed for modification",
-          "Single Responsibility Principle",
-          "Liskov Substitution Principle", 
-          "Interface Segregation Principle"
-        ],
-        answer: 0
+        question: "2. Factory Method helps avoid the anti-pattern of ______.",
+        options: ["Hard-coding", "Abstraction", "Encapsulation", "Polymorphism"],
+        answer: "Hard-coding"
       },
       {
-        question: "In Factory Pattern, what is the main responsibility of the Factory class?",
+        question: "3. What type of OOP issue leads developers to discover the Factory Method?",
         options: [
-          "Encapsulate object creation logic",
-          "Contain business logic for the application",
-          "Handle user authentication",
-          "Manage database transactions"
+          "Tight coupling",
+          "Slow compilers",
+          "Excess memory usage",
+          "Too many loops"
         ],
-        answer: 0
+        answer: "Tight coupling"
       },
       {
-        question: "What problem does the Factory Pattern primarily solve?",
-        options: [
-          "Tight coupling between client code and concrete classes",
-          "Poor database performance", 
-          "Memory leaks in applications",
-          "Slow network requests"
-        ],
-        answer: 0
+        question: "4. Fill in the blank: Factory Method allows a class to defer object creation to ______.",
+        options: ["A parent class", "A subclass", "An interface", "A constructor"],
+        answer: "A subclass"
       },
       {
-        question: "When should you consider using a Factory Pattern?",
+        question: "5. When developers want to eliminate `new` scattered across code, they often move to ______.",
+        options: ["Factory Method", "Recursion", "Singleton", "Adapter Pattern"],
+        answer: "Factory Method"
+      },
+      {
+        question: "6. Which scenario signals the need for Factory Method?",
         options: [
-          "When object creation logic is complex or frequently changes",
-          "When you need exactly one instance of a class",
-          "When you want to add functionality to objects dynamically",
-          "When you need to notify multiple objects about state changes"
+          "You need many unrelated utility functions",
+          "New product types must be added without modifying existing code",
+          "Functions must run faster",
+          "You need to simplify loops"
         ],
-        answer: 0
+        answer: "New product types must be added without modifying existing code"
+      },
+      {
+        question: "7. Factory Method helps reduce the dependency on ______ classes.",
+        options: ["Concrete", "Abstract", "Parent", "Utility"],
+        answer: "Concrete"
+      },
+      {
+        question: "8. The pain of modifying code every time a new object type is added is known as ______.",
+        options: ["Code rot", "Rigid coupling", "Constructor chaining", "Switch fatigue"],
+        answer: "Switch fatigue"
+      },
+      {
+        question: "9. Fill in the blank: Without Factory Method, developers often rely on long ______ statements.",
+        options: ["if-else", "for-loop", "return", "try-catch"],
+        answer: "if-else"
+      },
+      {
+        question: "10. Factory Method is often discovered when scaling ______ systems.",
+        options: ["Object creation-heavy", "Database", "UI", "Network"],
+        answer: "Object creation-heavy"
       }
     ]
   },
   {
     id: 2,
-    title: "Factory Method Implementation",
+    title: "Phase 2: Intent & Definition",
     questions: [
       {
-        question: "Consider this code. What pattern is being demonstrated?\n\nclass CarFactory {\n  createCar(type) {\n    if (type === 'sedan') return new Sedan();\n    if (type === 'suv') return new SUV();\n    if (type === 'sports') return new SportsCar();\n  }\n}",
+        question: "1. What is the 'intent' of the Factory Method?",
         options: [
-          "Factory Pattern",
-          "Singleton Pattern", 
-          "Observer Pattern",
-          "Decorator Pattern"
+          "To make code compile faster",
+          "To define an interface for creating an object",
+          "To remove inheritance",
+          "To improve memory handling"
         ],
-        answer: 0
+        answer: "To define an interface for creating an object"
       },
       {
-        question: "In this code, what is the role of VehicleFactory?\n\nclass VehicleFactory {\n  createVehicle(type) {\n    switch(type) {\n      case 'car': return new Car();\n      case 'bike': return new Bike();\n      case 'truck': return new Truck();\n    }\n  }\n}",
-        options: [
-          "It's a Factory that encapsulates vehicle creation logic",
-          "It's a Singleton that manages vehicle instances",
-          "It's an Observer that monitors vehicle changes",
-          "It's a Decorator that adds features to vehicles"
-        ],
-        answer: 0
+        question: "2. Fill in the blank: Factory Method focuses on creating objects through a ______ method.",
+        options: ["Factory", "Static", "Getter", "Private"],
+        answer: "Factory"
       },
       {
-        question: "What is the key difference between Simple Factory and Factory Method patterns?",
-        options: [
-          "Simple Factory uses one method, Factory Method uses inheritance with subclasses",
-          "Simple Factory is faster than Factory Method",
-          "Factory Method is deprecated, Simple Factory is modern",
-          "There is no difference, they are the same pattern"
-        ],
-        answer: 0
+        question: "3. The Factory Method returns an instance of a ______ class.",
+        options: ["Concrete or derived", "Primitive", "Utility", "Anonymous"],
+        answer: "Concrete or derived"
       },
       {
-        question: "In Factory Method pattern, what do concrete factories typically override?",
-        options: [
-          "The factory method that creates specific products",
-          "The business logic of the application",
-          "The database connection methods",
-          "The user interface components"
-        ],
-        answer: 0
+        question: "4. Which keyword is often involved when defining a base creator class?",
+        options: ["abstract", "static", "final", "virtual"],
+        answer: "abstract"
       },
       {
-        question: "What is typically returned by a factory method?",
+        question: "5. Which of the following best describes a 'creator' class?",
         options: [
-          "An instance of a concrete class that implements a common interface",
-          "A primitive data type like string or number",
-          "Always returns the same singleton instance", 
-          "A function callback"
+          "A class that performs database operations",
+          "A class that declares the factory method",
+          "A class that handles UI rendering",
+          "A class that handles exceptions"
         ],
-        answer: 0
+        answer: "A class that declares the factory method"
+      },
+      {
+        question: "6. What is the product in Factory Method?",
+        options: ["An object created by the factory method", "A log file", "A configuration script", "A database row"],
+        answer: "An object created by the factory method"
+      },
+      {
+        question: "7. Fill in the blank: The Factory Method allows subclasses to ______ the type of object created.",
+        options: ["Decide", "Delete", "Hide", "Clone"],
+        answer: "Decide"
+      },
+      {
+        question: "8. Which is NOT part of the Factory Method intent?",
+        options: ["Decoupling client code", "Deferring object creation decisions", "Increasing code duplication", "Enabling flexibility"],
+        answer: "Increasing code duplication"
+      },
+      {
+        question: "9. Factory Method reinforces which SOLID principle?",
+        options: ["Open/Closed", "Liskov", "Single Responsibility", "Dependency Inversion"],
+        answer: "Open/Closed"
+      },
+      {
+        question: "10. Fill in the blank: Clients use ______ classes, not concrete ones.",
+        options: ["Abstract", "Hidden", "Static", "Sealed"],
+        answer: "Abstract"
       }
     ]
   },
   {
     id: 3,
-    title: "Factory Pattern Advantages & Use Cases", 
+    title: "Phase 3: Structure Understanding",
     questions: [
       {
-        question: "What is the main advantage of using a Factory Pattern?",
-        options: [
-          "Client code is decoupled from concrete implementations",
-          "It makes code run faster",
-          "It reduces memory usage",
-          "It automatically handles errors"
-        ],
-        answer: 0
+        question: "1. In Factory Method, the Creator class usually contains a ______ factory method.",
+        options: ["virtual/abstract", "private", "final", "static"],
+        answer: "virtual/abstract"
       },
       {
-        question: "Which of these scenarios is BEST suited for a Factory Pattern?",
-        options: [
-          "Creating different types of documents (PDF, Word, Excel) based on user selection",
-          "Managing a single database connection throughout the application",
-          "Logging messages to multiple outputs (file, console, database)",
-          "Validating user input in a form"
-        ],
-        answer: 0
+        question: "2. Which class provides the actual object creation logic?",
+        options: ["Concrete Creator", "Client", "Product Interface", "Utility Class"],
+        answer: "Concrete Creator"
       },
       {
-        question: "How does Factory Pattern promote code maintainability?",
-        options: [
-          "By centralizing object creation logic in one place",
-          "By making all classes singletons",
-          "By using global variables for shared state", 
-          "By eliminating all conditional statements"
-        ],
-        answer: 0
+        question: "3. Fill in the blank: The Factory Method returns an object that implements a ______ interface.",
+        options: ["Product", "List", "Static", "Void"],
+        answer: "Product"
       },
       {
-        question: "What would be a good real-world analogy for Factory Pattern?",
-        options: [
-          "A car manufacturing plant that produces different models based on orders",
-          "A unique key that opens only one specific door",
-          "A TV remote that controls multiple devices",
-          "A weather station that updates multiple displays"
-        ],
-        answer: 0
+        question: "4. Which structural element defines different product types?",
+        options: ["Concrete Products", "Clients", "Modules", "Adapters"],
+        answer: "Concrete Products"
       },
       {
-        question: "Which design principle is violated if you don't use Factory Pattern when you have complex object creation?",
-        options: [
-          "Single Responsibility Principle - object creation scattered everywhere",
-          "Liskov Substitution Principle", 
-          "Don't Repeat Yourself (DRY)",
-          "You Aren't Gonna Need It (YAGNI)"
-        ],
-        answer: 0
+        question: "5. What allows Factory Method to use polymorphism?",
+        options: ["Product Interface", "If statements", "Loops", "Naming convention"],
+        answer: "Product Interface"
+      },
+      {
+        question: "6. Fill in the blank: A Creator delegates creation to ______.",
+        options: ["Subclasses", "Interfaces", "Libraries", "Constructors"],
+        answer: "Subclasses"
+      },
+      {
+        question: "7. Which diagram shows Creator → Product relationships?",
+        options: ["UML", "ERD", "Flowchart", "Tree Map"],
+        answer: "UML"
+      },
+      {
+        question: "8. Factory Method eliminates direct calls to ______.",
+        options: ["new", "return", "import", "export"],
+        answer: "new"
+      },
+      {
+        question: "9. What connects Concrete Creator to Concrete Product?",
+        options: ["Factory Method", "Inheritance", "Switch", "Loops"],
+        answer: "Factory Method"
+      },
+      {
+        question: "10. Fill in the blank: The Creator class usually includes core ______ that rely on a product.",
+        options: ["Business logic", "Styling", "Debugging", "Encryption"],
+        answer: "Business logic"
       }
     ]
   },
-  {
+   {
     id: 4,
-    title: "Factory Pattern Variations & Comparisons",
+    title: "Phase 4: Implementation Phase",
     questions: [
       {
-        question: "What is the main difference between Factory Method and Abstract Factory patterns?",
-        options: [
-          "Factory Method creates one product, Abstract Factory creates families of related products",
-          "Factory Method is faster than Abstract Factory",
-          "Abstract Factory is simpler than Factory Method", 
-          "Factory Method is deprecated in favor of Abstract Factory"
-        ],
-        answer: 0
+        question: "1. What must every Concrete Product implement?",
+        options: ["Product Interface", "Database API", "React Component", "None"],
+        answer: "Product Interface"
       },
       {
-        question: "In which scenario would Abstract Factory be better than Factory Method?",
-        options: [
-          "When you need to create families of related objects (e.g., UI components for different OS)",
-          "When you only need to create one type of object",
-          "When performance is the most critical factor",
-          "When you're working with primitive data types only"
-        ],
-        answer: 0
+        question: "2. Fill in the blank: Concrete Creators implement the ______ method.",
+        options: ["Factory", "Private", "Helper", "Cleanup"],
+        answer: "Factory"
       },
       {
-        question: "What is a potential drawback of overusing Factory Pattern?",
-        options: [
-          "Can introduce unnecessary complexity for simple object creation",
-          "Makes code run significantly slower",
-          "Prevents inheritance in child classes",
-          "Forces all objects to be immutable"
-        ],
-        answer: 0
+        question: "3. A typical file structure for Factory Method contains:",
+        options: ["Creator, Concrete Creator, Product, Concrete Product", "Only one file", "Just a constructor", "Only client code"],
+        answer: "Creator, Concrete Creator, Product, Concrete Product"
       },
       {
-        question: "How does Factory Pattern relate to Dependency Injection?",
-        options: [
-          "Factory Pattern can be used to implement Dependency Injection containers",
-          "They are completely unrelated patterns",
-          "Factory Pattern replaces the need for Dependency Injection",
-          "Dependency Injection is a type of Factory Pattern"
-        ],
-        answer: 0
+        question: "4. Which language feature is MOST used in Factory Method?",
+        options: ["Polymorphism", "Threading", "Collections", "Recursion"],
+        answer: "Polymorphism"
       },
       {
-        question: "When might a Static Factory Method be preferred over a regular Factory?",
-        options: [
-          "When you don't need to maintain state in the factory and want simpler syntax",
-          "When you need multiple factory instances with different configurations",
-          "When you're working with inheritance hierarchies",
-          "When you need runtime polymorphism"
-        ],
-        answer: 0
+        question: "5. What happens when you add a new Concrete Product?",
+        options: ["Creator and client remain unchanged", "You must rewrite the whole program", "All classes break", "UML becomes invalid"],
+        answer: "Creator and client remain unchanged"
+      },
+      {
+        question: "6. Fill in the blank: Factory Method improves ______ of code.",
+        options: ["Extensibility", "Indentation", "Animation", "Sorting"],
+        answer: "Extensibility"
+      },
+      {
+        question: "7. Concrete Creators typically override which method?",
+        options: ["createProduct()", "toString()", "equals()", "main()"],
+        answer: "createProduct()"
+      },
+      {
+        question: "8. What is the return type of createProduct()?",
+        options: ["Product interface", "String", "Any primitive", "void"],
+        answer: "Product interface"
+      },
+      {
+        question: "9. Fill in the blank: Client code uses the ______ interface.",
+        options: ["Product", "Concrete", "Module", "Global"],
+        answer: "Product"
+      },
+      {
+        question: "10. Which statement is TRUE?",
+        options: ["Clients never know the concrete product type", "Clients manually instantiate objects", "Factory Method reduces abstraction", "Patterns replace all constructors"],
+        answer: "Clients never know the concrete product type"
       }
     ]
   },
   {
     id: 5,
-    title: "Factory Pattern Code Analysis",
+    title: "Phase 5: Real-World Analogy",
     questions: [
       {
-        question: "Given this code, what improvement would Factory Pattern provide?\n\nfunction createDocument(type) {\n  if (type === 'pdf') {\n    return new PDFDocument();\n  } else if (type === 'word') {\n    return new WordDocument();\n  } else if (type === 'excel') {\n    return new ExcelDocument();\n  }\n}",
-        options: [
-          "Centralize creation logic and make it easier to add new document types",
-          "Make the code run faster",
-          "Reduce memory usage of document objects",
-          "Automatically handle document saving"
-        ],
-        answer: 0
+        question: "1. Factory Method is similar to ordering from a restaurant because:",
+        options: ["You tell the chef HOW to cook", "You request a type, chef decides how it's made", "You enter the kitchen", "You prepare your own meal"],
+        answer: "You request a type, chef decides how it's made"
       },
       {
-        question: "In a Factory Method pattern, what is the relationship between Creator and Product?",
-        options: [
-          "Creator defines factory method that returns Product objects",
-          "Creator inherits from Product",
-          "Product creates Creator instances", 
-          "They are unrelated classes"
-        ],
-        answer: 0
+        question: "2. Fill in the blank: Factory Method hides ______ complexity.",
+        options: ["Creation", "UI", "Network", "Math"],
+        answer: "Creation"
       },
       {
-        question: "What is the benefit of having products implement a common interface in Factory Pattern?",
-        options: [
-          "Client code can work with any product without knowing concrete types",
-          "It makes the factory method simpler to write",
-          "It improves performance of object creation",
-          "It automatically handles garbage collection"
-        ],
-        answer: 0
+        question: "3. A real-world analogy for Concrete Creator is:",
+        options: ["Chef", "Customer", "Menu", "Cashier"],
+        answer: "Chef"
       },
       {
-        question: "How does Factory Pattern support the Open/Closed Principle?",
-        options: [
-          "You can add new product types without modifying existing client code",
-          "It forces all classes to be sealed/final",
-          "It automatically closes unused connections",
-          "It prevents any modifications to existing classes"
-        ],
-        answer: 0
+        question: "4. A Product in the real-world analogy is:",
+        options: ["The meal", "The fridge", "The waiter", "The oven"],
+        answer: "The meal"
       },
       {
-        question: "In a well-designed Factory Pattern, where should the decision logic for which object to create reside?",
-        options: [
-          "Encapsulated within the factory class",
-          "Scattered throughout client code",
-          "In configuration files only",
-          "In the product classes themselves"
-        ],
-        answer: 0
+        question: "5. Fill in the blank: The client only needs a ______ of what they want.",
+        options: ["Type", "Recipe", "Temperature", "Location"],
+        answer: "Type"
+      },
+      {
+        question: "6. Using a ride-hailing app (Uber/Bolt) is an analogy because:",
+        options: ["You choose the car type, the system assigns an actual car", "You drive the car yourself", "You inspect all possible cars", "You repair the engine first"],
+        answer: "You choose the car type, the system assigns an actual car"
+      },
+      {
+        question: "7. Fill in the blank: The system returns a ______ product based on your request.",
+        options: ["Concrete", "Static", "Raw", "Corrupted"],
+        answer: "Concrete"
+      },
+      {
+        question: "8. Which analogy is INCORRECT?",
+        options: ["Coffee machine selecting brew type", "Vending machine selecting item", "You cooking your own food", "Choosing taxi type"],
+        answer: "You cooking your own food"
+      },
+      {
+        question: "9. The idea of only providing the interface and hiding creation is called:",
+        options: ["Abstraction", "Iteration", "Inlining", "Reflection"],
+        answer: "Abstraction"
+      },
+      {
+        question: "10. Fill in the blank: The client never deals with the ______ product class.",
+        options: ["Concrete", "Parent", "Static", "Local"],
+        answer: "Concrete"
+      }
+    ]
+  },
+  {
+    id: 6,
+    title: "Phase 6: Evaluation & Use-Case",
+    questions: [
+      {
+        question: "1. Factory Method is best used when:",
+        options: ["You want to hide concrete classes", "You want direct control over constructors", "You need fewer classes", "You dislike abstraction"],
+        answer: "You want to hide concrete classes"
+      },
+      {
+        question: "2. Fill in the blank: The pattern excels when you expect product types to ______.",
+        options: ["Grow", "Disappear", "Shrink", "Slow"],
+        answer: "Grow"
+      },
+      {
+        question: "3. Which scenario is ideal for Factory Method?",
+        options: ["GUI frameworks generating different buttons", "List sorting", "Summing numbers", "Printing debug logs"],
+        answer: "GUI frameworks generating different buttons"
+      },
+      {
+        question: "4. Fill in the blank: The biggest advantage is supporting the ______ principle.",
+        options: ["Open/Closed", "YAGNI", "KISS", "DRY"],
+        answer: "Open/Closed"
+      },
+      {
+        question: "5. What is a disadvantage?",
+        options: ["More classes are created", "Faster compilation", "Stronger coupling", "No abstraction"],
+        answer: "More classes are created"
+      },
+      {
+        question: "6. Which real-world system uses Factory Method heavily?",
+        options: ["Frameworks", "Books", "Static files", "Random math scripts"],
+        answer: "Frameworks"
+      },
+      {
+        question: "7. Fill in the blank: Testing becomes easier due to ______.",
+        options: ["Loose coupling", "Hard-coded types", "Complex loops", "Large constructors"],
+        answer: "Loose coupling"
+      },
+      {
+        question: "8. Factory Method differs from Abstract Factory because:",
+        options: ["Factory Method creates one product at a time", "It creates families of related objects", "It requires multiple factories", "It only works in Java"],
+        answer: "Factory Method creates one product at a time"
+      },
+      {
+        question: "9. What makes Factory Method easier to extend?",
+        options: ["New classes can be added without modifying old ones", "You use switch statements", "Everything is global", "Objects are static"],
+        answer: "New classes can be added without modifying old ones"
+      },
+      {
+        question: "10. Fill in the blank: Factory Method is a good choice when constructors become ______.",
+        options: ["Complex", "Simple", "Irrelevant", "Unused"],
+        answer: "Complex"
       }
     ]
   }

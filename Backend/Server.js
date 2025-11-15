@@ -198,6 +198,98 @@ app.get('/api/leaderboard', async (req, res) => {
   }
 });
 
+});
+
+// Complete story
+app.post('/api/users/:userId/stories', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { storyType, currentScene } = req.body;
+
+    const { data, error } = await supabase
+      .from('storyboard_user_stories')
+      .insert([{ 
+        user_id: userId, 
+        story_type: storyType, 
+        current_scene: currentScene || 0 
+      }])
+      .select()
+      .single();
+
+    if (error && error.code === '23505') {
+      return res.json({ success: true, message: 'Already completed' });
+    }
+    if (error) throw error;
+
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Get badges
+app.get('/api/users/:userId/badges', async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const { data, error } = await supabase
+      .from('storyboard_user_badges')
+      .select('*')
+      .eq('user_id', userId);
+
+    if (error) throw error;
+    res.json({ success: true, data: data || [] });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Award badge
+app.post('/api/users/:userId/badges', async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const { badgeKey, badgeName, xpAwarded } = req.body;
+
+    const { data, error } = await supabase
+      .from('storyboard_user_badges')
+      .insert([{ 
+        user_id: userId, 
+        badge_key: badgeKey, 
+        badge_name: badgeName, 
+        xp_awarded: xpAwarded 
+      }])
+      .select()
+      .single();
+
+    if (error && error.code === '23505') {
+      return res.json({ success: true, message: 'Badge already earned' });
+    }
+    if (error) throw error;
+
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// Get leaderboard
+app.get('/api/leaderboard', async (req, res) => {
+  try {
+    const limit = parseInt(req.query.limit) || 10;
+
+    const { data, error } = await supabase
+      .from('storyboard_users')
+      .select('user_id, xp, level')
+      .order('xp', { ascending: false })
+      .limit(limit);
+
+    if (error) throw error;
+    res.json({ success: true, data });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 // Start server
 app.listen(PORT, () => {
   console.log('='.repeat(50));

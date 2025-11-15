@@ -7,12 +7,12 @@ function Quizzes() {
   const { currentQuizId, setCurrentQuizId } = useContext(QuizContext);
 
   const lessons = [
-    { id: 1, title: "Factory Pattern", desc: "Problem & Solution" },
-    { id: 2, title: "Singleton Pattern", desc: "Ensure single instance" },
-    { id: 3, title: "Observer Pattern", desc: "Event-driven updates" },
-    { id: 4, title: "Decorator Pattern", desc: "Enhance object behavior" },
-    { id: 5, title: "Strategy Pattern", desc: "Switchable algorithms" },
-    { id: 6, title: "Adapter Pattern", desc: "Interface conversion" },
+    { id: 1, title: "Problem Recognition", desc: "What is the issue?" },
+    { id: 2, title: "Definition & Intent", desc: "What does it solve?" },
+    { id: 3, title: "Structure Understanding", desc: "How does the pattern work?" },
+    { id: 4, title: "Implementation", desc: "How do you code it?" },
+    { id: 5, title: "Real-World Analogy", desc: "How can I visualize it?" },
+    { id: 6, title: "Evaluation & Use-Case", desc: "When to use it?" },
   ];
 
   const handleQuizClick = (quizId) => {
