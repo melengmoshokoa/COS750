@@ -19,6 +19,7 @@ import toolBadge from "./assests/tool-badge.png";
 import paletteBadge from "./assests/palette-badge.png";
 import docBadge from "./assests/doc-badge.png";
 import notiBadge from "./assests/bell-badge.png";
+import woodBg from "./assests/wood.png";
 
 const api = {
   story: storyAPI,
@@ -1930,7 +1931,13 @@ export default function StoryBoard() {
   // ============================================
 
   return (
-    <div className="container">
+    <div className="container" style={{
+        backgroundImage: `url(${woodBg})`,
+        backgroundSize: "cover",
+        backgroundRepeat: "repeat-y",
+        backgroundPosition: "center",
+      }}>
+      
       <ProgressDisplay />
       <RewardModal />
       
