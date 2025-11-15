@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: 'Press Start 2P', 'cursive';
 
-    background-image: url('C:\Users\innoc\Documents\GitHub\COS750\Frontend\factory-method-cos750\src\Media\wood2.png'); /* Change to your file name! */
+    background-image: url('./Media/wood2.png'); /* Change to your file name! */
     background-repeat: repeat; /* Allows the image to tile if it's a small texture */
     background-color: #2c0d00; /* Fallback color (dark wood) */
     background-size: cover; /* Use 'cover' or 'auto' depending on your image */
