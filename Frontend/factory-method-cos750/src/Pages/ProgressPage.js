@@ -2,6 +2,9 @@ import React, { useState } from "react";
 
 const woodBrickBackground = {
   backgroundColor: "#2c0d00", /* Background (dark wood) */
+  backgroundImage: "url('./Media/wood2.png')",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
   minHeight: "100vh",
   padding: "40px",
   fontFamily: "'Press Start 2P', cursive",
@@ -567,4 +570,6 @@ function App() {
 }
 
 export default App;
+
+
 
