@@ -1,5 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 import "./Dashboard.css"; // Assume the correct CSS is linked
 // import QuizAvatar from '../Media/Quiz-logo.jpg';
 import QuizAvatar from "../Media/Quizzes-icon.png";
@@ -11,11 +12,26 @@ import bookmark from "../Media/Boookmark.png";
 import EngineerAvatar from "../Media/MAN.png";
 
 function Dashboard() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
   // Static placeholders for demonstration
   const userName = "ENGINEER";
   const progress = 30; // 30% complete
 
-  // No hooks (like useAuth or useEffect) are used here to keep it static
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        setUser(session.user);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    navigate('/');
+  };
 
   return (
     <div className="dashboard-container">
@@ -37,50 +53,34 @@ function Dashboard() {
       </header>
 
       <div className="dashboard-content-wrapper">
-        <h2>Welcome</h2>
+        <div className="dashboard-main-header">
+          <h2>Welcome!</h2>
+          <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
+        </div>
+
         {/* 2. Welcome/Progress Section */}
         <section className="welcome-section">
-          <div className="user-info">
-            {/* ⬅️ LEFT COLUMN: Avatar & Greeting Text (Needs a wrapper) */}
-            {/* <div className="user-greeting-panel"> 
-                    <span className="engineer-avatar"></span>
-                    <div className="greeting-text">
-                        <p>Welcome back,</p>
-                        <p>**ENGINEER OF {userName}**!</p> 
-                    </div>
-                </div> */}
+          <div className="user-details">
             <div className="avatar-panel">
-              <img
-                src={EngineerAvatar}
-                alt="Engineer Avatar"
-                className="engineer-avatar"
-              />
+              <img src={EngineerAvatar} alt="Engineer Avatar" className="engineer-avatar" />
             </div>
-
             <div className="greeting-text-panel">
-              <p>Welcome back, Pattern Engineer!</p>
+              <p>Welcome back, {user ? user.email : 'Engineer'}! </p>
+              <p>Factory Method Pattern Engineer!</p>
             </div>
+          </div>
 
-            {/* <div className="progress-bar-container">
-              Current Progress: **{progress}%** Complete
-          </div> */}
-
-            <div className="info-bars">
-              {/* Bar 1: Progress (FR6.1) */}
-              <div className="status-bar progress-bar">
-                <div className="bar-value-text">{progress}% COMPLETE</div>
-                <div
-                  className="bar-inner"
-                  style={{ width: `${progress}%` }}
-                ></div>
-              </div>
-
-              {/* Bar 2: Status/Stat Placeholder
+          <div className="info-bars">
+            {/* Bar 1: Progress (FR6.1) */}
+            <div className="status-bar progress-bar">
+              <div className="bar-value-text">{progress}% COMPLETE</div>
+              <div className="bar-inner" style={{ width: `${progress}%` }}></div>
+            </div>
+            {/* Bar 2: Status/Stat Placeholder
               <div className="status-bar retries-bar">
                 <div className="bar-value-text">3 / 10</div>
                 <div className="bar-inner" style={{ width: "30%" }}></div>
               </div> */}
-            </div>
           </div>
         </section>
 
