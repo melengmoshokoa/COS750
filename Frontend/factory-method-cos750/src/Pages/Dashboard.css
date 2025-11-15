@@ -12,6 +12,7 @@ body {
     max-width: 970px;
     margin: 40px auto; 
     padding: 20px;
+
 }
 .dashboard-header {
     background-color: #180902; /* Inner panels */
@@ -19,6 +20,7 @@ body {
     padding: 15px 10px;
     margin-bottom: 20px;
     text-align: center;
+    border-radius: 20px;
 }
 
 .dashboard-header h1 {
@@ -29,6 +31,8 @@ body {
     background-color: #2a1002; /* Inner panels color */
     border: 4px solid #c76a19; /* Secondary orange border */
     padding: 15px; /* Add padding to the whole wrapper */
+        border-radius: 20px;
+
 }
 .welcome-section,
 .storyboards-section,
@@ -37,6 +41,8 @@ body {
     border: 4px solid #c76a19;
     padding: 15px;
     margin-bottom: 20px;
+        border-radius: 20px;
+
 }
 
 .welcome-section h2,
@@ -44,19 +50,21 @@ body {
     font-size: 14px;
     margin-bottom: 10px;
     color: #f69c36; /* Bright orange headings */
+    
 }
 .storyboard-links,
 .assessment-row {
     display: grid;
     gap: 10px;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+     
 }
-.user-info {
+.user-details {
     display: grid;
     grid-template-columns: auto  1fr;
     gap: 20px;
     align-items: center; 
-    padding: 10px 0; 
+    padding: 10px 0;
 }
 .avatar-panel {
     text-align: center;
@@ -70,8 +78,10 @@ body {
 }
 .greeting-text-panel {
     display: flex;
-   margin-left: -400px;
+    margin-left: -120px;
     align-items: center; 
+    flex-direction: column;
+
 }
 .info-bars {
     display: flex;
@@ -79,6 +89,9 @@ body {
     gap: 15px; 
     padding-top: 5px;
     width: 500px;
+    /* grid-column: 1 / -1; Make this element span all grid columns */
+    margin: 0 auto; /* Center the container */
+
 }
 .status-bar {
     position: relative; /* For positioning inner elements */
@@ -87,6 +100,9 @@ body {
     border: 3px solid #c76a19; /* Secondary orange border */
     overflow: hidden; /* Keep the inner bar inside the border */
     box-shadow: inset 1px 1px 0px 0px #c76a19; /* Subtle inner shadow */
+        border-radius: 20px;
+ 
+
 }
 .bar-label {
     font-size: 10px;
@@ -167,7 +183,7 @@ body {
 .quiz-text-content {
   /* Allows the text block to take up the remaining space */
   flex-grow: 1;
-  font-size: 13px;
+  font-size: 17px;
   margin-top: -15px;
 }
 
@@ -192,6 +208,8 @@ body {
     min-height: 100px;
     cursor: pointer;
     transition: all 0.05s ease;
+        border-radius: 20px;
+
 }
 .dashboard-tile:hover,
 .dashboard-tile:focus {
@@ -318,3 +336,35 @@ body {
     margin-top: 10px; 
 }
 
+/* Add this to your Dashboard.css file */
+
+.dashboard-main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px; /* Add some space below the header row */
+}
+
+.sign-out-button {
+    /* Remove absolute positioning */
+    /* position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%); */
+    background-color: #a04b07;
+    color: #ffbf61;
+    border: 2px solid #c76a19;
+    padding: 8px 12px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+        border-radius: 20px;
+
+}
+
+.sign-out-button:hover {
+    background-color: #c76a19;
+    color: white;
+    
+}
