@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { supabase } from "../supabaseClient";
 import "./FlashCards.css";
+import woodBg from "./assests/wood.png";
 
 function FlashCards() {
   const [currentView, setCurrentView] = useState("main");
@@ -40,7 +41,15 @@ function FlashCards() {
   // MAIN SCREEN (❌ no wood background)
   if (currentView === "main") {
     return (
-      <div className="category-selection">
+      <div
+        className="category-selection"
+        style={{
+          backgroundImage: `url(${woodBg})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "repeat-y",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="header">
           <h1>FACTORY METHOD</h1>
           <h2>FLASHCARDS</h2>
@@ -73,9 +82,25 @@ function FlashCards() {
   // DIFFICULTY SCREEN (✅ wood background wrapper added)
   if (currentView === "difficulty") {
     return (
-      <div className="flashcards-page">
+      <div
+        className="flashcards-page"
+        style={{
+          backgroundImage: `url(${woodBg})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "repeat-y",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="flashcards-overlay">
-          <div className="difficulty-selection">
+          <div
+            className="difficulty-selection "
+            style={{
+              backgroundImage: `url(${woodBg})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "repeat-y",
+              backgroundPosition: "center",
+            }}
+          >
             <button
               className="back-button"
               onClick={() => setCurrentView("main")}
@@ -86,7 +111,15 @@ function FlashCards() {
             <h2>Choose Difficulty Level</h2>
             <p>Select how challenging you want your flashcards to be</p>
 
-            <div className="difficulty-levels">
+            <div
+              className="difficulty-levels"
+              style={{
+                backgroundImage: `url(${woodBg})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "repeat-y",
+                backgroundPosition: "center",
+              }}
+            >
               <div
                 className="difficulty-card easy"
                 onClick={async () => {
@@ -150,7 +183,15 @@ function FlashCards() {
 
     if (loading) {
       return (
-        <div className="flashcards-page">
+        <div
+          className="flashcards-page"
+          style={{
+            backgroundImage: `url(${woodBg})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "repeat-y",
+            backgroundPosition: "center",
+          }}
+        >
           <div className="flashcards-overlay">
             <div className="flashcard-viewer-single">
               <h2>Loading flashcards...</h2>
@@ -163,9 +204,25 @@ function FlashCards() {
 
     if (currentCards.length === 0) {
       return (
-        <div className="flashcards-page">
+        <div
+          className="flashcards-page"
+          style={{
+            backgroundImage: `url(${woodBg})`,
+            backgroundSize: "cover",
+            backgroundRepeat: "repeat-y",
+            backgroundPosition: "center",
+          }}
+        >
           <div className="flashcards-overlay">
-            <div className="flashcard-viewer-single">
+            <div
+              className="flashcard-viewer-single"
+              style={{
+                backgroundImage: `url(${woodBg})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "repeat-y",
+                backgroundPosition: "center",
+              }}
+            >
               <button
                 className="back-button"
                 onClick={() => setCurrentView("difficulty")}
@@ -216,9 +273,25 @@ function FlashCards() {
     };
 
     return (
-      <div className="flashcards-page">
+      <div
+        className="flashcards-page"
+        style={{
+          backgroundImage: `url(${woodBg})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "repeat-y",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="flashcards-overlay">
-          <div className="flashcard-viewer-single">
+          <div
+            className="flashcard-viewer-single"
+            style={{
+              backgroundImage: `url(${woodBg})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "repeat-y",
+              backgroundPosition: "center",
+            }}
+          >
             <div className="flashcard-header">
               <button
                 className="back-button"
@@ -240,7 +313,15 @@ function FlashCards() {
               </div>
             </div>
 
-            <div className="flashcard-stack">
+            <div
+              className="flashcard-stack"
+              style={{
+                backgroundImage: `url(${woodBg})`,
+                backgroundSize: "cover",
+                backgroundRepeat: "repeat-y",
+                backgroundPosition: "center",
+              }}
+            >
               <div
                 className={`flashcard-single ${isFlipped ? "flipped" : ""}`}
                 onClick={() => setIsFlipped(!isFlipped)}
@@ -336,9 +417,25 @@ function FlashCards() {
     );
 
     return (
-      <div className="flashcards-page">
+      <div
+        className="flashcards-page"
+        style={{
+          backgroundImage: `url(${woodBg})`,
+          backgroundSize: "cover",
+          backgroundRepeat: "repeat-y",
+          backgroundPosition: "center",
+        }}
+      >
         <div className="flashcards-overlay">
-          <div className="results-screen">
+          <div
+            className="results-screen"
+            style={{
+              backgroundImage: `url(${woodBg})`,
+              backgroundSize: "cover",
+              backgroundRepeat: "repeat-y",
+              backgroundPosition: "center",
+            }}
+          >
             <div className="results-content">
               <h2>🎉 Deck Complete!</h2>
 
