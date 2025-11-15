@@ -84,7 +84,7 @@ function Dashboard() {
         <h2>Interactive Storyboards</h2>
         <div className="storyboard-links">
           {/* Module 1 Link */}
-          <Link to="/modules/concept" className="dashboard-tile">
+          <Link to="/StoryBoard" className="dashboard-tile">
              <span className="tile-icon"></span> 
              <p>Concept</p>
           </Link>
