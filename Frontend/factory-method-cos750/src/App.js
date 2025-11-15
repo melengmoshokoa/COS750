@@ -6,6 +6,7 @@ import Dashboard from './Pages/Dashboard';
 import QuizDashboard from './Pages/QuizDashboard';
 import { QuizProvider } from './Pages/context/QuizContext';
 import SuggestedReads from './Pages/SuggestedReads';
+import ProgressPage from './Pages/ProgressPage';
 
 function App() {
   return (
@@ -16,7 +17,8 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/QuizDashboard" element={<QuizDashboard />} />
         <Route path="/quiz/:lessonId" element={<QuizContent />} />
-        ‹Route path="/SuggestedReads" element={<SuggestedReads • />}•/>
+        <Route path="/SuggestedReads" element={<SuggestedReads /> }/>
+      <Route path="/ProgressPage " element={<ProgressPage /> }/>
   
       </Routes>
     </Router>
