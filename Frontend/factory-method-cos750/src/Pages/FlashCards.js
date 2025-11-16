@@ -304,7 +304,7 @@ function FlashCards() {
                 <div className="progress-text">
                   Card {currentCardIndex + 1} of {currentCards.length}
                 </div>
-                <div className="progress-bar">
+                <div className="progress-bar2">
                   <div
                     className="progress-fill"
                     style={{ width: `${progress}%` }}
