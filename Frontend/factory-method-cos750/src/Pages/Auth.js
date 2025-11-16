@@ -47,59 +47,61 @@ const Auth = () => {
     };
 
     return (
-        <div className="auth-container">
-            <div className="auth-frame">
-                <header className="auth-header">
-                    <h1>Factory Method Adventures</h1>
-                </header>
-
-                <div className="auth-content">
-                    <h2 className="auth-title">{isSignUp ? 'Create Account' : 'Sign In'}</h2>
-                    <form onSubmit={isSignUp ? handleSignUp : handleLogin}>
-                        <div className="input-group">
-                            <label htmlFor="email">Email</label>
-                            <input
-                                id="email"
-                                className="input-field"
-                                type="email"
-                                placeholder="your.email@example.com"
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                        </div>
-                        <div className="input-group">
-                            <label htmlFor="password">Password</label>
-                            <div className="password-wrapper">
+        <div className="auth-page-wrapper">
+            <div className="auth-container">
+                <div className="auth-frame">
+                    <header className="auth-header">
+                        <h1>Factory Method Adventures</h1>
+                    </header>
+    
+                    <div className="auth-content">
+                        <h2 className="auth-title">{isSignUp ? 'Create Account' : 'Sign In'}</h2>
+                        <form onSubmit={isSignUp ? handleSignUp : handleLogin}>
+                            <div className="input-group">
+                                <label htmlFor="email">Email</label>
                                 <input
-                                    id="password"
+                                    id="email"
                                     className="input-field"
-                                    type={showPassword ? 'text' : 'password'}
-                                    placeholder="••••••••"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    type="email"
+                                    placeholder="your.email@example.com"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     required
                                 />
-                                <button type="button" onClick={() => setShowPassword(!showPassword)} className="password-toggle-icon">
-                                    {showPassword ? '🙈' : '👁️'}
-                                </button>
                             </div>
+                            <div className="input-group">
+                                <label htmlFor="password">Password</label>
+                                <div className="password-wrapper">
+                                    <input
+                                        id="password"
+                                        className="input-field"
+                                        type={showPassword ? 'text' : 'password'}
+                                        placeholder="••••••••"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="password-toggle-icon">
+                                        {showPassword ? '🙈' : '👁️'}
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="submit" className="auth-button" disabled={loading}>
+                                {loading ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Login')}
+                            </button>
+                        </form>
+    
+                        <div className="separator">OR</div>
+    
+                        <button onClick={signInWithGoogle} className="google-button" disabled={loading}>
+                            Sign In with Google
+                        </button>
+    
+                        <div className="toggle-auth">
+                            <button onClick={() => setIsSignUp(!isSignUp)} className="toggle-button">
+                                {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
+                            </button>
                         </div>
-                        <button type="submit" className="auth-button" disabled={loading}>
-                            {loading ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Login')}
-                        </button>
-                    </form>
-
-                    <div className="separator">OR</div>
-
-                    <button onClick={signInWithGoogle} className="google-button" disabled={loading}>
-                        Sign In with Google
-                    </button>
-
-                    <div className="toggle-auth">
-                        <button onClick={() => setIsSignUp(!isSignUp)} className="toggle-button">
-                            {isSignUp ? 'Already have an account? Sign In' : 'Need an account? Sign Up'}
-                        </button>
                     </div>
                 </div>
             </div>

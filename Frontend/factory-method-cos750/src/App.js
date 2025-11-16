@@ -46,6 +46,7 @@ function App() {
           <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/" />} />
           <Route path="/QuizDashboard" element={session ? <QuizDashboard /> : <Navigate to="/" />} />
           <Route path="/quiz/:lessonId" element={session ? <QuizContent /> : <Navigate to="/" />} />
+          <Route path="/StoryBoard" element={session ? <StoryBoard /> : <Navigate to="/" />} />
           <Route path="/SuggestedReads" element={session ? <SuggestedReads /> : <Navigate to="/" />} />
           <Route path="/ProgressPage" element={session ? <ProgressPage /> : <Navigate to="/" />} />
           <Route path="/StoryBoard" element={session ? <StoryBoard /> : <Navigate to="/" />} />
