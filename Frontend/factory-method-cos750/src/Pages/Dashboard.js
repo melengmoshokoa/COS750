@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
+import { userAPI } from "../services/apiService";
 import "./Dashboard.css";
 import QuizAvatar from "../Media/Quizzes-icon.png";
 import flashspanner from "../Media/idea.png";
@@ -16,17 +17,28 @@ import dashStory3 from "./assests/dash-story3.png";
 function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  // Static placeholders for demonstration
-  const userName = "ENGINEER";
-  const progress = 30; // 30% complete
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const fetchUser = async () => {
       const {
         data: { session },
       } = await supabase.auth.getSession();
+
       if (session) {
         setUser(session.user);
+        // Once we have the user, fetch their progress
+        try {
+          const { data: userData } = await userAPI.getUser(session.user.id);
+          if (userData) {
+            // Assuming max XP is 600 (6 stories * 100 XP each)
+            const maxXP = 600;
+            const currentProgress = (userData.xp / maxXP) * 100;
+            setProgress(Math.min(currentProgress, 100)); // Cap at 100%
+          }
+        } catch (error) {
+          console.error("Failed to fetch user progress:", error);
+        }
       }
     };
     fetchUser();
@@ -71,7 +83,7 @@ function Dashboard() {
           <div className="info-bars">
             {/* Bar 1: Progress (FR6.1) */}
             <div className="status-bar progress-bar">
-              <div className="bar-value-text">{progress}% COMPLETE</div>
+              <div className="bar-value-text">{Math.round(progress)}% COMPLETE</div>
               <div
                 className="bar-inner"
                 style={{ width: `${progress}%` }}
