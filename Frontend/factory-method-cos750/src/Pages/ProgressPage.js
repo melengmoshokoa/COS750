@@ -16,7 +16,7 @@ import machineBadge from "./assests/dartboard-badge.png";
 import resourceBadge from "./assests/glasses-badges.png";
 import productionBadge from "./assests/magnify-badge.png";
 
-// UPDATED: Match the badge keys that your backend actually returns
+// UPDATED: Fixed duplicate badge keys and added unique badges
 const badgeList = [
   { id: "phase_1_mastery", name: "Phase 1: Problem Recognition Mastery", image: factoryBadge },
   { id: "phase_2_mastery", name: "Phase 2: Intent & Definition Mastery", image: patternBadge },
@@ -28,8 +28,8 @@ const badgeList = [
   { id: "coffee", name: "Coffee Connoisseur", image: coffeeBadge },
   { id: "vehicles", name: "Auto Engineer", image: vehiclesBadge },
   { id: "emails", name: "Notification Expert", image: emailsBadge },
-  { id: "vehicles", name: "Auto Engineer", image: vehiclesBadge },
-  { id: "shapes", name: "Notification Expert", image: shapes },
+  { id: "shapes", name: "Shape Master", image: shapes },
+  { id: "docs", name: "Document Expert", image: docs },
 ];
 
 function ProgressPage() {
@@ -69,11 +69,14 @@ function ProgressPage() {
         
         // ADD DEBUG LOGGING HERE
         console.log("User badges array:", progressData.badges);
-        console.log("Looking for badge with id:", progressData.badges[0]);
+        console.log("Looking for badges with ids:", progressData.badges);
         console.log("Available badges in badgeList:", badgeList.map(b => b.id));
         
-        const foundBadge = badgeList.find(b => b.id === progressData.badges[0]);
-        console.log("Found badge match:", foundBadge);
+        // Check each badge match
+        progressData.badges.forEach(badgeId => {
+          const foundBadge = badgeList.find(b => b.id === badgeId);
+          console.log(`Badge ${badgeId}:`, foundBadge ? "FOUND" : "NOT FOUND", foundBadge);
+        });
         
         setUserProgress(progressData);
 
@@ -89,15 +92,19 @@ function ProgressPage() {
   }, []);
 
   const getEarnedBadges = () => {
-    const earned = badgeList.filter(badge => userProgress.badges.includes(badge.id));
-    console.log("getEarnedBadges result:", earned); // Debug log
+    // Use Set to remove duplicates, then filter and map to badge objects
+    const uniqueBadgeIds = [...new Set(userProgress.badges)];
+    const earned = badgeList.filter(badge => uniqueBadgeIds.includes(badge.id));
+    
+    console.log("Unique badge IDs:", uniqueBadgeIds);
+    console.log("getEarnedBadges result:", earned);
     return earned;
   };
 
   const Inventory = ({ badges, maxSlots = 20 }) => {
     const emptySlots = maxSlots - badges.length;
     
-    console.log("Inventory rendering with badges:", badges); // Debug log
+    console.log("Inventory rendering with badges:", badges);
 
     return (
       <div style={{
@@ -112,7 +119,7 @@ function ProgressPage() {
         margin: "20px auto",
       }}>
         {badges.map((badge) => {
-          console.log("Rendering badge:", badge); // Debug each badge
+          console.log("Rendering badge:", badge.id, badge.name);
           return (
             <div key={badge.id} style={{
               width: "60px",
@@ -122,13 +129,21 @@ function ProgressPage() {
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
+              borderRadius: "4px",
             }} title={badge.name}>
               <img 
                 src={badge.image} 
                 alt={badge.name} 
-                style={{ width: "50px", height: "50px" }} 
-                onError={(e) => console.error(`Image failed to load: ${badge.image}`)}
-                onLoad={() => console.log(`Image loaded: ${badge.image}`)}
+                style={{ 
+                  width: "50px", 
+                  height: "50px",
+                  
+                }} 
+                onError={(e) => {
+                  console.error(`Image failed to load: ${badge.image} for badge ${badge.id}`);
+                  e.target.style.display = 'none';
+                }}
+                onLoad={() => console.log(`Image loaded successfully: ${badge.image}`)}
               />
             </div>
           );
@@ -138,29 +153,34 @@ function ProgressPage() {
           <div key={`empty-${i}`} style={{
             width: "60px",
             height: "60px",
-            border: "2px solid #3a1602",
+            border: "2px dashed #3a1602",
             backgroundColor: "#1c0a00",
+            borderRadius: "4px",
           }} />
         ))}
       </div>
     );
   };
 
-  const PlayerStats = ({ xp, level }) => (
-    <div style={{
-      textAlign: "center",
-      marginBottom: "20px",
-      color: "#f69c36",
-      fontFamily: "'Press Start 2P', cursive",
-      fontSize: "14px",
-    }}>
-      <div>LEVEL: {level}</div>
-      <div>XP: {xp}</div>
-      <div style={{ fontSize: "10px", marginTop: "10px", color: "#ffa500" }}>
-        Badges Earned: {getEarnedBadges().length}
+  const PlayerStats = ({ xp, level }) => {
+    const earnedBadges = getEarnedBadges();
+    
+    return (
+      <div style={{
+        textAlign: "center",
+        marginBottom: "20px",
+        color: "#f69c36",
+        fontFamily: "'Press Start 2P', cursive",
+        fontSize: "14px",
+      }}>
+        <div>LEVEL: {level}</div>
+        <div>XP: {xp}</div>
+        <div style={{ fontSize: "10px", marginTop: "10px", color: "#ffa500" }}>
+          Badges Earned: {earnedBadges.length}
+        </div>
       </div>
-    </div>
-  );
+    );
+  };
 
   if (loading) {
     return (
