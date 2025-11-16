@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
-import "./Dashboard.css"; 
+import "./Dashboard.css";
 import QuizAvatar from "../Media/Quizzes-icon.png";
 import flashspanner from "../Media/idea.png";
 import flashbulb from "../Media/flash-bulb.png";
@@ -9,6 +9,9 @@ import spanner from "../Media/Real-spanner.png";
 import book from "../Media/Books.png";
 import bookmark from "../Media/Boookmark.png";
 import EngineerAvatar from "../Media/MAN.png";
+import dashStory1 from "./assests/dash-story1.png";
+import dashStory2 from "./assests/dash-story2.png";
+import dashStory3 from "./assests/dash-story3.png";
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -19,7 +22,9 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (session) {
         setUser(session.user);
       }
@@ -29,23 +34,11 @@ function Dashboard() {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
-    navigate('/');
+    navigate("/");
   };
 
   return (
     <div className="dashboard-container">
-      {/* { 🛑 PLACEHOLDER WARNING: Will be removed when Auth is ready }
-      <div className="auth-warning" style={{ 
-        backgroundColor: '#a04b07', 
-        border: '3px solid #f69c36', 
-        padding: '10px', 
-        marginBottom: '20px', 
-        textAlign: 'center',
-        color: '#ffbf61' 
-      }}>
-        ⚠️ **DASHBOARD UI PREVIEW:** Authentication and Data are static placeholders.
-      </div> */}
-
       {/* 1. Header Section */}
       <header className="dashboard-header">
         <h1>FACTORY METHOD ADVENTURES</h1>
@@ -54,26 +47,35 @@ function Dashboard() {
       <div className="dashboard-content-wrapper">
         <div className="dashboard-main-header">
           <h2>Welcome!</h2>
-          <button onClick={handleSignOut} className="sign-out-button">Sign Out</button>
+          <button onClick={handleSignOut} className="sign-out-button">
+            Sign Out
+          </button>
         </div>
 
         {/* 2. Welcome/Progress Section */}
         <section className="welcome-section">
-          <div className="user-progress-container">
-            <div className="user-details">
-              <div className="avatar-panel">
-                <img src={EngineerAvatar} alt="Engineer Avatar" className="engineer-avatar" />
-              </div>
-              <div className="greeting-text-panel">
-                <p>Welcome back, {user ? user.email : 'Engineer'}! </p>
-                <p>Factory Method Pattern Engineer!</p>
-              </div>
+          <div className="user-details">
+            <div className="avatar-panel">
+              <img
+                src={EngineerAvatar}
+                alt="Engineer Avatar"
+                className="engineer-avatar"
+              />
             </div>
-            <div className="info-bars">
-              <div className="status-bar progress-bar">
-                <div className="bar-value-text">{progress}% COMPLETE</div>
-                <div className="bar-inner" style={{ width: `${progress}%` }}></div>
-              </div>
+            <div className="greeting-text-panel">
+              <p>Welcome back, {user ? user.email : "Engineer"}! </p>
+              <p>Factory Method Pattern Engineer!</p>
+            </div>
+          </div>
+
+          <div className="info-bars">
+            {/* Bar 1: Progress (FR6.1) */}
+            <div className="status-bar progress-bar">
+              <div className="bar-value-text">{progress}% COMPLETE</div>
+              <div
+                className="bar-inner"
+                style={{ width: `${progress}%` }}
+              ></div>
             </div>
           </div>
         </section>
@@ -84,17 +86,21 @@ function Dashboard() {
           <div className="storyboard-links">
             {/* Module 1 Link */}
             <Link to="/StoryBoard" className="dashboard-tile concept-tile">
-              <span className="tile-icon"></span>
+              <img src={dashStory1} alt="Concept" className="tile-icon-img" />
               <p>Concept</p>
             </Link>
             {/* Module 2 Link */}
             <Link to="/StoryBoard" className="dashboard-tile concept-tile">
-              <span className="tile-icon"></span>
+              <img
+                src={dashStory2}
+                alt="Application"
+                className="tile-icon-img"
+              />
               <p>Application</p>
             </Link>
             {/* Module 3 Link */}
             <Link to="/StoryBoard" className="dashboard-tile concept-tile">
-              <span className="tile-icon"></span>
+              <img src={dashStory3} alt="Theory" className="tile-icon-img" />
               <p>Theory</p>
             </Link>
           </div>
@@ -105,11 +111,7 @@ function Dashboard() {
           {/* Quizzes Tile (Formative Assessment FR4) */}
           <Link to="/QuizDashboard" className="dashboard-tile quiz-tile">
             <h2>Quizzes</h2>
-            {/* <div className="quiz-info-row">
-            <p>CHALLENGE MODE: FACTORY LOGIC TEST!</p>
             
-            <img src={QuizAvatar} alt="Quiz Logo" className="engineer-avatar" /> */}
-
             <div className="quiz-info-row">
               {/* 1. Icon on the left */}
               <img
