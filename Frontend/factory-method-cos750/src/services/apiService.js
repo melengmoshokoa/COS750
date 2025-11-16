@@ -61,4 +61,11 @@ export const badgeAPI = {
   }
 };
 
-export default { user: userAPI, story: storyAPI, badge: badgeAPI };
+export const progressAPI = {
+  async getProgress(userId) {
+    const response = await fetch(`${API_BASE_URL}/user/${userId}/progress`);
+    return handleResponse(response);
+  }
+};
+
+export default { user: userAPI, story: storyAPI, badge: badgeAPI, progress: progressAPI };

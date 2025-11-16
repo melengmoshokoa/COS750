@@ -1,42 +1,104 @@
 import React, { useEffect, useState } from "react";
+import { supabase } from "../supabaseClient";
+import woodBg from "./assests/wood.png";
+import api from "../services/apiService";
 
-// All possible badges (use your actual badge images)
+// Import your badge images from assets
+import pizzaBadge from "./assests/pizza-badge.png";
+import coffeeBadge from "./assests/coffee-badge.png";
+import vehiclesBadge from "./assests/tool-badge.png";
+import emailsBadge from "./assests/bell-badge.png";
+import shapes from "./assests/palette-badge.png";
+import docs from "./assests/doc-badge.png";
+import factoryBadge from "./assests/books-badge.png";
+import patternBadge from "./assests/building-badge.png";
+import machineBadge from "./assests/dartboard-badge.png";
+import resourceBadge from "./assests/glasses-badges.png";
+import productionBadge from "./assests/magnify-badge.png";
+
+// UPDATED: Match the badge keys that your backend actually returns
 const badgeList = [
-  { id: 1, name: "Factory Starter", image: "/badges/factory.png" },
-  { id: 2, name: "Pattern Master", image: "/badges/pattern.png" },
-  { id: 3, name: "Machine Optimizer", image: "/badges/machine.png" },
-  { id: 4, name: "Resource Manager", image: "/badges/resource.png" },
-  { id: 5, name: "Production Flow", image: "/badges/production.png" },
+  { id: "phase_1_mastery", name: "Phase 1: Problem Recognition Mastery", image: factoryBadge },
+  { id: "phase_2_mastery", name: "Phase 2: Intent & Definition Mastery", image: patternBadge },
+  { id: "phase_3_mastery", name: "Phase 3: Machine Optimizer", image: machineBadge },
+  { id: "phase_4_mastery", name: "Phase 4: Resource Manager", image: resourceBadge },
+  { id: "phase_5_mastery", name: "Phase 5: Production Flow", image: productionBadge },
+  { id: "phase_6_mastery", name: "Phase 6: Advanced Production", image: productionBadge },
+  { id: "pizza", name: "Pizza Master", image: pizzaBadge },
+  { id: "coffee", name: "Coffee Connoisseur", image: coffeeBadge },
+  { id: "vehicles", name: "Auto Engineer", image: vehiclesBadge },
+  { id: "emails", name: "Notification Expert", image: emailsBadge },
+  { id: "vehicles", name: "Auto Engineer", image: vehiclesBadge },
+  { id: "shapes", name: "Notification Expert", image: shapes },
 ];
 
-function ProgressPage({ userId }) {
+function ProgressPage() {
   const [userProgress, setUserProgress] = useState({ level: 1, xp: 0, badges: [] });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [userId, setUserId] = useState(null);
 
-  // Fetch user progress from backend
   useEffect(() => {
-    const fetchUserProgress = async () => {
+    const fetchUserAndProgress = async () => {
       try {
-        const response = await fetch(`/api/user/${userId}/progress`);
-        const data = await response.json();
-        // Expecting data = { level: number, xp: number, badges: [badgeId, ...] }
-        setUserProgress(data);
-        setLoading(false);
+        setError(null);
+        
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+
+        if (sessionError) {
+          console.error("Error getting session:", sessionError);
+          setError("Failed to load user session");
+          setLoading(false);
+          return;
+        }
+
+        if (!session || !session.user) {
+          console.log("No active session");
+          setError("Please log in to view your progress");
+          setLoading(false);
+          return;
+        }
+
+        const currentUserId = session.user.id;
+        setUserId(currentUserId);
+        console.log("User ID:", currentUserId);
+
+        console.log("Loading user progress...");
+        const progressData = await api.progress.getProgress(currentUserId);
+        console.log("Progress data received:", progressData);
+        
+        // ADD DEBUG LOGGING HERE
+        console.log("User badges array:", progressData.badges);
+        console.log("Looking for badge with id:", progressData.badges[0]);
+        console.log("Available badges in badgeList:", badgeList.map(b => b.id));
+        
+        const foundBadge = badgeList.find(b => b.id === progressData.badges[0]);
+        console.log("Found badge match:", foundBadge);
+        
+        setUserProgress(progressData);
+
       } catch (error) {
         console.error("Failed to fetch user progress:", error);
+        setError("Failed to load progress data: " + error.message);
+      } finally {
         setLoading(false);
       }
     };
 
-    fetchUserProgress();
-  }, [userId]);
+    fetchUserAndProgress();
+  }, []);
 
   const getEarnedBadges = () => {
-    return badgeList.filter(badge => userProgress.badges.includes(badge.id));
+    const earned = badgeList.filter(badge => userProgress.badges.includes(badge.id));
+    console.log("getEarnedBadges result:", earned); // Debug log
+    return earned;
   };
 
   const Inventory = ({ badges, maxSlots = 20 }) => {
     const emptySlots = maxSlots - badges.length;
+    
+    console.log("Inventory rendering with badges:", badges); // Debug log
+
     return (
       <div style={{
         display: "grid",
@@ -49,22 +111,31 @@ function ProgressPage({ userId }) {
         maxWidth: "max-content",
         margin: "20px auto",
       }}>
-        {badges.map(badge => (
-          <div key={badge.id} style={{
-            width: "60px",
-            height: "60px",
-            border: "2px solid #c76a19",
-            backgroundColor: "#3a1602",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            cursor: "pointer",
-          }} title={badge.name}>
-            <img src={badge.image} alt={badge.name} style={{ width: "50px", height: "50px" }} />
-          </div>
-        ))}
+        {badges.map((badge) => {
+          console.log("Rendering badge:", badge); // Debug each badge
+          return (
+            <div key={badge.id} style={{
+              width: "60px",
+              height: "60px",
+              border: "2px solid #c76a19",
+              backgroundColor: "#3a1602",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }} title={badge.name}>
+              <img 
+                src={badge.image} 
+                alt={badge.name} 
+                style={{ width: "50px", height: "50px" }} 
+                onError={(e) => console.error(`Image failed to load: ${badge.image}`)}
+                onLoad={() => console.log(`Image loaded: ${badge.image}`)}
+              />
+            </div>
+          );
+        })}
+
         {[...Array(emptySlots)].map((_, i) => (
-          <div key={i} style={{
+          <div key={`empty-${i}`} style={{
             width: "60px",
             height: "60px",
             border: "2px solid #3a1602",
@@ -83,14 +154,11 @@ function ProgressPage({ userId }) {
       fontFamily: "'Press Start 2P', cursive",
       fontSize: "14px",
     }}>
-      <div style={{
-      textAlign: "center",
-      marginBottom: "20px",
-      color: "#f69c36",
-      fontFamily: "'Press Start 2P', cursive",
-      fontSize: "14px",
-    }}>LEVEL: {level}</div>
+      <div>LEVEL: {level}</div>
       <div>XP: {xp}</div>
+      <div style={{ fontSize: "10px", marginTop: "10px", color: "#ffa500" }}>
+        Badges Earned: {getEarnedBadges().length}
+      </div>
     </div>
   );
 
@@ -102,9 +170,25 @@ function ProgressPage({ userId }) {
     );
   }
 
+  if (error) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "50px", color: "#ff6b6b" }}>
+        {error}
+        {!userId && (
+          <div style={{ marginTop: "10px", fontSize: "12px" }}>
+            Please make sure you are logged in.
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div style={{
-      backgroundColor: "#2c0d00",
+      backgroundImage: `url(${woodBg})`,
+      backgroundSize: "cover",
+      backgroundRepeat: "repeat-y",
+      backgroundPosition: "center",
       minHeight: "100vh",
       padding: "40px",
       fontFamily: "'Press Start 2P', cursive",
