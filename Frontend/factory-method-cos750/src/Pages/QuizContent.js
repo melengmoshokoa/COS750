@@ -330,7 +330,7 @@ function QuizContent() {
           )}
 
           <p className="xp-earned">
-            ⭐ XP Earned: {score * 10} (Total: {currentXP})
+            ⭐ XP Earned: {score * 10}
           </p>
         </div>
       )}
