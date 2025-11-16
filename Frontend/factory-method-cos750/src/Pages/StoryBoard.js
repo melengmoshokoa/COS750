@@ -1382,7 +1382,7 @@ PDF            DOCX         XLSX`;
         characterName: "Manager Danielle",
         dialogue: "For example, a PDFDocumentFactory returns a PDF handler with `open()` and `save()` methods. WordDocumentFactory does the same for Word files. Uniform interface, different implementations — simple and professional.",
         choices: [
-          { text: "That's practical!", nextScene: 6 },
+          { text: "That's practical!", nextScene: 4 },
           { text: "Show me the code!", nextScene: 7 }
         ]
       },
