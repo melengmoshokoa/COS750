@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
-import "./Dashboard.css"; // Assume the correct CSS is linked
-// import QuizAvatar from '../Media/Quiz-logo.jpg';
+import "./Dashboard.css"; 
 import QuizAvatar from "../Media/Quizzes-icon.png";
 import flashspanner from "../Media/idea.png";
 import flashbulb from "../Media/flash-bulb.png";
