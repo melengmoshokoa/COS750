@@ -471,125 +471,196 @@ Espresso       Latte        Cappuccino`;
   }
   
   getNovelScenes() {
-    const chunks = this.getCodeChunks();
-    const diagram = this.getDiagram();
+  const chunks = this.getCodeChunks();
+  const diagram = this.getDiagram();
 
-    return [
-      {
-        id: 0,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "Welcome to **Code & Coffee** – the only café where beans and bugs get debugged side-by-side! I'm Emma, your jittery but dependable barista. Ready for a warm cup of Factory Method?",
-        choices: [
-          { text: "Give me the espresso version!", nextScene: 1 },
-          { text: "I'm here for the code (and caffeine).", nextScene: 1 }
-        ]
-      },
-      {
-        id: 1,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "Our café gets all sorts of orders: Espresso, Latte, Cappuccino, and even declarations of love (over coffee). Each drink has its own recipe – but our workflow stays the same: brew → serve → make the customer smile.",
-        choices: [{ text: "How do you handle all that?", nextScene: 2 }]
-      },
-      {
-        id: 2,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "Meet the CoffeeFactory – our heroic ordering counter. Tell it 'Latte' and it returns a Latte object, ready to be brewed. No frantic recipe searching, no milk fights.",
-        choices: [
-          { text: "Show me an example order", nextScene: 3 },
-          { text: "What's the interface?", nextScene: 5 }
-        ]
-      },
-      {
-        id: 3,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "You: 'One Latte, please.'\nEmma: 'One Latte, coming up!' The factory says: 'Creating Latte object!' – then the machine whispers: 'Psst – call brew() and I'll do the rest.'",
-        choices: [
-          { text: "Cute. Show the diagram", nextScene: 4 },
-          { text: "Show me the code – quick!", nextScene: 6 }
-        ]
-      },
-      {
-        id: 4,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "Diagram time! Imagine: Creator → Factory → Coffee (interface) → Concrete Coffees. It's like a conveyor belt of caffeinated joy.",
-        diagram: diagram,
-        choices: [{ text: "Gimme the code", nextScene: 6 }]
-      },
-      {
-        id: 5,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "Every drink must implement `brew()` – it's the sacred ritual. If a drink refuses, we send it to the decaf corner.",
-        codeExample: chunks.product,
-        choices: [{ text: "Show the drinks!", nextScene: 7 }]
-      },
-      {
-        id: 6,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "Alright, code-lover. Here's the bite-sized version – interfaces, products, factories. It compiles faster than I can steam milk.",
-        codeExample: chunks.product,
-        choices: [{ text: "Take me to the drinks", nextScene: 7 }]
-      },
-      {
-        id: 7,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "Meet Espresso (short, strong, dramatic) and Latte (tall, milky, hugs your soul). Each has its own `brew()` implementation – but both obey the Coffee interface.",
-        codeExample: chunks.concreteProducts,
-        choices: [{ text: "Show me factories", nextScene: 8 }]
-      },
-      {
-        id: 8,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "The CoffeeFactory interface declares `createCoffee()` – every concrete factory must know how to make its drink. Think of it as the barista's oath.",
-        codeExample: chunks.factory,
-        choices: [{ text: "Concrete factories please", nextScene: 9 }]
-      },
-      {
-        id: 9,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "EspressoFactory? Tiny machine with lots of attitude. LatteFactory? A soft giant who loves steamed milk. Each factory returns its coffee object. No drama, just efficiency.",
-        codeExample: chunks.concreteFactories,
-        choices: [{ text: "How do customers order?", nextScene: 10 }]
-      },
-      {
-        id: 10,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "Client code time: instantiate a factory, call createCoffee(), then brew(). The client never needs to know the coffee's inner secrets – like which bean cried during roast day.",
-        codeExample: chunks.client,
-        choices: [{ text: "Show full program", nextScene: 11 }]
-      },
-      {
-        id: 11,
-        background: coffeeImg,
-        character: baristaImg,
-        characterName: "Barista Emma",
-        dialogue: "Here's the full program – everything stitched together like a perfect latte art heart. Congratulations, you can now 👩‍🍳 brew with design patterns!",
-        codeExample: this.getCodeExample(),
-        choices: [{ text: "Complete Story ", nextScene: "HOME" }]
-      }
-    ];
-  }
+  return [
+    // SCENE 0
+    {
+      id: 0,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Welcome to **Code & Coffee** ☕✨ – the coziest corner where warm drinks meet warm debugging energy. I’m Emma, your barista! I’ll be your guide through the Factory Method pattern… gently, like a soft morning pour-over.",
+      choices: [
+        { text: "Give me the espresso version!", nextScene: 1 },
+        { text: "I'm here for the code (and caffeine).", nextScene: 1 }
+      ]
+    },
+
+    // SCENE 1
+    {
+      id: 1,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Our café gets all sorts of drink requests every day — Espresso, Latte, Cappuccino, Chai… and the occasional ‘surprise me’ order. Each drink is unique, but the flow is always the same: mix → brew → serve → smile. Simple and soothing.",
+      choices: [{ text: "How do you manage all that variety?", nextScene: 2 }]
+    },
+
+    // SCENE 2
+    {
+      id: 2,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "That’s where our **CoffeeFactory** comes in. You tell it what you want, and it hands you back the right coffee object. No scrambling, no chaos, just a peaceful brewing symphony.",
+      choices: [
+        { text: "Show me an example order", nextScene: 3 },
+        { text: "What's the interface like?", nextScene: 5 }
+      ]
+    },
+
+    // SCENE 3
+    {
+      id: 3,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Let’s imagine it. You say: *'One Latte, please!'* 🍶 And the factory quietly replies: *‘Creating Latte object…’* It hands it off to the barista bot, which whispers: *‘Call brew() and I’ll make magic.’* It’s teamwork with a sprinkle of caffeine.",
+      choices: [
+        { text: "Aww, that’s cute. Show me the diagram.", nextScene: 4 },
+        { text: "Show me the code – gently.", nextScene: 6 }
+      ]
+    },
+
+    // SCENE 4
+    {
+      id: 4,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Here’s a simple diagram – think of it as a warm flowchart: Creator → Factory → Coffee Interface → Concrete Coffees. Everything moving smoothly, like a perfect morning routine.",
+      diagram: diagram,
+      choices: [{ text: "Ready for code!", nextScene: 6 }]
+    },
+
+    // SCENE 5 — PRODUCT INTERFACE
+    {
+      id: 5,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Every drink follows the same rule: it must implement `brew()`. It’s our café’s sacred ritual. Without it, the drink just… sits there, shy and unprepared.",
+      codeExample: chunks.product,
+      choices: [{ text: "Show me the actual drinks!", nextScene: 7 }]
+    },
+
+    // SCENE 6 — INTERFACE AGAIN (for alternative route)
+    {
+      id: 6,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Here’s the heart of the system. A soft introduction to interfaces, products, and factories – all cooperating like friendly baristas on a calm weekday morning.",
+      codeExample: chunks.product,
+      choices: [{ text: "Take me to the drinks", nextScene: 7 }]
+    },
+
+    // SCENE 7 — CONCRETE PRODUCTS
+    {
+      id: 7,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Meet our star beverages! Espresso — bold and dramatic. Latte — creamy and comforting. Each has their own `brew()` personality, yet both follow the Coffee interface with respect and harmony.",
+      codeExample: chunks.concreteProducts,
+      choices: [{ text: "And the factories?", nextScene: 8 }]
+    },
+
+    // SCENE 8 — FACTORY INTERFACE
+    {
+      id: 8,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Here’s our **CoffeeFactory** interface. It promises one thing: `createCoffee()`. Every concrete factory must honor that promise, like a barista’s oath whispered over warm espresso.",
+      codeExample: chunks.factory,
+      choices: [{ text: "Show me the real factories", nextScene: 9 }]
+    },
+
+    // SCENE 9 — CONCRETE FACTORIES
+    {
+      id: 9,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Here they are! EspressoFactory — compact and full of spark. LatteFactory — gentle and generous with milk foam. Each returns its drink with quiet confidence.",
+      codeExample: chunks.concreteFactories,
+      choices: [{ text: "How do customers actually order?", nextScene: 10 }]
+    },
+
+    // SCENE 10 — CLIENT CODE
+    {
+      id: 10,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "This is what the client does: pick a factory → call createCoffee() → brew() the result. The customer never worries about the inner mechanics. Just like how you can enjoy the drink without seeing the 6 a.m. bean grind chaos.",
+      codeExample: chunks.client,
+      choices: [{ text: "Show me the full program!", nextScene: 11 }]
+    },
+
+    // SCENE 11 — FULL CODE
+    {
+      id: 11,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Here’s the full café system in all its cozy glory—interfaces, drinks, factories, and client code stitched together like a latte heart. You’re brewing design patterns like a pro now!",
+      codeExample: this.getCodeExample(),
+      choices: [{ text: "Continue", nextScene: 12 }]
+    },
+    {
+      id: 12,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "You know… code is a lot like coffee. It’s easier to enjoy when someone guides you gently through it. I’m glad you stayed for the whole brew. You did amazing.",
+      choices: [{ text: "Emma… you’re sweet.", nextScene: 13 }]
+    },
+    {
+      id: 13,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Aww! Well, good code deserves warmth. And good learners deserve encouragement. There’s always room at this café for someone who codes with curiosity.",
+      choices: [{ text: "Anything else I should know?", nextScene: 14 }]
+    },
+    {
+      id: 14,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Just remember: Factory Method shines when you want flexibility and consistency. It keeps code organized and leaves room for new drinks—uhh, objects—without drama.",
+      choices: [{ text: "Thanks, Emma ☕", nextScene: 15 }]
+    },
+    {
+      id: 15,
+      background: coffeeImg,
+      character: baristaImg,
+      characterName: "Barista Emma",
+      dialogue:
+        "Thank you for sharing this calm coding moment with me. Whenever you need another warm cup of design patterns, you know where to find me.",
+      choices: [{ text: "Complete Story", nextScene: "HOME" }]
+    }
+  ];
+}
 }
 
 class Vehiclesboard {
@@ -698,143 +769,174 @@ Car            Bike         Truck`;
   getNovelScenes() {
     const chunks = this.getCodeChunks();
     const diagram = this.getDiagram();
-    
+
     return [
+      // SCENE 0
       {
-        background: mechanicImg, 
+        background: mechanicImg,
         character: michelleImg,
         characterName: "Mechanic Michelle",
-        dialogue: "Hey there! Welcome to Mich's Auto Shop. Today I'll teach you about the Factory Method pattern using vehicles!",
+        dialogue:
+          "Oh. A customer. Great. Welcome to Mich’s Auto Shop—where the tools are sharp, the engines are loud, and the code is cleaner than your browser history. Today I’ll teach you about the Factory Method. Try to keep up.",
         choices: [
-          { text: "Show me the vehicles", nextScene: 1 },
-          { text: "What's a Factory Method?", nextScene: 4 }
+          { text: "Uh… okay?", nextScene: 1 }
         ]
       },
+
+      // SCENE 1
       {
-        background: mechanicImg, 
+        background: mechanicImg,
         character: michelleImg,
         characterName: "Mechanic Michelle",
-        dialogue: "In my shop, we work on all kinds of vehicles - cars, bikes, trucks, you name it! Each one needs different maintenance.",
         diagram: diagram,
+        dialogue:
+          "See this mess? Cars, bikes, trucks—everyone wants something different. If I had to manually create each one in code I’d go insane. And trust me, I’m already halfway there.",
         choices: [
-          { text: "That sounds complex", nextScene: 2 }
+          { text: "Looks complicated...", nextScene: 2 }
         ]
       },
+
+      // SCENE 2
       {
-        background: mechanicImg, 
+        background: mechanicImg,
         character: michelleImg,
         characterName: "Mechanic Michelle",
-        dialogue: "That's where the VehicleFactory pattern helps us. Instead of writing separate code for each vehicle type, the factory handles creation for us!",
+        dialogue:
+          "Relax. That's where the Factory Method helps. Instead of you writing `new Car()` like a chaotic goblin, the factory decides what vehicle to create. Keeps things neat. Unlike your variable naming habits.",
         choices: [
-          { text: "How does it work?", nextScene: 3 },
-          { text: "Show me code", nextScene: 7 }
+          { text: "How does it actually work?", nextScene: 3 }
         ]
       },
+
+      // SCENE 3
       {
-        background: mechanicImg, 
+        background: mechanicImg,
         character: michelleImg,
         characterName: "Mechanic Michelle",
-        dialogue: "Each vehicle implements a Vehicle interface with methods like drive(), maintenance(), and repair(). The factory creates the right vehicle object for each job!",
+        dialogue:
+          "Every vehicle follows the same interface. Same functions. Different behavior. It's like how all customers ask questions, but only some of them are tolerable.",
         choices: [
-          { text: "Brilliant!", nextScene: 6 },
-          { text: "Show me the code!", nextScene: 7 }
+          { text: "Show me the Vehicle interface", nextScene: 4 }
         ]
       },
+
+      // SCENE 4 — Product Code
       {
-        background: mechanicImg, 
+        background: mechanicImg,
         character: michelleImg,
         characterName: "Mechanic Michelle",
-        dialogue: "The Factory Method is a creational design pattern. It provides an interface for creating objects, but lets subclasses decide which class to instantiate!",
-        choices: [
-          { text: "Got it!", nextScene: 2 }
-        ]
-      },
-      {
-        background: mechanicImg, 
-        character: michelleImg,
-        characterName: "Mechanic Michelle",
-        dialogue: "Here's the magic: vehicleFactory.createVehicle() returns a Vehicle object with all its methods ready. Same interface, different implementations!",
-        choices: [
-          { text: "Perfect!", nextScene: 6 },
-          { text: "Show me the code!", nextScene: 7 }
-        ]
-      },
-      {
-        background: mechanicImg, 
-        character: michelleImg,
-        characterName: "Mechanic Michelle",
-        dialogue: "Now you get it! Want to add electric vehicles? Just create a new ElectricCar class. The factory pattern makes our code flexible and maintainable!",
-        choices: [
-          { text: "Show me the code!", nextScene: 7 },
-          { text: "I'm ready!", nextScene: null }
-        ]
-      },
-      // NEW: Code explanation scenes with chunks
-      {
-        background: mechanicImg, 
-        character: michelleImg,
-        characterName: "Mechanic Michelle",
-        dialogue: "Let's start with the Vehicle interface! This is our blueprint - every vehicle must implement the drive() method. Think of it as the basic controls every vehicle needs!",
         codeExample: chunks.product,
+        dialogue:
+          "Behold—the Vehicle interface! This is the holy scripture. Every vehicle MUST have a drive() method. No exceptions. Even your imaginary flying scooter idea.",
         choices: [
-          { text: "Show me actual vehicles!", nextScene: 8 }
+          { text: "Okay, what about actual vehicles?", nextScene: 5 }
         ]
       },
+
+      // SCENE 5 — Concrete Products Code
       {
-        background: mechanicImg, 
+        background: mechanicImg,
         character: michelleImg,
         characterName: "Mechanic Michelle",
-        dialogue: "Here are our Concrete Products - Car and Bike! Each implements drive() differently. Car drives on 4 wheels, Bike rides on 2 wheels. Same method, different behavior!",
         codeExample: chunks.concreteProducts,
+        dialogue:
+          "These are the concrete products. Cars drive on 4 wheels. Bikes ride on 2. Shocking, I know. Same method name, different personality—like siblings.",
         choices: [
-          { text: "How do we create them?", nextScene: 9 }
+          { text: "Cool. How do we create them?", nextScene: 6 }
         ]
       },
+
+      // SCENE 6 — Factory Interface
       {
-        background: mechanicImg, 
+        background: mechanicImg,
         character: michelleImg,
         characterName: "Mechanic Michelle",
-        dialogue: "This is the VehicleFactory interface! It's like our manufacturing blueprint. Any factory must implement createVehicle() to produce vehicles!",
         codeExample: chunks.factory,
+        dialogue:
+          "This is the VehicleFactory. An abstract factory that says: 'If you're gonna build vehicles, at least agree on how.' Wish customers followed rules this well.",
         choices: [
-          { text: "Show me the real factories!", nextScene: 10 }
+          { text: "And the real factories?", nextScene: 7 }
         ]
       },
+
+      // SCENE 7 — Concrete Factories
       {
-        background: mechanicImg, 
+        background: mechanicImg,
         character: michelleImg,
         characterName: "Mechanic Michelle",
-        dialogue: "Here are our Concrete Factories! CarFactory builds Cars, BikeFactory builds Bikes. Each factory specializes in creating one type of vehicle!",
         codeExample: chunks.concreteFactories,
+        dialogue:
+          "These are the concrete factories. CarFactory makes Cars. BikeFactory makes Bikes. You’d think this is obvious, but people still get confused. Yes, really.",
         choices: [
-          { text: "How do customers use this?", nextScene: 11 }
+          { text: "How do we use this?", nextScene: 8 }
         ]
       },
+
+      // SCENE 8 — Client Code
       {
-        background: mechanicImg, 
+        background: mechanicImg,
         character: michelleImg,
         characterName: "Mechanic Michelle",
-        dialogue: "This is the Client Code - how customers actually get vehicles! Pick a factory, create your vehicle, then drive away! Notice how clean and simple the interface is?",
         codeExample: chunks.client,
+        dialogue:
+          "Here’s how a normal human (or programmer) uses the factories. Pick a factory, create a vehicle, drive it. No extra nonsense. No `switch` statements from hell.",
         choices: [
-          { text: "Show me the complete system", nextScene: 12 },
-          { text: "I understand now!", nextScene: 6 }
+          { text: "Show me the whole system", nextScene: 9 }
         ]
       },
+
+      // SCENE 9 — Full Code
       {
-        background: mechanicImg, 
+        background: mechanicImg,
         character: michelleImg,
         characterName: "Mechanic Michelle",
-        dialogue: "Here's the complete vehicle system! All components working together - interface, products, factories, and client. That's the Factory Method pattern revving at full power!",
         codeExample: this.getCodeExample(),
+        dialogue:
+          "There. The whole beautiful system. Interface. Products. Factories. Client. A masterpiece. Honestly, I cry a little every time I see code this clean.",
         choices: [
-          { text: "Amazing!", nextScene: 6 },
-          { text: "Show me the diagram", nextScene: 1 }
+          { text: "Wow, that's neat", nextScene: 10 }
+        ]
+      },
+
+      // SCENE 10 — Sarcastic Commentary
+      {
+        background: mechanicImg,
+        character: michelleImg,
+        characterName: "Mechanic Michelle",
+        dialogue:
+          "Look at you, still here. Most students disappear around Scene 4. Good job not running away. Or passing out. Or exploding from pointer confusion.",
+        choices: [
+          { text: "Thanks... I think?", nextScene: 11 }
+        ]
+      },
+
+      // SCENE 11 — Warning
+      {
+        background: mechanicImg,
+        character: michelleImg,
+        characterName: "Mechanic Michelle",
+        dialogue:
+          "Listen carefully: If you EVER create vehicles directly in your client code again, I will personally revoke your keyboard privileges. Use. The. Factory.",
+        choices: [
+          { text: "I swear I'll behave", nextScene: 12 }
+        ]
+      },
+
+      // SCENE 12 — Final Sarcastic Wrap
+      {
+        background: mechanicImg,
+        character: michelleImg,
+        characterName: "Mechanic Michelle",
+        dialogue:
+          "Well, look at that. You actually understand the Factory Method. I’m almost proud. ALMOST. Now go build something before I change my mind.",
+        choices: [
+          { text: "Complete Story", nextScene: "HOME" }
         ]
       }
     ];
   }
 }
+
 
 class Shapesboard {
   getTitle() { return "SHAPES"; }
@@ -939,145 +1041,204 @@ Circle         Square       Triangle`;
   }
   
   getNovelScenes() {
-    const chunks = this.getCodeChunks();
-    const diagram = this.getDiagram();
-    
-    return [
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "Hello! I'm Sophia, a digital artist. Let me show you how the Factory Method helps me create different shapes in my artwork!",
-        choices: [
-          { text: "Show me your shapes", nextScene: 1 },
-          { text: "Why use a factory?", nextScene: 4 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "In graphic design, we work with many shapes - circles, squares, triangles, and more complex polygons. Each has different properties and calculations.",
-        choices: [
-          { text: "How do you handle that?", nextScene: 2 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "The ShapeFactory pattern makes it easy! I just tell it what shape I need, and it creates the right object with all its methods ready to use.",
-        diagram: diagram,
-        choices: [
-          { text: "Show me an example", nextScene: 3 },
-          { text: "What methods?", nextScene: 5 },
-          { text: "Show me the code!", nextScene: 7 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "For example: a CircleFactory gives me a Circle object with draw() and area() methods. Same consistent interface for all shapes!",
-        choices: [
-          { text: "That's so elegant!", nextScene: 6 },
-          { text: "Show me the code!", nextScene: 7 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "Without a factory, I'd need if-else statements everywhere. The factory centralizes object creation, making my code cleaner and easier to extend!",
-        choices: [
-          { text: "I see!", nextScene: 2 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "Each shape implements the Shape interface: draw() and area(). This consistency makes them interchangeable in my designs!",
-        choices: [
-          { text: "Smart design!", nextScene: 6 },
-          { text: "Show me the code!", nextScene: 7 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "Exactly! And when I need a new shape, I just add a new class. The factory pattern makes digital art programming so much more creative and flexible!",
-        choices: [
-          { text: "Show me the code!", nextScene: 7 },
-          { text: "Perfect!", nextScene: null }
-        ]
-      },
-      // NEW: Code explanation scenes with chunks
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "Let's start with the Shape interface! This is my canvas foundation - every shape must implement draw() and area() methods. It's like having standard tools for all my artwork!",
-        codeExample: chunks.product,
-        choices: [
-          { text: "Show me a real shape!", nextScene: 8 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "Here's a Concrete Product - the Circle! Notice it has a radius property and implements both draw() and area() methods. The area uses π × r² - beautiful math meets beautiful art!",
-        codeExample: chunks.concreteProduct,
-        choices: [
-          { text: "How do we create shapes?", nextScene: 9 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "This is the ShapeFactory interface! It's like my design studio blueprint. Any factory must implement createShape() to produce shapes for my artwork!",
-        codeExample: chunks.factory,
-        choices: [
-          { text: "Show me a real factory!", nextScene: 10 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "Here's the CircleFactory! Notice it takes a radius parameter and uses it to create Circle objects. Each factory can customize its products with specific properties!",
-        codeExample: chunks.concreteFactory,
-        choices: [
-          { text: "How do I use this?", nextScene: 11 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "This is the Client Code - how artists actually create shapes! Create a factory with parameters, generate your shape, then draw and calculate! See how elegant and simple it is?",
-        codeExample: chunks.client,
-        choices: [
-          { text: "Show me everything together", nextScene: 12 },
-          { text: "I understand now!", nextScene: 6 }
-        ]
-      },
-      {
-        background: galleryImg, 
-        character: sophiaImg,
-        characterName: "Artist Sophia",
-        dialogue: "Here's the complete shape creation system! All the components working in harmony - interface, product, factory, and client. That's the Factory Method pattern creating art through code!",
-        codeExample: this.getCodeExample(),
-        choices: [
-          { text: "Beautiful!", nextScene: 6 },
-          { text: "Show me the diagram", nextScene: 2 }
-        ]
-      }
-    ];
-  }
+  const chunks = this.getCodeChunks();
+  const diagram = this.getDiagram();
+
+  return [
+    // SCENE 0
+    {
+      id: 0,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "Hey there! I’m Sophia, a free-spirited digital artist 🌈🎨. Let’s explore how the Factory Method helps me create different shapes for my artwork effortlessly!",
+      choices: [
+        { text: "Show me your shapes", nextScene: 1 },
+        { text: "Why use a factory?", nextScene: 4 }
+      ]
+    },
+
+    // SCENE 1
+    {
+      id: 1,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "In my designs, I play with all kinds of shapes — circles, squares, triangles, polygons… each has its own vibe and properties, and sometimes math sneaks in 😉.",
+      choices: [
+        { text: "How do you manage all that?", nextScene: 2 }
+      ]
+    },
+
+    // SCENE 2
+    {
+      id: 2,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "The ShapeFactory is my creative buddy! I just say what I want, and it returns the perfect shape object, ready to be drawn, colored, and measured. Flowing, effortless, magical.",
+      choices: [
+        { text: "Show me an example", nextScene: 3 },
+        { text: "What methods does it use?", nextScene: 5 },
+        { text: "Show me the code!", nextScene: 7 }
+      ]
+    },
+
+    // SCENE 3
+    {
+      id: 3,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "For instance, a CircleFactory gives me a Circle object with `draw()` and `area()`. Everything is consistent and harmonious, no matter the shape.",
+      choices: [
+        { text: "So elegant!", nextScene: 6 },
+        { text: "Show me the code!", nextScene: 7 }
+      ]
+    },
+
+    // SCENE 4 — Why use a factory
+    {
+      id: 4,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "Without a factory, I’d have endless if-else chains cluttering my code 🌿. The factory centralizes creation, leaving my mind free to flow with creativity and colors.",
+      choices: [
+        { text: "I see!", nextScene: 2 }
+      ]
+    },
+
+    // SCENE 5 — Methods
+    {
+      id: 5,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "Each shape follows the Shape interface: `draw()` and `area()`. Like having a toolkit that works for every shape, no matter how wild or whimsical.",
+      choices: [
+        { text: "Clever!", nextScene: 6 },
+        { text: "Show me the code!", nextScene: 7 }
+      ]
+    },
+
+    // SCENE 6 — Flexibility
+    {
+      id: 6,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "And when inspiration strikes? A new shape class is all I need. The factory adapts effortlessly. Coding art has never felt more free!",
+      choices: [
+        { text: "Show me the code!", nextScene: 7 },
+        { text: "Perfect!", nextScene: 14 }
+      ]
+    },
+
+    // SCENE 7 — Shape Interface
+    {
+      id: 7,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "Let’s begin with the Shape interface — my canvas foundation. Every shape must implement `draw()` and `area()`. Keeps my artwork and code flowing beautifully.",
+      codeExample: chunks.product,
+      choices: [
+        { text: "Show me a real shape!", nextScene: 8 }
+      ]
+    },
+
+    // SCENE 8 — Concrete Product
+    {
+      id: 8,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "Here’s a Circle! It has a radius and implements both `draw()` and `area()`. Math meets art in perfect harmony — π × r², and voilà, magic happens!",
+      codeExample: chunks.concreteProduct,
+      choices: [
+        { text: "How do we create shapes?", nextScene: 9 }
+      ]
+    },
+
+    // SCENE 9 — Factory Interface
+    {
+      id: 9,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "This is the ShapeFactory interface — my studio blueprint. Every concrete factory implements `createShape()` to ensure all shapes can be generated consistently.",
+      codeExample: chunks.factory,
+      choices: [
+        { text: "Show me a concrete factory!", nextScene: 10 }
+      ]
+    },
+
+    // SCENE 10 — Concrete Factory
+    {
+      id: 10,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "Here’s the CircleFactory. It takes a radius parameter and returns a Circle object. Each factory adds its personal touch to the creation process, like a signature brushstroke.",
+      codeExample: chunks.concreteFactory,
+      choices: [
+        { text: "How do I use this?", nextScene: 11 }
+      ]
+    },
+
+    // SCENE 11 — Client Code
+    {
+      id: 11,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "This is the Client Code — how artists like me generate shapes. Instantiate a factory with your parameters, create your shape, draw, and calculate. Effortless flow, beautiful results.",
+      codeExample: chunks.client,
+      choices: [
+        { text: "Show me everything together", nextScene: 12 },
+        { text: "I understand now!", nextScene: 6 }
+      ]
+    },
+
+    // SCENE 12 — Full System
+    {
+      id: 12,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "Here’s the complete shape creation system! Interface, products, factories, and client code — working in harmony like colors on a canvas. That’s the Factory Method turning code into art!",
+      codeExample: this.getCodeExample(),
+      choices: [
+        { text: "Beautiful!", nextScene: 13 }
+      ]
+    },
+
+    // SCENE 13 — Sophia’s Reflection
+    {
+      id: 13,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "Coding can be just as creative as painting. Patterns like Factory Method free your mind to experiment and explore, while keeping everything flowing beautifully.",
+      choices: [
+        { text: "So inspiring!", nextScene: 14 }
+      ]
+    },
+
+    // SCENE 14 — Final Artsy Wrap-up
+    {
+      id: 14,
+      background: galleryImg,
+      character: sophiaImg,
+      characterName: "Artist Sophia",
+      dialogue: "Thanks for sharing this creative journey with me 🌻. Whenever you want to mix code with art, the Factory Method is your paintbrush. Keep creating freely!",
+      choices: [
+        { text: "Complete Story", nextScene: "HOME" }
+      ]
+    }
+  ];
+}
 }
 
 class Docsboard {
@@ -1173,138 +1334,185 @@ PDF            DOCX         XLSX`;
   getNovelScenes() {
     const chunks = this.getCodeChunks();
     const diagram = this.getDiagram();
-    
+
     return [
+      // SCENE 0
       {
+        id: 0,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "Welcome! I'm Danielle, an office manager. Let me explain how the Factory Method pattern helps us handle different document types efficiently.",
+        dialogue: "Hello! I'm Danielle, your office manager. Today, I’ll walk you through how the Factory Method pattern helps us handle multiple document types efficiently and professionally.",
         choices: [
           { text: "Tell me about documents", nextScene: 1 },
           { text: "Why is this useful?", nextScene: 4 }
         ]
       },
+
+      // SCENE 1
       {
+        id: 1,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "Every day, our team works with PDFs, Word docs, Excel spreadsheets, and more. Each format has unique ways to open, edit, and save.",
+        dialogue: "Our team works with PDFs, Word docs, Excel spreadsheets, and more. Each format has unique ways to open, edit, and save, which can get messy without a consistent approach.",
         choices: [
           { text: "Sounds complicated", nextScene: 2 }
         ]
       },
+
+      // SCENE 2
       {
+        id: 2,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "The DocumentFactory pattern standardizes this! No matter what file type comes in, the factory creates the right handler automatically.",
+        dialogue: "The Factory Method standardizes this process. No matter what document type arrives, the factory creates the correct handler automatically. It keeps our workflow smooth and reliable.",
         choices: [
           { text: "How does it work?", nextScene: 3 },
           { text: "Show me the code!", nextScene: 7 }
         ]
       },
+
+      // SCENE 3
       {
+        id: 3,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "Simple: a PDFDocumentFactory returns a PDF handler with open() and save() methods. Same interface for all document types!",
+        dialogue: "For example, a PDFDocumentFactory returns a PDF handler with `open()` and `save()` methods. WordDocumentFactory does the same for Word files. Uniform interface, different implementations — simple and professional.",
         choices: [
           { text: "That's practical!", nextScene: 6 },
           { text: "Show me the code!", nextScene: 7 }
         ]
       },
+
+      // SCENE 4 — Benefits
       {
+        id: 4,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "It saves us from writing messy if-else chains. When we need to support a new format, we just add a new document class. No changes to existing code!",
+        dialogue: "This pattern prevents messy if-else chains. Adding a new document type? Simply add a new class and factory. Existing code remains untouched, keeping our office software maintainable.",
         diagram: diagram,
         choices: [
           { text: "Brilliant!", nextScene: 2 }
         ]
       },
+
+      // SCENE 5 — Document Interface
       {
+        id: 5,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "Each document type implements the Document interface with open() and save() methods. This ensures consistency across our document management system!",
+        dialogue: "Every document type implements the Document interface with `open()` and `save()` methods. It’s our standard of consistency — ensuring reliable behavior across the system.",
         choices: [
           { text: "Perfect!", nextScene: 6 },
           { text: "Show me the code!", nextScene: 7 }
         ]
       },
+
+      // SCENE 6 — Practical Overview
       {
+        id: 6,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "Now you understand! The Factory Method makes our office software scalable and maintainable. It's a pattern we use every single day!",
+        dialogue: "Now you understand why the Factory Method keeps our office software scalable and professional. It’s a pattern we rely on daily to maintain order and efficiency.",
         choices: [
           { text: "Show me the code!", nextScene: 7 },
-          { text: "I'm ready!", nextScene: null }
+          { text: "I’m ready!", nextScene: 12 }
         ]
       },
-      // NEW: Code explanation scenes with chunks
+
+      // SCENE 7 — Product Interface Code
       {
+        id: 7,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "Let's start with the Document interface! This is our standard contract - every document must implement open() and save() methods. It's like having filing standards for all paperwork!",
+        dialogue: "Let's begin with the Document interface. Think of it as a blueprint — every document must have `open()` and `save()`. Like a well-organized filing system!",
         codeExample: chunks.product,
         choices: [
           { text: "Show me a real document!", nextScene: 8 }
         ]
       },
+
+      // SCENE 8 — Concrete Product
       {
+        id: 8,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "Here's a Concrete Product - the PDFDocument! It implements both methods: opening with a PDF viewer and saving as .pdf format. Each document type handles things its own way!",
+        dialogue: "Here’s a PDFDocument, a concrete product. It implements both methods: opening with a PDF viewer and saving as a .pdf. Each document type handles its responsibilities gracefully.",
         codeExample: chunks.concreteProduct,
         choices: [
           { text: "How do we create documents?", nextScene: 9 }
         ]
       },
+
+      // SCENE 9 — Factory Interface
       {
+        id: 9,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "This is the DocumentFactory interface! It's our document processing center blueprint. Any factory must implement createDocument() to handle document creation!",
+        dialogue: "This is the DocumentFactory interface — a blueprint for document creation. Every concrete factory must implement `createDocument()` to maintain uniform standards.",
         codeExample: chunks.factory,
         choices: [
-          { text: "Show me a real factory!", nextScene: 10 }
+          { text: "Show me a concrete factory", nextScene: 10 }
         ]
       },
+
+      // SCENE 10 — Concrete Factory
       {
+        id: 10,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "Here's the PDFDocumentFactory! It specializes in creating PDF documents. Need Word docs? We'd add a DOCXDocumentFactory. Each factory knows exactly how to create its format!",
+        dialogue: "Here’s the PDFDocumentFactory. It knows exactly how to create PDF documents. Need Word? We simply add a WordDocumentFactory. Clear, precise, professional.",
         codeExample: chunks.concreteFactory,
         choices: [
-          { text: "How do we use this system?", nextScene: 11 }
+          { text: "How does the client use it?", nextScene: 11 }
         ]
       },
+
+      // SCENE 11 — Client Code
       {
+        id: 11,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "This is the Client Code - how our office staff actually uses it! Pick the right factory, create your document, then open and save. Clean, simple, and professional!",
+        dialogue: "Here’s how our staff uses it: choose the right factory → create your document → open and save. The client never worries about the inner workings. Clean and professional workflow.",
         codeExample: chunks.client,
         choices: [
-          { text: "Show me the complete system", nextScene: 12 },
-          { text: "I understand now!", nextScene: 6 }
+          { text: "Show the complete system", nextScene: 12 }
         ]
       },
+
+      // SCENE 12 — Complete System
       {
+        id: 12,
         background: officeImg, 
         character: daniImg,
         characterName: "Manager Danielle",
-        dialogue: "Here's the complete document management system! All components working together - interface, products, factories, and client code. That's the Factory Method organizing our office workflow!",
+        dialogue: "Here’s the complete document management system. Interface, products, factories, client code — all integrated. The Factory Method ensures our office operations are smooth, reliable, and maintainable.",
         codeExample: this.getCodeExample(),
         choices: [
-          { text: "Excellent!", nextScene: 6 },
-          { text: "Show me the diagram", nextScene: 4 }
+          { text: "Excellent!", nextScene: 13 }
+        ]
+      },
+
+      // SCENE 13 — Professional Wrap-Up
+      {
+        id: 13,
+        background: officeImg,
+        character: daniImg,
+        characterName: "Manager Danielle",
+        dialogue: "Thank you for following along. Remember, patterns like Factory Method help us work efficiently and professionally. With this knowledge, you can handle new document types or expand systems confidently.",
+        choices: [
+          { text: "Complete Story", nextScene: "HOME" }
         ]
       }
     ];
@@ -1415,145 +1623,204 @@ Email          SMS          Push`;
   }
   
   getNovelScenes() {
-    const chunks = this.getCodeChunks();
-    const diagram = this.getDiagram();
-    
-    return [
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "Hi! I'm Lisa, a backend developer. Let me show you how we use the Factory Method to manage different notification types in our app!",
-        choices: [
-          { text: "Tell me about notifications", nextScene: 1 },
-          { text: "Why use a factory?", nextScene: 4 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "Our users want to be notified in different ways - some prefer emails, others want SMS, and many use push notifications. Each has its own API and logic.",
-        diagram: diagram,
-        choices: [
-          { text: "How do you manage that?", nextScene: 2 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "The NotificationFactory pattern saves us! We just specify the type, and the factory creates the appropriate notification object with the right sending method.",
-        choices: [
-          { text: "Show me an example", nextScene: 3 },
-          { text: "What's the benefit?", nextScene: 5 },
-          { text: "Show me the code!", nextScene: 7 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "Easy: an EmailNotificationFactory returns an EmailNotification with send() method. Same for SMS - consistent interface across all channels!",
-        choices: [
-          { text: "That's elegant!", nextScene: 6 },
-          { text: "Show me the code!", nextScene: 7 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "Without it, we'd have notification code scattered everywhere. The factory centralizes creation logic, making testing and maintenance so much easier!",
-        choices: [
-          { text: "Smart!", nextScene: 2 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "The beauty is: when marketing wants to add Slack notifications, we just create SlackNotification class. No changes to existing notification code!",
-        choices: [
-          { text: "So flexible!", nextScene: 6 },
-          { text: "Show me the code!", nextScene: 7 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "Exactly! The Factory Method gives us the flexibility to add new notification channels without breaking existing functionality. That's solid software engineering!",
-        choices: [
-          { text: "Show me the code!", nextScene: 7 },
-          { text: "Perfect!", nextScene: null }
-        ]
-      },
-      // NEW: Code explanation scenes with chunks
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "Let's start with the Notification interface! This is our base contract - every notification type must implement the send() method. Simple but powerful!",
-        codeExample: chunks.product,
-        choices: [
-          { text: "Show me real notifications!", nextScene: 8 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "Here are our Concrete Products - EmailNotification and SMSNotification! Each implements send() differently, using their respective APIs. Email goes through SMTP, SMS through Twilio!",
-        codeExample: chunks.concreteProducts,
-        choices: [
-          { text: "How do we create them?", nextScene: 9 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "This is the NotificationFactory interface! It's our notification system blueprint. Any factory must implement createNotification() to produce notification objects!",
-        codeExample: chunks.factory,
-        choices: [
-          { text: "Show me real factories!", nextScene: 10 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "Here are our Concrete Factories! EmailNotificationFactory creates emails, SMSNotificationFactory creates SMS. Each factory specializes in one notification channel!",
-        codeExample: chunks.concreteFactories,
-        choices: [
-          { text: "How do we use this?", nextScene: 11 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "This is the Client Code - how we actually send notifications! Create the right factory, generate your notification, then send it. See how clean and maintainable it is?",
-        codeExample: chunks.client,
-        choices: [
-          { text: "Show me everything together", nextScene: 12 },
-          { text: "I understand now!", nextScene: 6 }
-        ]
-      },
-      {
-        background: techImg, 
-        character: lisaImg,
-        characterName: "Developer Lisa",
-        dialogue: "Here's the complete notification system! All components working together - interface, products, factories, and client. That's the Factory Method powering our communication stack!",
-        codeExample: this.getCodeExample(),
-        choices: [
-          { text: "Brilliant!", nextScene: 6 },
-          { text: "Show me the diagram", nextScene: 1 }
-        ]
-      }
-    ];
-  }
+  const chunks = this.getCodeChunks();
+  const diagram = this.getDiagram();
+
+  return [
+    // SCENE 0
+    {
+      id: 0,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "Hi… um, I’m Lisa. I’m a backend developer and a bit of a music nerd 🎧. Let me quietly show you how we use the Factory Method to manage notifications in our app.",
+      choices: [
+        { text: "Tell me about notifications", nextScene: 1 },
+        { text: "Why use a factory?", nextScene: 4 }
+      ]
+    },
+
+    // SCENE 1
+    {
+      id: 1,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "Our users like notifications in different ways — emails, SMS, push notifications… each has its own API and quirks. Managing them manually is like trying to play five instruments at once… quietly, alone.",
+      choices: [
+        { text: "How do you manage that?", nextScene: 2 }
+      ]
+    },
+
+    // SCENE 2
+    {
+      id: 2,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "The NotificationFactory pattern is my safety net. I just specify a type, and the factory returns the right object ready to send — clean, safe, predictable.",
+      choices: [
+        { text: "Show me an example", nextScene: 3 },
+        { text: "What's the benefit?", nextScene: 5 },
+        { text: "Show me the code!", nextScene: 7 }
+      ]
+    },
+
+    // SCENE 3
+    {
+      id: 3,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "For example, an EmailNotificationFactory returns an EmailNotification with a `send()` method. SMSNotificationFactory does the same for SMS. Same interface, different instruments in the orchestra.",
+      choices: [
+        { text: "That's elegant!", nextScene: 6 },
+        { text: "Show me the code!", nextScene: 7 }
+      ]
+    },
+
+    // SCENE 4 — Why use a factory
+    {
+      id: 4,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "Without a factory, our code would be scattered everywhere. Every notification type would need its own messy logic. With the factory, everything is centralized and… kind of peaceful.",
+      choices: [
+        { text: "I see…", nextScene: 2 }
+      ]
+    },
+
+    // SCENE 5 — Benefit
+    {
+      id: 5,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "The cool part? If marketing wants Slack notifications tomorrow, I just add SlackNotification and SlackNotificationFactory. No other code breaks — it’s like adding a new track to a song I already love.",
+      choices: [
+        { text: "So flexible!", nextScene: 6 },
+        { text: "Show me the code!", nextScene: 7 }
+      ]
+    },
+
+    // SCENE 6 — Wrap-up insight
+    {
+      id: 6,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "Exactly. Factory Method gives us scalability and maintainability. It’s like composing music in a well-organized studio — everything has its place and harmony.",
+      choices: [
+        { text: "Show me the code!", nextScene: 7 },
+        { text: "Perfect!", nextScene: 14 }
+      ]
+    },
+
+    // SCENE 7 — Notification Interface
+    {
+      id: 7,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "Let’s start with the Notification interface — it defines `send()`. Every notification type must follow this, like every instrument following the score. Simple, elegant.",
+      codeExample: chunks.product,
+      choices: [
+        { text: "Show me the notifications!", nextScene: 8 }
+      ]
+    },
+
+    // SCENE 8 — Concrete Products
+    {
+      id: 8,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "Here are our concrete notifications: EmailNotification and SMSNotification. Each sends differently — SMTP for email, Twilio for SMS. Different sounds, same harmony.",
+      codeExample: chunks.concreteProducts,
+      choices: [
+        { text: "How do we create them?", nextScene: 9 }
+      ]
+    },
+
+    // SCENE 9 — Factory Interface
+    {
+      id: 9,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "This is the NotificationFactory interface — it defines `createNotification()`. Any factory that follows it ensures notifications can be generated in an orderly, predictable way.",
+      codeExample: chunks.factory,
+      choices: [
+        { text: "Show me a concrete factory!", nextScene: 10 }
+      ]
+    },
+
+    // SCENE 10 — Concrete Factories
+    {
+      id: 10,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "Here are our concrete factories: EmailNotificationFactory for emails, SMSNotificationFactory for messages. Each one knows exactly how to create its notification — like a musician mastering their instrument.",
+      codeExample: chunks.concreteFactories,
+      choices: [
+        { text: "How do we use them?", nextScene: 11 }
+      ]
+    },
+
+    // SCENE 11 — Client Code
+    {
+      id: 11,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "This is the Client Code. Pick a factory, create your notification, call `send()`. Everything works smoothly. Like pressing play on a perfectly mixed track.",
+      codeExample: chunks.client,
+      choices: [
+        { text: "Show full program", nextScene: 12 },
+        { text: "I understand now!", nextScene: 6 }
+      ]
+    },
+
+    // SCENE 12 — Full System
+    {
+      id: 12,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "Here’s the complete notification system — interface, products, factories, client code. Everything in harmony, orchestrated beautifully. That’s Factory Method in action.",
+      codeExample: this.getCodeExample(),
+      choices: [
+        { text: "Beautiful!", nextScene: 13 }
+      ]
+    },
+
+    // SCENE 13 — Lisa’s Reflection
+    {
+      id: 13,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "I love quiet moments coding. Patterns like Factory Method let me compose, experiment, and stay organized. It’s music to my developer soul 🎵💻.",
+      choices: [
+        { text: "So inspiring!", nextScene: 14 }
+      ]
+    },
+
+    // SCENE 14 — Final Wrap-Up
+    {
+      id: 14,
+      background: techImg,
+      character: lisaImg,
+      characterName: "Developer Lisa",
+      dialogue: "Thanks for letting me share this little coding symphony with you. Whenever you need clean, flexible code, remember Factory Method is like the sheet music guiding the melody. Play on!",
+      choices: [
+        { text: "Complete Story", nextScene: "HOME" }
+      ]
+    }
+  ];
+}
 }
 
 export default function StoryBoard() {
