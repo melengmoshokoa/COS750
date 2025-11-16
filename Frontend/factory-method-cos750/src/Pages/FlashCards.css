@@ -1,9 +1,8 @@
-/* Reset and base styles */
 /* ---- FLASHCARDS WOOD BACKGROUND ---- */
 .flashcards-page {
   min-height: 100vh;
   width: 100%;
-  background-image: url('../Media/wood2.png'); /* correct relative path */
+  background-image: url('./assests/wood.png'); /* correct relative path */
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
@@ -13,7 +12,7 @@
   flex-direction: column;
 }
 
-{
+* {
   box-sizing: border-box;}
 /* Category Selection Styles */
 .category-selection {
@@ -300,7 +299,7 @@
   transform: rotateY(180deg);
 }
 .flashcards-page {
-  background-image: url(../Media/wood2.png);  /* this uses public folder */
+  background-image: url('./assests/wood.png');  /* this uses public folder */
   background-repeat: no-repeat;
   background-position: center top;
   background-size: cover;
@@ -605,3 +604,4 @@
     flex-direction: column;
   }
 }
+
