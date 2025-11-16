@@ -9,6 +9,7 @@ import SuggestedReads from './Pages/SuggestedReads';
 import ProgressPage from './Pages/ProgressPage';
 import FlashCards from './Pages/FlashCards';
 import Auth from './Pages/Auth';
+import StoryBoard from './Pages/StoryBoard';
 import { supabase } from './supabaseClient';
 import Header from "./Pages/Header";
 import StoryBoard from './Pages/StoryBoard';
@@ -46,6 +47,7 @@ function App() {
           <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/" />} />
           <Route path="/QuizDashboard" element={session ? <QuizDashboard /> : <Navigate to="/" />} />
           <Route path="/quiz/:lessonId" element={session ? <QuizContent /> : <Navigate to="/" />} />
+          <Route path="/StoryBoard" element={session ? <StoryBoard /> : <Navigate to="/" />} />
           <Route path="/SuggestedReads" element={session ? <SuggestedReads /> : <Navigate to="/" />} />
           <Route path="/ProgressPage" element={session ? <ProgressPage /> : <Navigate to="/" />} />
           <Route path="/StoryBoard" element={session ? <StoryBoard /> : <Navigate to="/" />} />

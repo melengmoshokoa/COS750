@@ -1,14 +1,14 @@
-body {
-    background-color: #2c0d00; /* Dark wood background */
+/* This wrapper handles the full-page background and centering */
+.auth-page-wrapper {
     color: #f69c36; /* Bright orange text */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-family: 'Press Start 2P', cursive; 
-
+    font-family: 'Press Start 2P', cursive;
 }
 
+/* This container holds the actual login form box */
 .auth-container {
     width: 100%;
     max-width: 500px;
