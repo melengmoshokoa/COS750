@@ -6,6 +6,7 @@ import { createClient } from '@supabase/supabase-js';
 dotenv.config();
 
 const app = express();
+const router = express.Router();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
@@ -37,7 +38,33 @@ app.get('/', (req, res) => {
       leaderboard: '/api/leaderboard'
     }
   });
+
 });
+
+app.get('/api/user/:userId/progress', async (req, res) => {
+  const { userId } = req.params;
+
+  const { data: badgesData, error } = await supabase
+    .from("storyboard_user_badges")
+    .select("*")
+    .eq("user_id", userId);
+
+  if (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Failed to fetch badges" });
+  }
+
+  const totalXP = badgesData.reduce((sum, badge) => sum + badge.xp_awarded, 0);
+
+  const earnedBadgeKeys = badgesData.map(b => b.badge_key);
+
+  return res.json({
+    level: calculateLevel(totalXP),
+    xp: totalXP,
+    badges: earnedBadgeKeys
+  });
+});
+
 
 // Health check
 app.get('/health', (req, res) => {
