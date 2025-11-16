@@ -1369,8 +1369,7 @@ PDF            DOCX         XLSX`;
         characterName: "Manager Danielle",
         dialogue: "The Factory Method standardizes this process. No matter what document type arrives, the factory creates the correct handler automatically. It keeps our workflow smooth and reliable.",
         choices: [
-          { text: "How does it work?", nextScene: 3 },
-          { text: "Show me the code!", nextScene: 7 }
+          { text: "How does it work?", nextScene: 3 }
         ]
       },
 
