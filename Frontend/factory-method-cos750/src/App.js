@@ -9,7 +9,6 @@ import SuggestedReads from './Pages/SuggestedReads';
 import ProgressPage from './Pages/ProgressPage';
 import FlashCards from './Pages/FlashCards';
 import Auth from './Pages/Auth';
-import StoryBoard from './Pages/StoryBoard';
 import { supabase } from './supabaseClient';
 import Header from "./Pages/Header";
 import StoryBoard from './Pages/StoryBoard';
