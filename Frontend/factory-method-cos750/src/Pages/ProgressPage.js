@@ -15,9 +15,19 @@ import patternBadge from "./assests/building-badge.png";
 import machineBadge from "./assests/dartboard-badge.png";
 import resourceBadge from "./assests/glasses-badges.png";
 import productionBadge from "./assests/magnify-badge.png";
+import Welcome from "./assests/explorer-badge.png";
+import Explore from "./assests/consistency-badge.png";
+import Consistency from "./assests/signup-badge.png";
 
-// UPDATED: Fixed duplicate badge keys and added unique badges
-const badgeList = [
+// STANDARD BADGES - Every user has these automatically
+const standardBadges = [
+  { id: "welcome_badge", name: "Welcome Badge", image:Welcome },
+  { id: "starter_badge", name: "Starter Badge", image: Explore },
+  { id: "explorer_badge", name: "Explorer Badge", image: Consistency },
+];
+
+// DATABASE BADGES - These come from user progress
+const databaseBadgeList = [
   { id: "phase_1_mastery", name: "Phase 1: Problem Recognition Mastery", image: factoryBadge },
   { id: "phase_2_mastery", name: "Phase 2: Intent & Definition Mastery", image: patternBadge },
   { id: "phase_3_mastery", name: "Phase 3: Machine Optimizer", image: machineBadge },
@@ -67,17 +77,6 @@ function ProgressPage() {
         const progressData = await api.progress.getProgress(currentUserId);
         console.log("Progress data received:", progressData);
         
-        // ADD DEBUG LOGGING HERE
-        console.log("User badges array:", progressData.badges);
-        console.log("Looking for badges with ids:", progressData.badges);
-        console.log("Available badges in badgeList:", badgeList.map(b => b.id));
-        
-        // Check each badge match
-        progressData.badges.forEach(badgeId => {
-          const foundBadge = badgeList.find(b => b.id === badgeId);
-          console.log(`Badge ${badgeId}:`, foundBadge ? "FOUND" : "NOT FOUND", foundBadge);
-        });
-        
         setUserProgress(progressData);
 
       } catch (error) {
@@ -94,11 +93,16 @@ function ProgressPage() {
   const getEarnedBadges = () => {
     // Use Set to remove duplicates, then filter and map to badge objects
     const uniqueBadgeIds = [...new Set(userProgress.badges)];
-    const earned = badgeList.filter(badge => uniqueBadgeIds.includes(badge.id));
+    const earnedFromDB = databaseBadgeList.filter(badge => uniqueBadgeIds.includes(badge.id));
     
-    console.log("Unique badge IDs:", uniqueBadgeIds);
-    console.log("getEarnedBadges result:", earned);
-    return earned;
+    // COMBINE: Standard badges + Database earned badges
+    const allEarnedBadges = [...standardBadges, ...earnedFromDB];
+    
+    console.log("Standard badges:", standardBadges);
+    console.log("Database earned badges:", earnedFromDB);
+    console.log("All earned badges:", allEarnedBadges);
+    
+    return allEarnedBadges;
   };
 
   const Inventory = ({ badges, maxSlots = 20 }) => {
@@ -107,57 +111,94 @@ function ProgressPage() {
     console.log("Inventory rendering with badges:", badges);
 
     return (
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(5, 60px)",
-        gap: "8px",
-        backgroundColor: "#2a1002",
-        padding: "10px",
-        border: "4px solid #c76a19",
-        borderRadius: "8px",
-        maxWidth: "max-content",
-        margin: "20px auto",
-      }}>
-        {badges.map((badge) => {
-          console.log("Rendering badge:", badge.id, badge.name);
-          return (
-            <div key={badge.id} style={{
+      <div>
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(5, 60px)",
+          gap: "8px",
+          backgroundColor: "#2a1002",
+          padding: "10px",
+          border: "4px solid #c76a19",
+          borderRadius: "8px",
+          maxWidth: "max-content",
+          margin: "20px auto",
+        }}>
+          {badges.map((badge) => {
+            console.log("Rendering badge:", badge.id, badge.name);
+            return (
+              <div key={badge.id} style={{
+                width: "60px",
+                height: "60px",
+                border: "2px solid #c76a19",
+                backgroundColor: "#3a1602",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: "4px",
+              }} title={badge.name}>
+                <img 
+                  src={badge.image} 
+                  alt={badge.name} 
+                  style={{ 
+                    width: "50px", 
+                    height: "50px",
+                  }} 
+                  onError={(e) => {
+                    console.error(`Image failed to load: ${badge.image} for badge ${badge.id}`);
+                    e.target.style.display = 'none';
+                  }}
+                  onLoad={() => console.log(`Image loaded successfully: ${badge.image}`)}
+                />
+              </div>
+            );
+          })}
+
+          {[...Array(emptySlots)].map((_, i) => (
+            <div key={`empty-${i}`} style={{
               width: "60px",
               height: "60px",
-              border: "2px solid #c76a19",
-              backgroundColor: "#3a1602",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
+              border: "2px dashed #3a1602",
+              backgroundColor: "#1c0a00",
               borderRadius: "4px",
-            }} title={badge.name}>
-              <img 
-                src={badge.image} 
-                alt={badge.name} 
-                style={{ 
-                  width: "50px", 
-                  height: "50px",
-                  
-                }} 
-                onError={(e) => {
-                  console.error(`Image failed to load: ${badge.image} for badge ${badge.id}`);
-                  e.target.style.display = 'none';
-                }}
-                onLoad={() => console.log(`Image loaded successfully: ${badge.image}`)}
-              />
-            </div>
-          );
-        })}
+            }} />
+          ))}
+        </div>
 
-        {[...Array(emptySlots)].map((_, i) => (
-          <div key={`empty-${i}`} style={{
-            width: "60px",
-            height: "60px",
-            border: "2px dashed #3a1602",
-            backgroundColor: "#1c0a00",
-            borderRadius: "4px",
-          }} />
-        ))}
+        {/* BADGE NAMES SECTION - Shows all badges with their names */}
+        <div style={{
+          textAlign: "center",
+          marginTop: "30px",
+          color: "#f69c36",
+          fontFamily: "'Press Start 2P', cursive",
+          fontSize: "10px",
+          maxWidth: "600px",
+          margin: "0 auto",
+        }}>
+          <div style={{ marginBottom: "15px", color: "#ffd700", fontSize: "12px" }}>
+            YOUR BADGES:
+          </div>
+          <div style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "20px",
+          }}>
+            {badges.map((badge) => (
+              <div key={`name-${badge.id}`} style={{
+                textAlign: "center",
+                maxWidth: "120px",
+              }}>
+                <div style={{ 
+                  marginBottom: "5px",
+                  fontSize: "8px",
+                  lineHeight: "1.2"
+                }}>
+                  {badge.name}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     );
   };
@@ -176,7 +217,7 @@ function ProgressPage() {
         <div>LEVEL: {level}</div>
         <div>XP: {xp}</div>
         <div style={{ fontSize: "10px", marginTop: "10px", color: "#ffa500" }}>
-          Badges Earned: {earnedBadges.length}
+          Total Badges: {earnedBadges.length}
         </div>
       </div>
     );
