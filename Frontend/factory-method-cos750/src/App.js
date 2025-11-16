@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import Quizzes from './Pages/Quizzes';
 import QuizContent from './Pages/QuizDashboard';
 import Dashboard from './Pages/Dashboard';  
@@ -12,6 +12,29 @@ import Auth from './Pages/Auth';
 import { supabase } from './supabaseClient';
 import Header from "./Pages/Header";
 import StoryBoard from './Pages/StoryBoard';
+
+const AppContent = ({ session }) => {
+  const location = useLocation();
+  // Paths where the header should NOT be shown
+  const noHeaderPaths = ['/', '/dashboard'];
+  const showHeader = !noHeaderPaths.includes(location.pathname);
+
+  return (
+    <>
+      {showHeader && <Header />}
+      <Routes>
+        <Route path="/" element={!session ? <Auth /> : <Navigate to="/dashboard" />} />
+        <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/" />} />
+        <Route path="/QuizDashboard" element={session ? <QuizDashboard /> : <Navigate to="/" />} />
+        <Route path="/quiz/:lessonId" element={session ? <QuizContent /> : <Navigate to="/" />} />
+        <Route path="/StoryBoard" element={session ? <StoryBoard /> : <Navigate to="/" />} />
+        <Route path="/SuggestedReads" element={session ? <SuggestedReads /> : <Navigate to="/" />} />
+        <Route path="/ProgressPage" element={session ? <ProgressPage /> : <Navigate to="/" />} />
+        <Route path="/FlashCards" element={session ? <FlashCards /> : <Navigate to="/" />} />
+      </Routes>
+    </>
+  );
+};
 
 function App() {
   const [session, setSession] = useState(null);
@@ -40,18 +63,7 @@ function App() {
   return (
     <QuizProvider>
       <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={!session ? <Auth /> : <Navigate to="/dashboard" />} />
-          <Route path="/dashboard" element={session ? <Dashboard /> : <Navigate to="/" />} />
-          <Route path="/QuizDashboard" element={session ? <QuizDashboard /> : <Navigate to="/" />} />
-          <Route path="/quiz/:lessonId" element={session ? <QuizContent /> : <Navigate to="/" />} />
-          <Route path="/StoryBoard" element={session ? <StoryBoard /> : <Navigate to="/" />} />
-          <Route path="/SuggestedReads" element={session ? <SuggestedReads /> : <Navigate to="/" />} />
-          <Route path="/ProgressPage" element={session ? <ProgressPage /> : <Navigate to="/" />} />
-          <Route path="/StoryBoard" element={session ? <StoryBoard /> : <Navigate to="/" />} />
-          <Route path="/FlashCards" element={session ? <FlashCards /> : <Navigate to="/" />} />
-        </Routes>
+        <AppContent session={session} />
       </Router>
     </QuizProvider>
   );

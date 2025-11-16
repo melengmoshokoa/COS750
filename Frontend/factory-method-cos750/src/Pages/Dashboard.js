@@ -60,27 +60,22 @@ function Dashboard() {
 
         {/* 2. Welcome/Progress Section */}
         <section className="welcome-section">
-          <div className="user-details">
-            <div className="avatar-panel">
-              <img src={EngineerAvatar} alt="Engineer Avatar" className="engineer-avatar" />
+          <div className="user-progress-container">
+            <div className="user-details">
+              <div className="avatar-panel">
+                <img src={EngineerAvatar} alt="Engineer Avatar" className="engineer-avatar" />
+              </div>
+              <div className="greeting-text-panel">
+                <p>Welcome back, {user ? user.email : 'Engineer'}! </p>
+                <p>Factory Method Pattern Engineer!</p>
+              </div>
             </div>
-            <div className="greeting-text-panel">
-              <p>Welcome back, {user ? user.email : 'Engineer'}! </p>
-              <p>Factory Method Pattern Engineer!</p>
+            <div className="info-bars">
+              <div className="status-bar progress-bar">
+                <div className="bar-value-text">{progress}% COMPLETE</div>
+                <div className="bar-inner" style={{ width: `${progress}%` }}></div>
+              </div>
             </div>
-          </div>
-
-          <div className="info-bars">
-            {/* Bar 1: Progress (FR6.1) */}
-            <div className="status-bar progress-bar">
-              <div className="bar-value-text">{progress}% COMPLETE</div>
-              <div className="bar-inner" style={{ width: `${progress}%` }}></div>
-            </div>
-            {/* Bar 2: Status/Stat Placeholder
-              <div className="status-bar retries-bar">
-                <div className="bar-value-text">3 / 10</div>
-                <div className="bar-inner" style={{ width: "30%" }}></div>
-              </div> */}
           </div>
         </section>
 
