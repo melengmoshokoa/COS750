@@ -63,7 +63,7 @@ function Dashboard() {
               />
             </div>
             <div className="greeting-text-panel">
-              <p>Welcome back, {user ? user.email : "Engineer"}! </p>
+              <p>Hello There, {user ? user.email : "Engineer"}! </p>
               <p>Factory Method Pattern Engineer!</p>
             </div>
           </div>
