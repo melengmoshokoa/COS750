@@ -1,3 +1,32 @@
+/*
+This project was built through a combination of my own research, architectural planning, and the
+targeted use of an AI coding assistant (Google Gemini code assist) to speed up certain implementation tasks.
+I handled the overall application architecture, designed the authentication flow, and developed the
+visual theme myself.
+
+I used the AI assistant more like a pair programmer for a few specific areas:
+
+1. Navigation Bar: After designing the layout, I wanted a clean, responsive navigation menu.
+   I asked the AI: "Create a responsive hamburger menu for my header using my existing theme colors."
+   It generated the initial dropdown logic and CSS, which I then adjusted and integrated into the app.
+
+2. Styling and Layout: I wrote the main CSS for the dashboard and authentication pages, but
+   used the AI whenever I got stuck on more complicated layout issues. For example, asking something
+   like "My flexbox item isn't centering, can you check my CSS and suggest a fix?" helped resolve
+   alignment problems more quickly.
+
+3. Animations: To improve the UI feel, I asked the AI to help with small animation effects,
+   such as: "Create a CSS keyframe animation that makes a container's box-shadow pulse like a glow."
+
+4. Google Sign-In: I implemented the main email/password authentication myself, but used the AI
+   to speed up the Google OAuth setup. A prompt like "Show me how to implement 'Sign in with Google'
+   using Supabase Auth in a React component" helped streamline the integration.
+
+Using this hybrid approach allowed me to stay focused on the architecture and user experience,
+while relying on AI to handle well-defined coding tasks that benefited from a quicker turnaround.
+*/
+
+
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
@@ -16,9 +45,8 @@ import dashStory3 from "./assests/dash-story3.png";
 function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  // Static placeholders for demonstration
   const userName = "ENGINEER";
-  const progress = 30; // 30% complete
+  const progress = 30; 
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -69,7 +97,6 @@ function Dashboard() {
           </div>
 
           <div className="info-bars">
-            {/* Bar 1: Progress (FR6.1) */}
             <div className="status-bar progress-bar">
               <div className="bar-value-text">{progress}% COMPLETE</div>
               <div
@@ -80,7 +107,7 @@ function Dashboard() {
           </div>
         </section>
 
-        {/* 3. Interactive Storyboards Section (Content Navigation) */}
+        {/*Interactive Storyboards Section (Content Navigation) */}
         <section className="storyboards-section">
           <h2>Interactive Storyboards</h2>
           <div className="storyboard-links">
@@ -108,26 +135,24 @@ function Dashboard() {
 
         {/* 4. Assessment & Practice Section */}
         <div className="assessment-row">
-          {/* Quizzes Tile (Formative Assessment FR4) */}
+          {/* Quizzes Tile */}
           <Link to="/QuizDashboard" className="dashboard-tile quiz-tile">
             <h2>Quizzes</h2>
             
             <div className="quiz-info-row">
-              {/* 1. Icon on the left */}
               <img
                 src={QuizAvatar}
                 alt="Pixel Art Quiz Logo"
                 className="quiz-pixel-logo"
               />
 
-              {/* 2. Text on the right/wrapping */}
               <div className="quiz-text-content">
                 <p>CHALLENGE MODE: FACTORY LOGIC TEST!</p>
               </div>
             </div>
           </Link>
 
-          {/* Flashcards Tile (Practice) */}
+          {/* Flashcards Tile */}
           <Link to="/flashcards" className="dashboard-tile flashcard-tile">
             <h2>Flashcards</h2>
 
@@ -150,7 +175,7 @@ function Dashboard() {
             </div>
           </Link>
 
-          {/* Suggested Reads Tile (Practice) */}
+          {/* Suggested Reads Tile */}
           <Link
             to="/SuggestedReads"
             className="dashboard-tile SuggestedReads-tile"
