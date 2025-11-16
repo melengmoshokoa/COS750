@@ -1951,9 +1951,12 @@ export default function StoryBoard() {
       // Get badges (will be empty for new user)
       const badgesData = await api.badge.getBadges(userId);
 
+      const currentXP = userData.data.xp || 0;
+      const currentLevel = Math.min(Math.floor(currentXP / 100) + 1, 6);
+
       setUserProgress({
-        xp: userData.data.xp || 0,
-        level: userData.data.level || 1,
+        xp: currentXP,
+        level: currentLevel,
         badges: badgesData.data || [],
         completedStories: storiesData.data?.map(s => s.story_type) || []
       });
@@ -1995,6 +1998,14 @@ export default function StoryBoard() {
       return;
     }
 
+    // Check if already completed
+    if (userProgress.completedStories.includes(badgeKey)) {
+      // Story already completed, just go back to home
+      setShowNovel(false);
+      setCurrentScene(0);
+      return;
+    }
+
     try {
       // Mark story as complete
       await api.story.completeStory(userId, badgeKey, currentScene);
@@ -2002,12 +2013,12 @@ export default function StoryBoard() {
       // Award badge
       await api.badge.awardBadge(userId, badgeKey, badge.name, badge.xp);
 
-      // Update XP
+      // Calculate new XP and level
       const newXP = userProgress.xp + badge.xp;
+      const newLevel = Math.min(Math.floor(newXP / 100) + 1, 6);
+      
+      // Update XP in database
       await api.user.updateXP(userId, newXP);
-
-      // Update local state
-      const newLevel = Math.floor(newXP / 200) + 1;
       
       setUserProgress(prev => ({
         ...prev,
@@ -2050,7 +2061,7 @@ export default function StoryBoard() {
   // ============================================
 
   const calculateLevel = (xp) => {
-    return Math.floor(xp / 200) + 1;
+    return Math.min(Math.floor(xp / 100) + 1, 6);
   };
 
   const isStoryUnlocked = (storyType) => {
@@ -2126,12 +2137,15 @@ export default function StoryBoard() {
   // ============================================
 
   const ProgressDisplay = () => {
-    const xpProgress = (userProgress.xp % 600) / 6;
+    const isMaxLevel = userProgress.level >= 6;
+    const xpProgress = isMaxLevel ? 100 : (userProgress.xp % 100);
     
     return (
       <div className="progress-display">
         <div className="level-display">
-          <span className="level-badge">Lv. {userProgress.level}</span>
+          <span className="level-badge">
+            {isMaxLevel ? 'MAX' : `Lv. ${userProgress.level}`}
+          </span>
         </div>
         <div className="xp-display">
           <div className="xp-bar-small">
@@ -2140,7 +2154,9 @@ export default function StoryBoard() {
               style={{ width: `${xpProgress}%` }}
             />
           </div>
-          <span className="xp-text-small">{userProgress.xp} XP</span>
+          <span className="xp-text-small">
+            {isMaxLevel ? 'COMPLETED!' : `${userProgress.xp} XP`}
+          </span>
         </div>
         <div className="badge-count">
           🏆 {userProgress.badges.length}/{Object.keys(STORY_BADGES).length}
@@ -2175,11 +2191,13 @@ export default function StoryBoard() {
               <div className="xp-bar">
                 <div 
                   className="xp-fill" 
-                  style={{ width: `${(currentReward.newXP % 200) / 6}%` }}
+                  style={{ width: `${currentReward.newLevel >= 6 ? 100 : (currentReward.newXP % 100)}%` }}
                 />
               </div>
               <p className="xp-text">
-                {currentReward.newXP % 200}/600 Next Level {currentReward.newLevel + 1}
+                {currentReward.newLevel >= 6 
+                  ? 'MAX LEVEL REACHED!' 
+                  : `${currentReward.newXP % 100}/100 to Next Level`}
               </p>
             </div>
 
