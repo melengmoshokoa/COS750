@@ -1,42 +1,152 @@
-# 🧠 Teaching Design Patterns
+🏭 Factory Methods Adventures
 
-## 🚀 Frontend Setup
+Welcome to the Factory Methods Learning Hub!
+A fun, gamified learning platform built to help students master the
+Factory Method design pattern using lessons, quizzes, XP, and badges.
 
-Follow these steps to set up and run the frontend portion of the project:
+<img width="1365" height="630" alt="Screenshot 2025-11-17 093557" src="https://github.com/user-attachments/assets/d203677c-db84-4521-bb82-7c2a6c7e785f" />
 
-1. **Install Node.js**  
-   Download and install Node.js from the official site:  
-   👉 https://nodejs.org/en
 
-2. **Verify Installation**  
-   Open your terminal and check that Node.js and npm are installed:
+------------------------------------------------------------------------
 
-    - node -v
-    - npm -v
+🎯 Project Goal
 
-3. **Clone the Repository**
-    - git clone <repository-url>
-    - or use github desktop
+This prototype helps learners: - Understand Factory Methods with clear
+explanations and examples. - Reinforce learning through interactive
+quizzes. - Earn XP and unlock badges. - Access integrated external
+reading resources.
 
-4. **Create Your Branch**
-   Work on a separate branch for each feature or page you’re developing.  
-   Branch naming conventions aren’t strict — just use something meaningful, for example:
-    - feature-login-page
+------------------------------------------------------------------------
 
-5. **Navigate to the Frontend Directory**
-   - cd frontend
-   - cd factory-method-cos750
+⚡ Features
 
-6. **Install Dependencies**
-   - npm install
-   - npm install react-router-dom //needed for navigation
+✏️ Interactive Lessons
 
-7. **Run the Frontend**
-   - So in order to run your specific page just change the page in APP.js
-   - npm start
+Step‑by‑step explanations of the Factory Method pattern.
 
-   This should automatically open the app in your browser at:  
-   http://localhost:3000
+🎮 Gamification
 
----
+Earn XP, unlock badges, and track your progress.
 
+🧠 Quizzes
+
+Multiple‑choice questions.
+
+🗄️ Data Management (Supabase)
+
+-   Stores XP
+-   Stores badges
+-   Tracks user progress
+
+🔗 External Resources
+
+Hyperlinks included for additional reading.
+
+------------------------------------------------------------------------
+
+🛠️ Tech Stack
+
+-   Frontend: React.js + Tailwind CSS
+-   Backend: Supabase
+-   Local Development Prototype (no deployment yet)
+
+------------------------------------------------------------------------
+
+📂 Project Structure
+
+    project/
+    │
+    ├── backend/                 # Supabase-related code or backend utilities
+    │
+    └── frontend/
+        └── factory-method-cos750/
+            ├── Pages/
+            ├── components/
+            ├── services/
+            ├── data/
+            ├── assets/
+            └── App.js
+
+------------------------------------------------------------------------
+
+🚀 Getting Started
+
+1️⃣ Clone the repository
+
+------------------------------------------------------------------------
+
+2️⃣ Environment Setup – VERY IMPORTANT
+
+Both frontend and backend have environment variables.
+
+🔐 Create a .env file for the Backend
+
+Inside the /backend directory:
+
+    cd backend
+    touch .env
+
+Include your backend keys such as:
+
+    SUPABASE_URL=
+    SUPABASE_ANON_KEY=
+
+🔐 Create a .env file for the Frontend
+
+Inside the /frontend/factory-method-cos750/ directory:
+
+    cd frontend/factory-method-cos750
+    touch .env
+
+Include:
+
+    REACT_APP_API_URL=http://localhost:3001/api
+    REACT_APP_SUPABASE_URL=
+    REACT_APP_SUPABASE_KEY=
+
+  The app will not run correctly without the required .env files.
+
+------------------------------------------------------------------------
+
+3️⃣ Running the Frontend
+
+Navigate into the correct folder:
+
+    cd frontend/factory-method-cos750
+    npm install
+    npm start
+
+Runs on http://localhost:3000
+
+------------------------------------------------------------------------
+
+4️⃣ Running the Backend
+
+Navigate into:
+
+    cd backend
+    npm run dev
+
+(Backend behavior depends on your setup: scripts, Supabase
+configuration, etc.)
+
+------------------------------------------------------------------------
+
+🧩 System Administration Notes
+
+Since this is a prototype, the dev team manages everything: - Running
+local environments
+- Testing and troubleshooting
+- Updating lessons, quizzes, and progress logic
+- No cloud deployment yet
+
+------------------------------------------------------------------------
+
+🔮 Future Enhancements
+
+-   Deployment to the cloud
+-   Achievements and pop‑up animations
+-   Leaderboards
+-   Expanded design pattern lessons
+
+------------------------------------------------------------------------
